@@ -3,12 +3,12 @@ import { FaUserAlt, FaShoppingCart, FaSearch } from "react-icons/fa";
 
 const Header = () => {
   return (
-    <div className="h-[7.5rem] bg-secondary">
+    <div className="h-[7.5rem] bg-secondary font-josefin">
       <div className="container mx-auto text-white flex justify-between items-center h-full">
         {/* <Logo /> */}
         <img src="assets/png/fooder logo.png" alt="" className="h-[5.5rem] translate-y-0"/>
         <nav>
-          <ul className="flex gap-x-2">
+          <ul className="flex gap-x-3">
             <li className="px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer">
               <a href="">Home</a>
             </li>
@@ -34,7 +34,7 @@ const Header = () => {
             <FaSearch />
           </a>
           <a href="#">
-            <button className="btn-primary">Order Online</button>
+            <button className="btn-primary font-josefin font-bold">Order Online</button>
           </a>
         </div>
       </div>
