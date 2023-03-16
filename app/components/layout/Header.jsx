@@ -21,8 +21,8 @@ const Header = () => {
           className="h-[5.5rem]  w-48 lg:w-60"
         />
         <nav
-          className={`sm:static absolute top-0 left-0 translate-x-full transition-all sm:w-auto sm:h-auto w-full h-full sm:text-white text-black sm:bg-transparent bg-white sm:flex sm:flex-col  ${
-            isMenuModal === true && "grid translate-x-0 place-content-center"
+          className={`sm:hidden md:flex md:static absolute top-0 left-0 transition-all md:translate-x-0 sm:w-auto sm:h-auto w-full h-full sm:text-white text-black sm:bg-transparent bg-white sm:flex-col  ${
+            isMenuModal === true ? "grid translate-x-0 place-content-center" : "translate-x-full "
           }`}
         >
           <ul className="md:flex-row flex flex-col text-center gap-x-3">
@@ -44,7 +44,7 @@ const Header = () => {
               className="absolute  top-4 right-4 z-50"
               onClick={() => setIsMenuModal(false)}
             >
-              <RiCloseFill size={25} className=" transition-all" />
+              <RiCloseFill size={25} className=" transition-all md:hidden" />
             </button>
           )}
         </nav>
@@ -67,7 +67,7 @@ const Header = () => {
             </button>
           </a>
           <button
-            className="sm:hidden inline-block"
+            className="md:hidden inline-block"
             onClick={() => setIsMenuModal(true)}
           >
             <GiHamburgerMenu className="text-xl hover:text-primary transition-all" />
