@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { FaUserAlt, FaShoppingCart, FaSearch } from "react-icons/fa";
+import Image from "next/image";
 import OutsideClickHandler from "react-outside-click-handler";
 import Search from "../ui/Search";
 
@@ -9,9 +10,11 @@ const Header = () => {
   return (
     <div className="h-[7.5rem] bg-secondary font-josefin">
       <div className="container mx-auto text-white flex justify-between items-center h-full">
-        <img
-          src="assets/png/fooder logo.png"
-          alt=""
+        <Image
+          src="/assets/png/fooder logo4.png"
+          alt="logo"
+          width={255}
+          height={90}
           className="h-[5.5rem] translate-y-0"
         />
         <nav>
@@ -38,13 +41,13 @@ const Header = () => {
             <FaShoppingCart className=" hover:text-primary cursor-pointer transition-all" />
           </a>
           <a href="#">
-            <FaSearch className=" hover:text-primary cursor-pointer transition-all" />
+            <FaSearch
+              onClick={() => setIsSearchModal(!isSearchModal)}
+              className=" hover:text-primary cursor-pointer transition-all"
+            />
           </a>
           <a href="#">
-            <button
-              onClick={() => setIsSearchModal(!isSearchModal)}
-              className="btn-primary font-josefin font-bold"
-            >
+            <button className="btn-primary font-josefin font-bold">
               Order Online
             </button>
           </a>
@@ -52,7 +55,7 @@ const Header = () => {
       </div>
       {isSearchModal && (
         <div>
-          {isSearchModal && <Search setIsSearchModal={setIsSearchModal} />}
+         <Search setIsSearchModal={setIsSearchModal} />
         </div>
       )}
     </div>

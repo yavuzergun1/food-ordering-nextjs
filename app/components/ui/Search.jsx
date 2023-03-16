@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import Title from "../ui/Title";
-import { GiCancel } from "react-icons/gi";
+import { RiCloseFill } from "react-icons/ri";
 
 const Search = ({ setIsSearchModal }) => {
   return (
@@ -19,23 +19,38 @@ const Search = ({ setIsSearchModal }) => {
             <ul>
               <li className="flex items-center justify-between p-1 hover:bg-primary transition-all">
                 <div className="relative flex">
-                  <Image src="/images/f1.png" alt="" width={48} height={48} />
+                  <Image
+                    src="/assets/png/f1.png"
+                    alt=""
+                    width={48}
+                    height={48}
+                  />
                 </div>
-                <span className="font-bold">Good Pizza</span>
+                <span className="font-bold">Pizza Extra</span>
                 <span className="font-bold">$10</span>
               </li>
               <li className="flex items-center justify-between p-1 hover:bg-primary transition-all">
                 <div className="relative flex">
-                  <Image src="/images/f1.png" alt="" width={48} height={48} />
+                  <Image
+                    src="/assets/png/f1.png"
+                    alt=""
+                    width={48}
+                    height={48}
+                  />
                 </div>
-                <span className="font-bold">Good Pizza</span>
+                <span className="font-bold">Pizza Extra</span>
                 <span className="font-bold">$10</span>
               </li>
               <li className="flex items-center justify-between p-1 hover:bg-primary transition-all">
                 <div className="relative flex">
-                  <Image src="/images/f1.png" alt="" width={48} height={48} />
+                  <Image
+                    src="/assets/png/f1.png"
+                    alt=""
+                    width={48}
+                    height={48}
+                  />
                 </div>
-                <span className="font-bold">Good Pizza</span>
+                <span className="font-bold"> Pizza Extra</span>
                 <span className="font-bold">$10</span>
               </li>
             </ul>
@@ -43,7 +58,7 @@ const Search = ({ setIsSearchModal }) => {
               className="absolute  top-4 right-4"
               onClick={() => setIsSearchModal(false)}
             >
-              <GiCancel size={25} className=" transition-all" />
+              <RiCloseFill size={35} className=" transition-all" />
             </button>
           </div>
         </div>
