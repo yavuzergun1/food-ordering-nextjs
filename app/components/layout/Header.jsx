@@ -2,23 +2,30 @@
 import { useState } from "react";
 import { FaUserAlt, FaShoppingCart, FaSearch } from "react-icons/fa";
 import Image from "next/image";
-import OutsideClickHandler from "react-outside-click-handler";
+import { RiCloseFill } from "react-icons/ri";
+import { GiHamburgerMenu } from "react-icons/gi";
 import Search from "../ui/Search";
 
 const Header = () => {
-  const [isSearchModal, setIsSearchModal] = useState(true);
+  const [isSearchModal, setIsSearchModal] = useState(false);
+  const [isMenuModal, setIsMenuModal] = useState(false);
+  
   return (
-    <div className="h-[7.5rem] bg-secondary font-josefin">
+    <div className="h-[7.5rem] bg-secondary font-josefin px-5 md:px-0">
       <div className="container mx-auto text-white flex justify-between items-center h-full">
         <Image
           src="/assets/png/fooder logo4.png"
           alt="logo"
           width={255}
           height={90}
-          className="h-[5.5rem] translate-y-0"
+          className="h-[5.5rem]  w-48 lg:w-60"
         />
-        <nav>
-          <ul className="flex gap-x-3">
+        <nav
+          className={`sm:static absolute top-0 left-0 translate-x-full transition-all sm:w-auto sm:h-auto w-full h-full sm:text-white text-black sm:bg-transparent bg-white sm:flex sm:flex-col  ${
+            isMenuModal === true && "grid translate-x-0 place-content-center"
+          }`}
+        >
+          <ul className="md:flex-row flex flex-col text-center gap-x-3">
             <li className="px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer">
               <a href="">Home</a>
             </li>
@@ -32,6 +39,14 @@ const Header = () => {
               <a href="">Book Table</a>
             </li>
           </ul>
+          {isMenuModal && (
+            <button
+              className="absolute  top-4 right-4 z-50"
+              onClick={() => setIsMenuModal(false)}
+            >
+              <RiCloseFill size={25} className=" transition-all" />
+            </button>
+          )}
         </nav>
         <div className="flex gap-x-4 items-center">
           <a href="#">
@@ -46,16 +61,22 @@ const Header = () => {
               className=" hover:text-primary cursor-pointer transition-all"
             />
           </a>
-          <a href="#">
+          <a href="#" className="md:inline-block hidden ">
             <button className="btn-primary font-josefin font-bold">
               Order Online
             </button>
           </a>
+          <button
+            className="sm:hidden inline-block"
+            onClick={() => setIsMenuModal(true)}
+          >
+            <GiHamburgerMenu className="text-xl hover:text-primary transition-all" />
+          </button>
         </div>
       </div>
       {isSearchModal && (
         <div>
-         <Search setIsSearchModal={setIsSearchModal} />
+          <Search setIsSearchModal={setIsSearchModal} />
         </div>
       )}
     </div>
