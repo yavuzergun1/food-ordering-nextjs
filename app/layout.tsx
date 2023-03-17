@@ -1,4 +1,6 @@
 import "../styles/globals.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./components/layout/Header";
 import Header from "./components/layout/Header";
 export const metadata = {
