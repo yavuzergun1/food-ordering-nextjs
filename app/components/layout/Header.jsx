@@ -9,20 +9,18 @@ import Search from "../ui/Search";
 const Header = () => {
   const [isSearchModal, setIsSearchModal] = useState(false);
   const [isMenuModal, setIsMenuModal] = useState(false);
-  
+
   return (
     <div className="h-[7.5rem] bg-secondary font-josefin px-5 md:px-0">
       <div className="container mx-auto text-white flex justify-between items-center h-full">
-        <Image
-          src="/assets/png/fooder logo4.png"
-          alt="logo"
-          width={255}
-          height={90}
-          className="h-[5.5rem]  w-48 lg:w-60"
-        />
+        <div className="logo-container relative h-[5.5rem]  w-48 lg:w-60">
+          <Image src="/assets/png/fooder logo4.png" alt="logo" fill />
+        </div>
         <nav
           className={`sm:hidden md:flex md:static absolute top-0 left-0 transition-all md:translate-x-0 sm:w-auto sm:h-auto w-full h-full sm:text-white text-black sm:bg-transparent bg-white sm:flex-col  ${
-            isMenuModal === true ? "grid translate-x-0 place-content-center" : "translate-x-full "
+            isMenuModal === true
+              ? "grid translate-x-0 place-content-center"
+              : "translate-x-full "
           }`}
         >
           <ul className="md:flex-row flex flex-col text-center gap-x-3">
