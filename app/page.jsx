@@ -4,6 +4,7 @@ import Carousel from "../components/ui/Carousel";
 import MenuWrapper from "../components/menu/MenuWrapper";
 import About from "../components/About";
 import Reservation from "../components/Reservation";
+import Comments from "../components/comments/Comments";
 
 const page = () => {
   return (
@@ -12,7 +13,8 @@ const page = () => {
       <Campaigns />
       <MenuWrapper />
       <About />
-      <Reservation/>
+      <Reservation />
+      <Comments/>
     </div>
   );
 };
