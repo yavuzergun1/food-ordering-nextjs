@@ -3,7 +3,7 @@ import Campaigns from "../components/ui/Campaigns";
 import Carousel from "../components/ui/Carousel";
 import MenuWrapper from "../components/menu/MenuWrapper";
 import About from "../components/About";
-import Input from "../components/form/Input";
+import Reservation from "../components/Reservation";
 
 const page = () => {
   return (
@@ -12,9 +12,7 @@ const page = () => {
       <Campaigns />
       <MenuWrapper />
       <About />
-      <div className="p-20 container mx-auto">
-        <Input />
-      </div>
+      <Reservation/>
     </div>
   );
 };
