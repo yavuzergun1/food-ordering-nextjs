@@ -5,6 +5,7 @@ import MenuWrapper from "../components/menu/MenuWrapper";
 import About from "../components/About";
 import Reservation from "../components/Reservation";
 import Comments from "../components/comments/Comments";
+import Footer from "../components/layout/Footer";
 
 const page = () => {
   return (
@@ -14,7 +15,8 @@ const page = () => {
       <MenuWrapper />
       <About />
       <Reservation />
-      <Comments/>
+      <Comments />
+      <Footer/>
     </div>
   );
 };
