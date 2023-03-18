@@ -1,5 +1,6 @@
 const Input = (props) => {
-  const { type, placeholder, ...inputProps } = props;
+  const { type, errorMessage, touched, placeholder, ...inputProps } = props;
+  console.log(errorMessage);
   return (
     <div className="w-full">
       <label className="relative block cursor-text w-full">
@@ -7,7 +8,8 @@ const Input = (props) => {
           type={type}
           className={`h-14 w-full border focus:border-primary font-josefin outline-none px-4 peer focus:text-xs text-primary focus:text-slate-500 ${
             type !== "datetime-local" && "pt-2"
-          }`}
+          }
+          ${touched && errorMessage ? "border-red-500" : "border-primary"}`}
           required
           {...inputProps}
         />
@@ -17,6 +19,7 @@ const Input = (props) => {
           </span>
         ) : null}
       </label>
+      {touched && <span className="text-xs text-danger font-oswald">{errorMessage}</span>}
     </div>
   );
 };
