@@ -1,38 +1,63 @@
+"use client";
+
 import React from "react";
 import Input from "./form/Input";
 import Title from "./ui/Title";
+import { useFormik } from "formik";
 
 const Reservation = () => {
+  const onSubmit = async (values, actions) => {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+    alert(JSON.stringify(values, null, 2));
+    actions.resetForm();
+  };
+
+  const { values, handleSubmit, handleChange } = useFormik({
+    initialValues: {
+      fullName: "",
+      phoneNumber: "",
+      email: "",
+      persons: "",
+      date: "",
+    },
+    onSubmit,
+  });
+  console.log(values);
+
   const inputs = [
     {
       id: 1,
       name: "fullName",
       type: "text",
       placeholder: "Your Full Name",
+      value: values.fullName,
     },
     {
       id: 2,
       name: "phoneNumber",
       type: "number",
       placeholder: "Your Phone Number",
+      value: values.phoneNumber,
     },
     {
       id: 3,
       name: "email",
       type: "email",
       placeholder: "Your Email Address",
+      value: values.email,
     },
     {
       id: 4,
       name: "persons",
       type: "number",
       placeholder: "How Many Persons?",
+      value: values.persons,
     },
     {
       id: 5,
-      name: "persons",
+      name: "date",
       type: "datetime-local",
-      placeholder: "How Many Persons?",
+      value: values.date,
     },
   ];
   return (
@@ -40,12 +65,16 @@ const Reservation = () => {
       <Title addClass="text-[40px] mb-10">Book A Table</Title>
       <div className="flex justify-between flex-wrap-reverse gap-10">
         <div className="lg:flex-1 w-full">
-          <div className="flex flex-col gap-y-3">
-            {inputs.map((input) => (
-              <Input key={input.id} {...input} />
-            ))}
-          </div>
-          <button className="btn-primary mt-4">BOOK NOW</button>
+          <form className="lg:flex-1 w-full" onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-y-3">
+              {inputs.map((input) => (
+                <Input key={input.id} {...input} onChange={handleChange} />
+              ))}
+            </div>
+            <button type="submit" className="btn-primary mt-4">
+              BOOK NOW
+            </button>
+          </form>
         </div>
         <div className="lg:flex-1 !h-[384px] w-full">
           <iframe
