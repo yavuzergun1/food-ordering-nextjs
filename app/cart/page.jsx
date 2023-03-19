@@ -26,7 +26,7 @@ const Cart = () => {
             <tbody>
               <tr className="transition-all bg-secondary border-gray-700 hover:bg-primary ">
                 <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white flex items-center gap-x-1 justify-center">
-                  <Image src="/images/f1.png" alt="" width={50} height={50} />
+                  <Image src="/assets/png/f1.png" alt="" width={50} height={50} />
                   <span>Good Pizza</span>
                 </td>
                 <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
