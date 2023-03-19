@@ -5,6 +5,7 @@ import { useState } from "react";
 import Category from "../../../components/admin/Category";
 import Order from "../../../components/admin/Order";
 import Products from "../../../components/admin/Products";
+import Footer from "../../../components/admin/Footer";
 
 const Profile = () => {
   const [tabs, setTabs] = useState(0);
@@ -72,6 +73,7 @@ const Profile = () => {
       {tabs === 0 && <Products />}
       {tabs === 1 && <Order />}
       {tabs === 2 && <Category />}
+      {tabs === 3 && <Footer />}
     </div>
   );
 };
