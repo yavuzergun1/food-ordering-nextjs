@@ -1,6 +1,7 @@
+"use client"
 import { useState } from "react";
-import Input from "../form/Input";
-import Title from "../ui/Title";
+import Input from "../../../../components/form/Input";
+import Title from "../../../../components/ui/Title";
 
 const Category = () => {
   const [inputText, setInputText] = useState("");

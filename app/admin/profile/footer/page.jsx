@@ -1,6 +1,7 @@
+// "use client"
 import React, { useState } from "react";
 import Input from "../../components/form/Input";
-import Title from "../../components/ui/Title";
+ import Title from "../../../../components/ui/Title";
 import { useFormik } from "formik";
 import { footerSchema } from "../../schema/footer";
 

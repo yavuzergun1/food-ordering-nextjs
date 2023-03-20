@@ -1,4 +1,4 @@
-import Title from "../ui/Title";
+import Title from "../../../../components/ui/Title";
 import Image from "next/image";
 
 const Products = () => {
