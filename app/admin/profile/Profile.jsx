@@ -3,7 +3,6 @@
 import Image from "next/image";
 import {
   useRouter,
-  usePathname,
   useSelectedLayoutSegment,
 } from "next/navigation";
 
