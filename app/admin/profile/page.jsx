@@ -1,10 +1,10 @@
-"use client"
+// "use client"
 
-import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
 
 const Page = () => {
-  const router = useRouter()
-  router.replace("/admin/profile/orders")
+  // const router = useRouter()
+  // router.replace("/admin/profile/orders")
   return (
     <div>Redirecting...</div>
   )
