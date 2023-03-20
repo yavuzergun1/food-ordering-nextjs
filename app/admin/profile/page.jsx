@@ -1,8 +1,12 @@
-import React from 'react'
+"use client"
+
+import { useRouter } from "next/navigation"
 
 const Page = () => {
+  const router = useRouter()
+  router.replace("/admin/profile/orders")
   return (
-    <div>Page</div>
+    <div>Redirecting...</div>
   )
 }
 

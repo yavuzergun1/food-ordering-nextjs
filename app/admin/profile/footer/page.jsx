@@ -1,9 +1,10 @@
-// "use client"
+"use client"
+
 import React, { useState } from "react";
-import Input from "../../components/form/Input";
+import Input from "../../../../components/form/Input";
  import Title from "../../../../components/ui/Title";
 import { useFormik } from "formik";
-import { footerSchema } from "../../schema/footer";
+import { footerSchema } from "../../../../schema/footer";
 
 const Footer = () => {
   const [linkAddress, setLinkAddress] = useState("");
