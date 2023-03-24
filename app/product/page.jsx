@@ -76,6 +76,7 @@ const ProductDetails = () => {
 
   const handleClick = () => {
     dispatch(addProduct({ ...foodItems[0], extraItems, price, quantity: 1 }));
+    setExtraItems([]);
   };
   console.log(cart);
   console.log(extraItems);
