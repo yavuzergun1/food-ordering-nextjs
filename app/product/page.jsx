@@ -78,7 +78,7 @@ const ProductDetails = () => {
     dispatch(addProduct({ ...foodItems[0], extraItems, price, quantity: 1 }));
   };
   console.log(cart);
-  console.log(extraItems)
+  console.log(extraItems);
   return (
     <div className="flex items-center  gap-5 py-20 flex-wrap ">
       <div className="relative md:flex-1 md:w-[80%] md:h-96 w-36 h-36 mx-auto">
@@ -96,14 +96,7 @@ const ProductDetails = () => {
             Size : {size === 0 ? "small" : size === 1 ? "medium" : "large"}
           </div>
           <div>
-            Extra:{" "}
-            {extraItems.map((item) => {
-              return (
-                <>
-                  <div className="inline-block mr-2 ">{item.name} </div>
-               </>
-             )
-            })}
+            Extra: {extraItems.map((extraItem) => extraItem.name).join("/ ")}
           </div>
           {}
           Cost: <span className="text-primary font-bold text-lg">{price}$</span>
@@ -147,7 +140,7 @@ const ProductDetails = () => {
         </div>
         <div className="flex gap-x-4 my-6 md:justify-start justify-center">
           {itemsExtra.map((item) => (
-            <label className="flex items-center gap-x-1" key={item.id}>
+            <label className="flex items-center gap-x-1" key={item.name}>
               <input
                 type="checkbox"
                 className="w-5 h-5 accent-primary"
