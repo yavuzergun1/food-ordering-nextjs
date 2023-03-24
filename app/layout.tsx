@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
-import { Providers } from "@/redux/provider";
+import { ReduxProvider } from "@/redux/provider";
 import store from "../redux/store";
 
 export const metadata = {
@@ -19,11 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-          <Header />
-      <Providers >
+        <ReduxProvider>
+        <Header />
           {children}
-        </Providers>
-          <Footer />
+        <Footer />
+        </ReduxProvider>
       </body>
     </html>
   );
