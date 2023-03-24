@@ -1,12 +1,14 @@
 "use client";
 import Image from "next/image";
 import Title from "../../components/ui/Title";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { reset } from "@/redux/cartSlice";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart);
-
+  const dispatch = useDispatch();
   console.log("cart items", cartItems);
+  
   return (
     <div className="min-h-[calc(100vh_-_433px)]">
       <div className="flex justify-between items-center md:flex-row flex-col">
@@ -29,7 +31,7 @@ const Cart = () => {
               </tr>
             </thead>
             <tbody>
-              {cartItems.products.map((item,i) => {
+              {cartItems.products.map((item, i) => {
                 return (
                   <tr
                     key={i}
@@ -48,7 +50,6 @@ const Cart = () => {
                       {item.extraItems
                         .map((extraItem) => extraItem.name)
                         .join("/ ")}
-                    
                     </td>
                     <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
                       ${item.price}
@@ -70,7 +71,10 @@ const Cart = () => {
           </div>
 
           <div>
-            <button className="btn-primary mt-4 md:w-auto w-52">
+            <button
+              className="btn-primary mt-4 md:w-auto w-52"
+              onClick={() => dispatch(reset())}
+            >
               CHECKOUT NOW!
             </button>
           </div>
