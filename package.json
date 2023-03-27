@@ -9,21 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@next-auth/mongodb-adapter": "^1.1.1",
-=======
->>>>>>> be64e10dcb556cc4e596034b7593539a94ac92ea
     "@reduxjs/toolkit": "^1.9.3",
     "@types/node": "18.15.3",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
+    "bcrypt": "^5.1.0",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "formik": "^2.2.9",
-<<<<<<< HEAD
     "mongodb": "^5.1.0",
-=======
->>>>>>> be64e10dcb556cc4e596034b7593539a94ac92ea
     "mongoose": "^7.0.3",
     "next": "13.2.4",
     "next-auth": "^4.20.1",
