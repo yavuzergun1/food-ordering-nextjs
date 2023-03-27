@@ -6,11 +6,12 @@ import { RiCloseFill } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Search from "../ui/Search";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [isSearchModal, setIsSearchModal] = useState(false);
   const [isMenuModal, setIsMenuModal] = useState(false);
-
+  const cart = useSelector((state) => state.cart);
   return (
     <div className="h-[7.5rem] bg-secondary font-josefin px-5 md:px-0">
       <div className="container mx-auto text-white flex justify-between items-center h-full">
@@ -54,7 +55,14 @@ const Header = () => {
             <FaUserAlt className=" hover:text-primary cursor-pointer transition-all" />
           </Link>
           <Link href="/cart">
-            <FaShoppingCart className=" hover:text-primary cursor-pointer transition-all" />
+            <span className="relative">
+              <FaShoppingCart className=" hover:text-primary cursor-pointer transition-all" />
+              {cart.products.length === 0 ? null : (
+                <span className="w-4 h-4 text-xs grid place-content-center rounded-full bg-primary absolute -top-2 -right-3 text-black font-bold">
+                  {cart.products.length}
+                </span>
+              )}
+            </span>
           </Link>
           <Link href="#">
             <FaSearch

@@ -11,7 +11,7 @@ export default function Head() {
        referrerpolicy="no-referrer"
      /> */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
       <link
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Josefin+Sans:wght@400;500;600&family=Oswald:wght@400;500;600&display=swap"
         rel="stylesheet"
