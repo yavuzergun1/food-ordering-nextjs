@@ -2,16 +2,55 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "../../../utils/mongo";
+import CredentialsProvider from "next-auth/providers/credentials";
+import User from "../../../models/User";
+import dbConnect from "../../../utils/dbConnect";
+import bcrypt from "bcrypt";
+
+dbConnect();
 
 export default NextAuth({
-  adapter: MongoDBAdapter(clientPromise),
+  // adapter: MongoDBAdapter(clientPromise),
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
+    CredentialsProvider({
+      // The name to display on the sign in form (e.g. "Sign in with...")
+      name: "Credentials",
+      credentials: {
+        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials, req) {
+        // Add logic here to look up the user from the credentials supplied
+        const email = credentials.email;
+        const password = credentials.password;
+        const user = await User.findOne({ email: email });
+        if (!user) {
+          // Any object returned will be saved in `user` property of the JWT
+          throw new Error("user could not found!");
+        } else {
+          // If you return null then an error will be displayed advising the user to check their details.
+          return signInUser({ user, password });
+
+          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+        }
+      },
+    }),
   ],
   pages: {
     signIn: "/auth/login",
   },
+  database: process.env.MONGODB_URI,
+  secret: "secret",
 });
+
+const signInUser = async ({ user, password }) => {
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    throw new Error("incorrect password");
+  }
+  return user;
+};
