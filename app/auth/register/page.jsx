@@ -6,8 +6,10 @@ import Input from "../../../components/form/Input";
 import Title from "../../../components/ui/Title";
 import { registerSchema } from "../../../schema/register";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
+  const router =useRouter()
   const onSubmit = async (values, actions) => {
     try {
       const res = await axios.post(
@@ -15,11 +17,13 @@ const Register = () => {
         values
       );
       console.log(res);
+      router.push("/")
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
     } catch (error) {
       console.log(error);
     }
 
-    // actions.resetForm();
+    actions.resetForm();
   };
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({

@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import Providers from "./Providers";
+
 export const metadata = {
   title: "Food Order!",
   description: "Fullstack Ordering Project",
@@ -14,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head/>
+      <head />
       <body>
         <Providers>
           <Header />
