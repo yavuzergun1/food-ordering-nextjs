@@ -1,6 +1,6 @@
-import cookie from "cookie"
+import cookie from "cookie";
 
-export const handler = (req, res) => {
+const handler = (req, res) => {
   const { method } = req;
 
   if (method === "POST") {
@@ -9,14 +9,18 @@ export const handler = (req, res) => {
       username === process.env.ADMIN_USERNAME &&
       password === process.env.ADMIN_PASSWORD
     ) {
-      res.setHeader("Set-Cookie", cookie.serialize("token", process.env.ADMIN_TOKEN, {
-        maxAge: 60 * 60, /* login time 1 hour  */
-        sameSite: "strict",
-        path: "/",
-      }))
-      res.status(200).json({message: "Success"})
+      res.setHeader(
+        "Set-Cookie",
+        cookie.serialize("token", process.env.ADMIN_TOKEN, {
+          maxAge: 60 * 60 /* login time 1 hour  */,
+          sameSite: "strict",
+          path: "/",
+        })
+      );
+      res.status(200).json({ message: "Success" });
     } else {
-      res.status(400).json({message: "wrong credentials"})
+      res.status(400).json({ message: "wrong credentials" });
     }
   }
 };
+export default handler;
