@@ -22,5 +22,19 @@ const handler = (req, res) => {
       res.status(400).json({ message: "wrong credentials" });
     }
   }
+    if (method === "PUT") {
+      const { username, password } = req.body;
+     
+        res.setHeader(
+          "Set-Cookie",
+          cookie.serialize("token", process.env.ADMIN_TOKEN, {
+            maxAge: -1/* logout */,
+            path: "/",
+          })
+        )
+        res.status(200).json({ message: "Success" });
+      
+      
+    }
 };
 export default handler;
