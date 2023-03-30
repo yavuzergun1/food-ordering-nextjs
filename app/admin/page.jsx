@@ -8,9 +8,8 @@ import { adminSchema } from "../../schema/admin";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-
 const Login = () => {
-  const {push} = useRouter()
+  const { push } = useRouter();
   const onSubmit = async (values, actions) => {
     try {
       const res = await axios.post(
@@ -20,7 +19,7 @@ const Login = () => {
       if (res.status === 200) {
         console.log(res.data);
         actions.resetForm();
-        push("./admin/profile/products")
+        push("./admin/profile/products");
       }
     } catch (err) {
       console.log(err);
@@ -87,4 +86,24 @@ const Login = () => {
   );
 };
 
+export const getServerSideProps = (ctx) => {
+  console.log("CTX", ctx);
+  const myCookie = ctx.req?.cookies || null;
+  if (myCookie.token === process.env.ADMIN_TOKEN) {
+    return {
+      redirect: {
+        destination: "/admin/profile",
+        permanrnt: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};
+export async function middleware(ctx) {
+  const cookies = request.cookies.getAll();
+  console.log("COOK",cookies);
+}
 export default Login;
+
