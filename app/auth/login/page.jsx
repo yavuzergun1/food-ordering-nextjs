@@ -15,7 +15,7 @@ const Login = () => {
     const res = await signIn("credentials", options);
     // actions.resetForm();
   };
-  console.log(session);
+  console.log("Session",session);
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
       initialValues: {

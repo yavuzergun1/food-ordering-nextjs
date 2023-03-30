@@ -1,14 +1,7 @@
-// "use client"
-
-import { redirect } from 'next/navigation';
-
-// import { useRouter } from "next/navigation"
-
+// This Page Rediricted to "\admin\profile"
+// redirect process made in next.config.js
 const Page = () => {
-  redirect("/admin/profile/products")
-  return (
-    <div>Redirecting...</div>
-    )
-}
+  return <div>...</div>;
+};
 
-export default Page
+export default Page;

@@ -9,7 +9,7 @@ import {
 const Profile = () => {
   const router = useRouter();
   const path = useSelectedLayoutSegment();
-  console.log(path);
+  // console.log(path);
   return (
     <div className="flex px-10 min-h-[calc(100vh_-_433px)] lg:flex-row flex-col lg:mb-0 mb-10">
       <div className="lg:w-80 w-100 flex-shrink-0">
