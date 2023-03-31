@@ -4,15 +4,6 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  async redirects() {
-    return [
-      {
-        source: "/admin/profile",
-        destination: "/admin/profile/products",
-        permanent: true,
-      },
-    ];
-  },
 };
 
 module.exports = nextConfig;

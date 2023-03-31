@@ -13,7 +13,7 @@ const Login = () => {
     const { email, password } = values;
     let options = { redirect: false, email, password };
     const res = await signIn("credentials", options);
-    // actions.resetForm();
+    actions.resetForm();
   };
   console.log("Session",session);
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =

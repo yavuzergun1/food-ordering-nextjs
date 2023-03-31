@@ -4,6 +4,9 @@ export function middleware(req: NextRequest) {
   const isAuth = req.cookies.has("token");
   console.log(isAuth);
 
+  const sessionToken = req.cookies.get("next-auth.session-token");
+  console.log("SESSION",sessionToken?.value);
+
   const host = req.nextUrl.protocol + req.headers.get("host");
   console.log("host", host);
 
