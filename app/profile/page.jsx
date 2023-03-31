@@ -9,9 +9,14 @@ import { useFormik } from "formik";
 import { profileSchema } from "../../schema/profile";
 import Password from "../../components/profile/Password";
 import Order from "../../components/profile/Order";
+import { signOut } from "next-auth/react";
 
 const Profile = () => {
   const [tabs, setTabs] = useState(0);
+
+  const handleSignOut = () => {
+    signOut();
+  };
 
   const onSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 4000));
@@ -136,7 +141,9 @@ const Profile = () => {
             onClick={() => setTabs(3)}
           >
             <i className="fa fa-sign-out"></i>
-            <button className="ml-1">Exit</button>
+            <button onClick={handleSignOut} className="ml-1">
+              Exit
+            </button>
           </li>
         </ul>
       </div>
