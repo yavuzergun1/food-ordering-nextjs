@@ -25,7 +25,7 @@ const Reservation = () => {
       onSubmit,
       validationSchema: reservationSchema,
     });
-  console.log(values);
+  // console.log(values);
 
   const inputs = [
     {

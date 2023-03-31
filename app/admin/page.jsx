@@ -5,11 +5,25 @@ import Link from "next/link";
 import Input from "../../components/form/Input";
 import Title from "../../components/ui/Title";
 import { adminSchema } from "../../schema/admin";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const { push } = useRouter();
   const onSubmit = async (values, actions) => {
-    await new Promise((resolve) => setTimeout(resolve, 4000));
-    actions.resetForm();
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/admin`,
+        values
+      );
+      if (res.status === 200) {
+        console.log(res.data);
+        actions.resetForm();
+        push("./admin/profile/products");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
@@ -73,3 +87,4 @@ const Login = () => {
 };
 
 export default Login;
+

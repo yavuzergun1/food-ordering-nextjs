@@ -1,15 +1,27 @@
 "use client";
 
 import Image from "next/image";
-import {
-  useRouter,
-  useSelectedLayoutSegment,
-} from "next/navigation";
+import { useRouter, useSelectedLayoutSegment } from "next/navigation";
+import axios from "axios";
 
 const Profile = () => {
   const router = useRouter();
   const path = useSelectedLayoutSegment();
-  console.log(path);
+  // console.log(path);
+
+  const logOut = async () => {
+    try {
+      if (confirm("Are you sure you want to log out?")) {
+        const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/admin`);
+        if (res.status === 200) {
+          router.push("/admin");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex px-10 min-h-[calc(100vh_-_433px)] lg:flex-row flex-col lg:mb-0 mb-10">
       <div className="lg:w-80 w-100 flex-shrink-0">
@@ -67,7 +79,9 @@ const Profile = () => {
             onClick={() => router.push("/")}
           >
             <i className="fa fa-sign-out"></i>
-            <button className="ml-1">Exit</button>
+            <button onClick={logOut} className="ml-1">
+              Exit
+            </button>
           </li>
         </ul>
       </div>

@@ -6,16 +6,21 @@ import Input from "../../../components/form/Input";
 import Title from "../../../components/ui/Title";
 import { loginSchema } from "../../../schema/login";
 import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const { data: session } = useSession();
+  const router = useRouter()
   const onSubmit = async (values, actions) => {
     const { email, password } = values;
     let options = { redirect: false, email, password };
     const res = await signIn("credentials", options);
-    // actions.resetForm();
+    actions.resetForm();
+    if (res.ok) {
+      router.push("/profile")
+    }
   };
-  console.log(session);
+  console.log("Session",session);
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
       initialValues: {
