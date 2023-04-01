@@ -17,7 +17,7 @@ const Login = () => {
     const res = await signIn("credentials", options);
     actions.resetForm();
     if (res.ok) {
-      router.push("/profile")
+      router.push("/profile/account")
     }
   };
   console.log("Session",session);

@@ -1,9 +1,11 @@
+"use client";
+
 import React from "react";
-import Input from "../../components/form/Input";
-import Title from "../../components/ui/Title";
+import Input from "../../../components/form/Input";
+import Title from "../../../components/ui/Title";
 import { useFormik } from "formik";
-import { registerSchema } from "../../schema/register";
-import { newPasswordSchema } from "../../schema/newPassword";
+import { registerSchema } from "../../../schema/register";
+import { newPasswordSchema } from "../../../schema/newPassword";
 
 const Password = () => {
   const onSubmit = async (values, actions) => {

@@ -30,8 +30,8 @@ console.log("PATHNAME",req.nextUrl.pathname);
   // user login control
 
   if (sessionToken && req.nextUrl.pathname === "/auth/login") {
-    return NextResponse.redirect(`${host}/profile`);
-  } else if (!sessionToken && req.nextUrl.pathname === "/profile") {
+    return NextResponse.redirect(`${host}/profile/account`);
+  } else if (!sessionToken && req.nextUrl.pathname.includes("/profile")) {
     return NextResponse.redirect(`${host}/auth/login`);
   }
 }

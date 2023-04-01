@@ -1,8 +1,10 @@
+"use client";
+
 import React from "react";
-import Input from "../../components/form/Input";
-import Title from "../../components/ui/Title";
+import Input from "../../../components/form/Input";
+import Title from "../../../components/ui/Title";
 import { useFormik } from "formik";
-import { profileSchema } from "../../schema/profile";
+import { profileSchema } from "../../../schema/profile";
 
 const Account = () => {
   const onSubmit = async (values, actions) => {
