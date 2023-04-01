@@ -1,4 +1,4 @@
-import Profile from "./Profile";
+import Profile from "./UserProfile";
 
 export default function RootLayout({
   children,
