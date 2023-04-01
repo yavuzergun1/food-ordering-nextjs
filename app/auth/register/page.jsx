@@ -7,23 +7,30 @@ import Title from "../../../components/ui/Title";
 import { registerSchema } from "../../../schema/register";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const Register = () => {
-  const router =useRouter()
+  const router = useRouter();
   const onSubmit = async (values, actions) => {
+    console.log(values);
+    const { email, password } = values;
+    let options = { redirect: false, email, password };
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/users/register`,
         values
       );
       console.log(res);
-      router.push("/")
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+      await signIn("credentials", options);
+      actions.resetForm();
+      if (res.ok) {
+      }
     } catch (error) {
       console.log(error);
     }
 
     actions.resetForm();
+    router.push("/");
   };
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
