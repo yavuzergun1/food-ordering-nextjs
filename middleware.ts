@@ -7,7 +7,7 @@ export function middleware(req: NextRequest) {
   // console.log(isAdminAuth);
 
   const sessionToken = req.cookies.has("next-auth.session-token");
-  // console.log("SESSION", sessionToken);
+  // console.log("ISSESSION", sessionToken);
 
   const host = req.nextUrl.protocol + req.headers.get("host");
   // console.log("host", host);

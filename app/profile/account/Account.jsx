@@ -3,27 +3,24 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 
 function Account() {
-    const session = useSession();
-    const [user, setUser] = useState();
+  const session = useSession();
+  console.log("SESSION", session);
+  const [user, setUser] = useState();
   useEffect(() => {
-    if (session.status === "authenticated") {
-      console.log(session?.data?.user.email);
-      const userEmail = session?.data?.user.email;
+    const userEmail = session?.data?.user.email;
 
-      const getUsers = async () => {
-        const users = await getAccount(userEmail);
-        console.log(users);
+    const getUsers = async () => {
+      const users = await getAccount(userEmail);
+      console.log(users);
 
-          const user = users.find((user) => user.email === userEmail);
-          console.log("user", user);
-            setUser(user);
-      };
-
-      getUsers();
-    }
+      const user = users.find((user) => user.email === userEmail);
+      console.log("user", user);
+      setUser(user);
+    };
+    getUsers();
   }, [session]);
 
-    return <div>{user?.email }</div>;
+  return <div>  {user && `Hello ${user?.fullName ? user?.fullName : user?.name}!`}  </div>;
 }
 
 export async function getAccount() {
@@ -32,24 +29,9 @@ export async function getAccount() {
       `${process.env.NEXT_PUBLIC_API_URL}/users`
     );
     const users = data.data;
-    // console.log("USERS", users);
     return users;
   } catch (error) {
     console.log(error);
-    }
+  }
 }
 export default Account;
-// export async function getAccount(userEmail) {
-//   try {
-//     const { data } = await axios.get(
-//       `${process.env.NEXT_PUBLIC_API_URL}/users`
-//     );
-//     console.log("USERS", data.data);
-//     const users = data.data;
-//     const user = users.find((user) => user.email === userEmail);
-//     console.log(user);
-//     return user;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }

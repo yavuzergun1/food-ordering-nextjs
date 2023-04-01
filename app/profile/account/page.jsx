@@ -9,7 +9,7 @@ import UserAccount from "./Account";
 
 const Account = () => {
   const onSubmit = async (values, actions) => {
-    await new Promise((resolve) => setTimeout(resolve, 4000));
+    // await new Promise((resolve) => setTimeout(resolve, 4000));
     actions.resetForm();
   };
 
@@ -83,9 +83,11 @@ const Account = () => {
     },
   ];
   return (
-    <>
-      <UserAccount />
-      <form className="lg:p-8 flex-1 lg:mt-0 mt-5">
+    <div className="flex flex-col justify-start items-start w-full ">
+      <div className="w-full mt-5 font-bold text-primary text-2xl text-right">
+        <UserAccount />
+      </div>
+      <form className=" flex-1 lg:mt-0 mt-5 w-full">
         <Title addClass="text-[40px]">Account Settings</Title>
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4">
           {inputs.map((input) => (
@@ -99,7 +101,7 @@ const Account = () => {
         </div>
         <button className="btn-primary mt-4">Update</button>
       </form>
-    </>
+    </div>
   );
 };
 

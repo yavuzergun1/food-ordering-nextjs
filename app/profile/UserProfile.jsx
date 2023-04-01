@@ -3,13 +3,30 @@
 import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { getAccount } from "./account/Account";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
+  const session = useSession();
+  const [user, setUser] = useState();
   const router = useRouter();
   const path = useSelectedLayoutSegment();
+
   const handleSignOut = () => {
     signOut();
   };
+
+  useEffect(() => {
+    const userEmail = session?.data?.user.email;
+
+    const getUsers = async () => {
+      const users = await getAccount(userEmail);
+      const user = users.find((user) => user.email === userEmail);
+      setUser(user);
+    };
+    getUsers();
+  }, [session]);
 
   return (
     <div className="flex px-10 min-h-[calc(100vh_-_433px)] lg:flex-row flex-col lg:mb-0 mb-10">
@@ -23,7 +40,7 @@ const Profile = () => {
               className="object-contain rounded-full"
             />
           </div>
-          <b className="text-2xl mt-1">John Doe</b>
+          <b className="text-2xl mt-1">{user?.fullName ? user?.fullName : user?.name} </b>
         </div>
         <ul className="text-center font-semibold">
           <li
@@ -55,7 +72,6 @@ const Profile = () => {
           </li>
           <li
             className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all `}
-        
           >
             <i className="fa fa-sign-out"></i>
             <button onClick={handleSignOut} className="ml-1">
