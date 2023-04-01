@@ -17,7 +17,7 @@ const Login = () => {
         values
       );
       if (res.status === 200) {
-        console.log(res.data);
+        // console.log(res.data);
         actions.resetForm();
         push("./admin/profile/products");
       }

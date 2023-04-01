@@ -64,8 +64,6 @@ const Profile = () => {
           </li>
         </ul>
       </div>
-      {/* {tabs === 1 && <Password />}
-      {tabs === 2 && <Order />} */}
     </div>
   );
 };
