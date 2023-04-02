@@ -5,9 +5,27 @@ import Input from "../../../components/form/Input";
 import Title from "../../../components/ui/Title";
 import { useFormik } from "formik";
 import { profileSchema } from "../../../schema/profile";
-import UserAccount from "./Account";
+import UserAccount from "./ShowAccount";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
 
 const Account = () => {
+  const session = useSession();
+  console.log("SESSION", session);
+  const [user, setUser] = useState();
+  const userId = session?.data?.id;
+  console.log(userId);
+
+  useEffect(() => {
+    const getData = async () => {
+      const user = await getUser(userId);
+      setUser(user);
+    };
+    getData();
+  }, [userId]);
+
+  console.log("USER", user);
   const onSubmit = async (values, actions) => {
     // await new Promise((resolve) => setTimeout(resolve, 4000));
     actions.resetForm();
@@ -16,12 +34,12 @@ const Account = () => {
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
       initialValues: {
-        fullName: "",
-        phoneNumber: "",
-        email: "",
-        address: "",
-        job: "",
-        bio: "",
+        fullName: user?.fullName ? user?.fullName : user?.name,
+        phoneNumber: user?.phoneNumber,
+        email: user?.email,
+        address: user?.address,
+        job: user?.job,
+        bio: user?.bio,
       },
       onSubmit,
       validationSchema: profileSchema,
@@ -31,7 +49,7 @@ const Account = () => {
       id: 1,
       name: "fullName",
       type: "text",
-      placeholder: "Your Full Name",
+      placeholder: user?.fullName ? user?.fullName : user?.name,
       value: values.fullName,
       errorMessage: errors.fullName,
       touched: touched.fullName,
@@ -84,9 +102,7 @@ const Account = () => {
   ];
   return (
     <div className="flex flex-col justify-start items-start w-full ">
-      <div className="w-full mt-5 font-bold text-primary text-2xl text-right">
-        <UserAccount />
-      </div>
+      <div className="w-full mt-5 font-bold text-primary text-2xl text-right"></div>
       <form className=" flex-1 lg:mt-0 mt-5 w-full">
         <Title addClass="text-[40px]">Account Settings</Title>
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4">
@@ -101,8 +117,20 @@ const Account = () => {
         </div>
         <button className="btn-primary mt-4">Update</button>
       </form>
+      <UserAccount user={user} />
     </div>
   );
 };
+export async function getUser(userId) {
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
+    );
+    console.log(res?.data);
+    return res?.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 export default Account;
