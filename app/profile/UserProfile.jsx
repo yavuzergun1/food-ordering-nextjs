@@ -4,12 +4,12 @@ import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
-import { getUser } from "./account/page";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Profile = () => {
   const session = useSession();
+  console.log(session);
   const userId = session?.data?.id;
   const [user, setUser] = useState();
   const router = useRouter();
@@ -84,5 +84,15 @@ const Profile = () => {
     </div>
   );
 };
-
+export async function getUser(userId) {
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
+    );
+    console.log(res?.data);
+    return res?.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
 export default Profile;

@@ -1,4 +1,4 @@
-function Account({ user }) {
+function ShowAccount({ user }) {
   return (
     <div className="my-8 font-oswald text-xl">
       <div>Full Name : {user?.fullName ? user?.fullName : user?.name}</div>
@@ -11,4 +11,4 @@ function Account({ user }) {
   );
 }
 
-export default Account;
+export default ShowAccount;

@@ -5,10 +5,11 @@ import Input from "../../../components/form/Input";
 import Title from "../../../components/ui/Title";
 import { useFormik } from "formik";
 import { profileSchema } from "../../../schema/profile";
-import UserAccount from "./ShowAccount";
+import ShowAccount from "./ShowAccount";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
+import { getUser } from "../UserProfile";
 
 const Account = () => {
   const session = useSession();
@@ -129,20 +130,20 @@ const Account = () => {
         </div>
         <button className="btn-primary mt-4">Update</button>
       </form>
-      <UserAccount user={user} />
+      <ShowAccount user={user} />
     </div>
   );
 };
-export async function getUser(userId) {
-  try {
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
-    );
-    console.log(res?.data);
-    return res?.data;
-  } catch (err) {
-    console.log(err);
-  }
-}
+// export async function getUser(userId) {
+//   try {
+//     const res = await axios.get(
+//       `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
+//     );
+//     console.log(res?.data);
+//     return res?.data;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
 
 export default Account;
