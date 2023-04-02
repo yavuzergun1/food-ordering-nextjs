@@ -16,14 +16,18 @@ const Login = () => {
         `${process.env.NEXT_PUBLIC_API_URL}/admin`,
         values
       );
+      console.log("res", res.data);
       if (res.status === 200) {
         // console.log(res.data);
         actions.resetForm();
         push("./admin/profile/products");
+      } else if (res.response.status === 400) {
+        console.log("resadmin", res.data);
       }
-    } catch (err) {
-      console.log(err);
-    }
+      } catch (error) {
+      console.log(error);
+      alert(error.response.data.message )
+      }
   };
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({

@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(req: NextRequest) {
 
 // console.log("PATHNAME",req.nextUrl.pathname);
-  const isAdminAuth = req.cookies.has("token");
+  const isAdminAuth = req.cookies.has("admin_token");
   // console.log(isAdminAuth);
 
   const sessionToken = req.cookies.has("next-auth.session-token");
@@ -17,9 +17,7 @@ export function middleware(req: NextRequest) {
 
   // if is admin logged in, it redirects to admin/profile page when you go to admin page
   if (isAdminAuth && req.nextUrl.pathname === "/admin") {
-    return NextResponse.redirect(
-      new URL("/admin/profile", "http://localhost:3000/admin")
-    );
+    return NextResponse.redirect(new URL("/admin/profile/poducts", `${host}/admin`));
   }
   // if you're not admin logged in, it redirects to /admin page when you go to admin/profile page
   if (!isAdminAuth && url.includes("/admin/profile")) {
