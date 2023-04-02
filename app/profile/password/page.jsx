@@ -4,17 +4,21 @@ import React from "react";
 import Input from "../../../components/form/Input";
 import Title from "../../../components/ui/Title";
 import { useFormik } from "formik";
-import { registerSchema } from "../../../schema/register";
+import { useSession } from "next-auth/react";
 import { newPasswordSchema } from "../../../schema/newPassword";
 import axios from "axios";
 
 const Password = () => {
+  const session = useSession();
+  const userId = session?.data?.id;
+
   const onSubmit = async (values, actions) => {
     try {
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
         values
       );
+      console.log(res);
       actions.resetForm();
     } catch (err) {
       console.log(err);
