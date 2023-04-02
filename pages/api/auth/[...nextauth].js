@@ -28,8 +28,10 @@ export default NextAuth({
         const email = credentials.email;
         const password = credentials.password;
         const user = await User.findOne({ email: email });
+        console.log("user", user);
         if (!user) {
           // Any object returned will be saved in `user` property of the JWT
+          console.error("user could not found!");
           throw new Error("user could not found!");
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
@@ -40,6 +42,22 @@ export default NextAuth({
       },
     }),
   ],
+
+  // it adds to session id info
+  callbacks: {
+    jwt: ({ token, user }) => {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    session: ({ session, token }) => {
+      if (token) {
+        session.id = token.id;
+      }
+      return session;
+    },
+  },
   pages: {
     signIn: "/auth/login",
   },
@@ -49,7 +67,8 @@ export default NextAuth({
 
 const signInUser = async ({ user, password }) => {
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
+  console.log("isMatch", isMatch);
+  if (isMatch === false ) {
     throw new Error("incorrect password");
   }
   return user;

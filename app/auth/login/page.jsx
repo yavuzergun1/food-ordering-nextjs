@@ -11,13 +11,17 @@ import { useRouter } from "next/navigation";
 const Login = () => {
   const { data: session } = useSession();
   const router = useRouter()
+
   const onSubmit = async (values, actions) => {
     const { email, password } = values;
     let options = { redirect: false, email, password };
     const res = await signIn("credentials", options);
+    console.log("res", res);
     actions.resetForm();
     if (res.ok) {
-      router.push("/profile")
+      router.push("/profile/account")
+    } else if (res.status === 401) {
+    alert(res.error);
     }
   };
   console.log("Session",session);

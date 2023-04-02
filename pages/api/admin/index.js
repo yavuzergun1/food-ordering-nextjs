@@ -27,7 +27,7 @@ const handler = (req, res) => {
      
         res.setHeader(
           "Set-Cookie",
-          cookie.serialize("token", process.env.ADMIN_TOKEN, {
+          cookie.serialize("admin_token", process.env.ADMIN_TOKEN, {
             maxAge: -1/* logout */,
             path: "/",
           })

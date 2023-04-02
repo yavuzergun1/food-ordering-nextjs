@@ -40,7 +40,7 @@ const Profile = () => {
             className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
               path === "products" && "bg-primary text-white"
             }`}
-            onClick={() => router.push("/admin/profile/products")}
+            onClick={() => router.push("/admin/adminprofile/products")}
           >
             <i className="fa fa-cutlery"></i>
             <button className="ml-1 ">Products</button>
@@ -49,7 +49,7 @@ const Profile = () => {
             className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
               path === "orders" && "bg-primary text-white"
             }`}
-            onClick={() => router.push("/admin/profile/orders")}
+            onClick={() => router.push("/admin/adminprofile/orders")}
           >
             <i className="fa fa-motorcycle"></i>
             <button className="ml-1">Orders</button>
@@ -58,7 +58,7 @@ const Profile = () => {
             className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
               path === "categories" && "bg-primary text-white"
             }`}
-            onClick={() => router.push("/admin/profile/categories")}
+            onClick={() => router.push("/admin/adminprofile/categories")}
           >
             <i className="fa fa-ellipsis-h"></i>
             <button className="ml-1">Categories</button>
@@ -67,7 +67,7 @@ const Profile = () => {
             className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
               path === "footer" && "bg-primary text-white"
             }`}
-            onClick={() => router.push("/admin/profile/footer")}
+            onClick={() => router.push("/admin/adminprofile/footer")}
           >
             <i className="fa fa-window-maximize"></i>
             <button className="ml-1">Footer</button>
