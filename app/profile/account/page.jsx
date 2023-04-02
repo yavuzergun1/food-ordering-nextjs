@@ -19,15 +19,27 @@ const Account = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const user = await getUser(userId);
-      setUser(user);
+       const user = await getUser(userId);
+       setUser(user);
     };
     getData();
-  }, [userId]);
+  }, [session, userId]);
 
   console.log("USER", user);
+
   const onSubmit = async (values, actions) => {
-    // await new Promise((resolve) => setTimeout(resolve, 4000));
+    console.log("USERID", userId);
+    try {
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
+        values
+      );
+      console.log(res);
+      const user = await getUser(userId);
+      setUser(user);
+    } catch (err) {
+      console.log(err);
+    }
     actions.resetForm();
   };
 
@@ -103,7 +115,7 @@ const Account = () => {
   return (
     <div className="flex flex-col justify-start items-start w-full ">
       <div className="w-full mt-5 font-bold text-primary text-2xl text-right"></div>
-      <form className=" flex-1 lg:mt-0 mt-5 w-full">
+      <form className=" flex-1 lg:mt-0 mt-5 w-full" onSubmit={handleSubmit}>
         <Title addClass="text-[40px]">Account Settings</Title>
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4">
           {inputs.map((input) => (
