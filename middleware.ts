@@ -17,10 +17,10 @@ export function middleware(req: NextRequest) {
 
   // if is admin logged in, it redirects to admin/profile page when you go to admin page
   if (isAdminAuth && req.nextUrl.pathname === "/admin") {
-    return NextResponse.redirect(new URL("/admin/profile/poducts", `${host}/admin`));
+    return NextResponse.redirect(new URL("/admin/adminprofile/products", `${host}/admin`));
   }
   // if you're not admin logged in, it redirects to /admin page when you go to admin/profile page
-  if (!isAdminAuth && url.includes("/admin/profile")) {
+  if (!isAdminAuth && url.includes("/admin/adminprofile")) {
     const pathname = req.nextUrl.pathname;
     return NextResponse.redirect(`${host}/admin`);
   }

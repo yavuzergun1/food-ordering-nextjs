@@ -20,7 +20,7 @@ const Login = () => {
       if (res.status === 200) {
         // console.log(res.data);
         actions.resetForm();
-        push("./admin/profile/products");
+        push("./admin/adminprofile/products");
       } else if (res.response.status === 400) {
         console.log("resadmin", res.data);
       }
