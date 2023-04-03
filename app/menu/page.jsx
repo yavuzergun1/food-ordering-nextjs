@@ -1,6 +1,7 @@
-import MenuWrapper from "../../components/menu/MenuWrapper"
+import axios from "axios";
+import MenuWrapper from "../../components/menu/MenuWrapper";
 
-const Menu = () => {
+async function Menu() {
   return (
     <div>
       <MenuWrapper />
@@ -8,4 +9,4 @@ const Menu = () => {
   );
 }
 
-export default Menu
+export default Menu;

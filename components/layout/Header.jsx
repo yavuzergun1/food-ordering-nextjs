@@ -17,7 +17,7 @@ const Header = () => {
       <div className="container mx-auto text-white flex justify-between items-center h-full">
         <div className="logo-container relative h-[5.5rem]  w-48 lg:w-60">
           <Link href="/">
-            <Image src="/assets/png/fooder logo4.png" alt="logo" fill />
+            <Image src="/assets/png/fooder logo4.png" alt="logo" fill priority />
           </Link>
         </div>
         <nav
@@ -32,7 +32,7 @@ const Header = () => {
               <Link href="/">Home</Link>
             </li>
             <li className="px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer">
-              <Link href="/menu">Menu</Link>
+              <Link href="/menu?category=All">Menu</Link>
             </li>
             <li className="px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer">
               <Link href="/about">About</Link>
