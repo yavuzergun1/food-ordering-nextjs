@@ -9,7 +9,7 @@ export function middleware(req: NextRequest) {
   const sessionToken = req.cookies.has(
     "__Secure-next-auth.session-token"
   );
-  console.log("ISSESSION", sessionToken);
+  // console.log("ISSESSION", sessionToken);
 
   const host = req.nextUrl.protocol + req.headers.get("host");
   // console.log("host", host);
