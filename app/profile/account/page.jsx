@@ -103,15 +103,6 @@ const Account = () => {
       errorMessage: errors.job,
       touched: touched.job,
     },
-    {
-      id: 6,
-      name: "bio",
-      type: "text",
-      placeholder: "Your Bio",
-      value: values.bio,
-      errorMessage: errors.bio,
-      touched: touched.bio,
-    },
   ];
   return (
     <div className="flex flex-col justify-start items-start w-full ">

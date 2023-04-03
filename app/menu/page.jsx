@@ -1,11 +1,17 @@
-import MenuWrapper from "../../components/menu/MenuWrapper"
+import axios from "axios";
+import MenuWrapper from "../../components/menu/MenuWrapper";
 
-const Menu = () => {
+async function Menu() {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {
+    cache: "force-cache",
+  });
+  const categories = res.data.data;
+  console.log(categories);
   return (
     <div>
-      <MenuWrapper />
+      <MenuWrapper categories={categories} />
     </div>
   );
 }
 
-export default Menu
+export default Menu;

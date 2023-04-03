@@ -32,7 +32,7 @@ const Header = () => {
               <Link href="/">Home</Link>
             </li>
             <li className="px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer">
-              <Link href="/menu">Menu</Link>
+              <Link href="/menu?category=All">Menu</Link>
             </li>
             <li className="px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer">
               <Link href="/about">About</Link>
