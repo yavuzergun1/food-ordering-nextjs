@@ -17,7 +17,7 @@ const Header = () => {
       <div className="container mx-auto text-white flex justify-between items-center h-full">
         <div className="logo-container relative h-[5.5rem]  w-48 lg:w-60">
           <Link href="/">
-            <Image src="/assets/png/fooder logo4.png" alt="logo" fill />
+            <Image src="/assets/png/fooder logo4.png" alt="logo" fill priority />
           </Link>
         </div>
         <nav

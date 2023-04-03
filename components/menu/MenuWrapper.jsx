@@ -6,15 +6,29 @@ import MenuItem from "./MenuItem";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 
-function MenuWrapper({ categories }) {
+function MenuWrapper() {
   const router = useRouter();
-  const [title, setTitle] = useState("All");
+  const [categories, setCategories] = useState([]);
   const params = useSearchParams().get("category");
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/categories`
+        );
+        setCategories(res?.data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getCategories();
+  }, []);
+
   const handleClick = (title) => {
     console.log(title);
     const url = `/menu?category=${title}`;
     router.push(url);
-    setTitle(title);
   };
   return (
     <div className="container mx-auto  mb-16">
@@ -29,9 +43,9 @@ function MenuWrapper({ categories }) {
           >
             All
           </button>
-          {categories.map((cat) => {
+          {categories?.map((cat) => {
             return (
-              <React.Fragment key={cat.id} >
+              <React.Fragment key={cat._id}>
                 <button
                   onClick={() => handleClick(cat.title)}
                   className={`px-6 py-2 ${
