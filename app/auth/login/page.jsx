@@ -87,7 +87,7 @@ const Login = () => {
           </button>
           <Link href="/auth/register">
             <span className="text-sm underline cursor-pointer text-secondary">
-              Do you no have a account?
+              Don't you no have an account? Register here
             </span>
           </Link>
         </div>
