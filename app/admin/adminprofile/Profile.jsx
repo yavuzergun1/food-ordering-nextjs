@@ -3,11 +3,13 @@
 import Image from "next/image";
 import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import axios from "axios";
+import AddProduct from "../../../components/admin/AddProduct";
+import { useState } from "react";
 
 const Profile = () => {
   const router = useRouter();
   const path = useSelectedLayoutSegment();
-  // console.log(path);
+  const [isProductModal, setIsProductModal] = useState(false);
 
   const logOut = async () => {
     try {
@@ -85,6 +87,16 @@ const Profile = () => {
           </li>
         </ul>
       </div>
+            {isProductModal && (
+              <AddProduct setIsProductModal={setIsProductModal} />
+            )}
+        <button
+          type="button"
+          className="btn-primary !w-12 !h-12 rounded-full !p-0 -pt-5 text-center absolute top-36 right-10 text-4xl"
+          onClick={() => setIsProductModal(true)}
+        >
+          <p className="-mt-2">+</p>
+        </button>
     </div>
   );
 };
