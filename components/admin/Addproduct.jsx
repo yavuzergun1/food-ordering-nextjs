@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import Title from "../ui/Title";
 import { GiCancel } from "react-icons/gi";
-import axios from "axios";
 
 const AddProduct = ({ setIsProductModal, categories }) => {
-
+  const [file, setFile] = useState();
+  const { srcImage, setSrcImage } = useState();
 
   return (
     <div className="fixed  top-0 left-0 w-screen h-screen z-50 after:content-[''] after:w-screen after:h-screen after:bg-white after:absolute after:top-0 after:left-0 after:opacity-60 grid place-content-center transition-all ">
@@ -19,6 +19,8 @@ const AddProduct = ({ setIsProductModal, categories }) => {
             <div className="flex flex-col text-sm mt-6">
               <span className="font-semibold mb-1">Choose an image</span>
               <input type="file" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="" alt="" />
             </div>
             <div className="flex flex-col text-sm mt-4">
               <span className="font-semibold mb-[2px]">Title</span>
