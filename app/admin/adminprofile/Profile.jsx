@@ -13,7 +13,7 @@ const Profile = () => {
   const [categories, setCategories] = useState([]);
 
    useEffect(() => {
-     const getCategories = async () => {
+     const getCategories = async() => {
        try {
          const res = await axios.get(
            `${process.env.NEXT_PUBLIC_API_URL}/categories`
