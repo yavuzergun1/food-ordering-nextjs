@@ -12,19 +12,19 @@ const Profile = () => {
   const [isProductModal, setIsProductModal] = useState(false);
   const [categories, setCategories] = useState([]);
 
-   useEffect(() => {
-     const getCategories = async () => {
-       try {
-         const res = await axios.get(
-           `${process.env.NEXT_PUBLIC_API_URL}/categories`
-         );
-         setCategories(res?.data.data);
-       } catch (err) {
-         console.log(err);
-       }
-     };
-     getCategories();
-   }, []);
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/categories`
+        );
+        setCategories(res?.data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getCategories();
+  }, []);
 
   const logOut = async () => {
     try {
@@ -102,7 +102,12 @@ const Profile = () => {
           </li>
         </ul>
       </div>
-      {isProductModal && <AddProduct categories={categories} setIsProductModal={setIsProductModal} />}
+      {isProductModal && (
+        <AddProduct
+          categories={categories}
+          setIsProductModal={setIsProductModal}
+        />
+      )}
       <button
         type="button"
         className="btn-primary !w-12 !h-12 rounded-full !p-0 -pt-5 text-center absolute top-36 right-10 text-4xl"
