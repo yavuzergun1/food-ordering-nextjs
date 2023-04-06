@@ -12,6 +12,7 @@ const Profile = () => {
   const [isProductModal, setIsProductModal] = useState(false);
   const [categories, setCategories] = useState([]);
 
+
   useEffect(() => {
     const getCategories = async () => {
       try { 
@@ -25,6 +26,7 @@ const Profile = () => {
     };
     getCategories();
   }, []);
+
 
   const logOut = async () => {
     try {
