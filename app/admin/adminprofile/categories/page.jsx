@@ -9,19 +9,7 @@ const Category = () => {
   const [inputText, setInputText] = useState("");
   const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/categories`
-        );
-        setCategories(res?.data.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getCategories();
-  }, [categories]);
+
 
   const addCategory = async (e) => {
     try {
