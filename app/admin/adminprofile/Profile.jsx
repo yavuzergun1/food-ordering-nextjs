@@ -14,12 +14,12 @@ const Profile = () => {
 
   useEffect(() => {
     const getCategories = async () => {
-      try {
+      try { 
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/categories`
         );
         setCategories(res?.data.data);
-      } catch (err) {
+      } catch (err ) {
         console.log(err);
       }
     };
