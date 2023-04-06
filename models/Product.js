@@ -4,25 +4,25 @@ const ProductSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
+      // required: true,
       maxlength: 60,
     },
     desc: {
       type: String,
-      required: true,
+      // required: true,
       maxlength: 300,
     },
     prices: {
       type: [Number],
-      required: true,
+      // required: true,
     },
     category: {
       type: String,
-      required: true,
+      // required: true,
     },
     img: {
       type: String,
-      required: true,
+      // required: true,
     },
     extraOptions: {
       type: [

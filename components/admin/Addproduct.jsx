@@ -1,10 +1,14 @@
-import Image from "next/image";
-import React from "react";
+"use client"
+
+import { useState, useEffect } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import Title from "../ui/Title";
 import { GiCancel } from "react-icons/gi";
+import axios from "axios";
 
-const AddProduct = ({ setIsProductModal }) => {
+const AddProduct = ({ setIsProductModal, categories }) => {
+
+
   return (
     <div className="fixed  top-0 left-0 w-screen h-screen z-50 after:content-[''] after:w-screen after:h-screen after:bg-white after:absolute after:top-0 after:left-0 after:opacity-60 grid place-content-center transition-all ">
       <OutsideClickHandler onOutsideClick={() => setIsProductModal(false)}>
@@ -38,10 +42,13 @@ const AddProduct = ({ setIsProductModal }) => {
                 className="border-2 p-1 text-sm px-1 outline-none"
                 placeholder="Write a title..."
               >
-                <option value="1">Category 1</option>
-                <option value="1">Category 1</option>
-                <option value="1">Category 1</option>
-                <option value="1">Category 1</option>
+                {categories?.map((category) => {
+                  return (
+                    <option key={category._id} value={category._id}>
+                      {category.title}
+                    </option>
+                  );
+                })}
               </select>
             </div>
 
