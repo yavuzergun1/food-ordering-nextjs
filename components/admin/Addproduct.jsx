@@ -16,6 +16,7 @@ const AddProduct = ({ setIsProductModal, categories }) => {
   const [prices, setPrices] = useState([]);
   const [extra, setExtra] = useState("");
   const [extraOptions, setExtraOptions] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const extraPrice = useRef();
   const extraName = useRef();
 
@@ -37,6 +38,7 @@ const AddProduct = ({ setIsProductModal, categories }) => {
     data.append("upload_preset", "fooder");
 
     try {
+      setIsLoading(true);
       const uploadRes = await axios.post(
         "https://api.cloudinary.com/v1_1/dz2y5zsex/image/upload",
         data
@@ -57,21 +59,26 @@ const AddProduct = ({ setIsProductModal, categories }) => {
         `${process.env.NEXT_PUBLIC_API_URL}/products`,
         newProduct
       );
-      console.log("added product",res.data);
+      console.log("added product", res.data);
 
       if (res.status === 200) {
         setIsProductModal(false);
         toast.success("Product created successfully!");
       }
-      
+
     } catch (err) {
       console.log(err);
-      if (err.response.data.error.message === "Unsupported source URL: undefined") {
-        alert ("Please upload an image");
+      setIsLoading(false);
+      if (
+        err.response.data.error.message === "Unsupported source URL: undefined"
+        ) {
+          alert("Please upload an image");
+        } else {
+          alert("Something went wrong", err);
+        }
       }
-    }
-  };
-
+      setIsLoading(false);
+    };
   const addExtraOptions = () => {
     if (extra) {
       const isExtra = extraOptions.find((option) => option.name === extra.name);
@@ -89,14 +96,14 @@ const AddProduct = ({ setIsProductModal, categories }) => {
     }
     console.log(extraOptions);
   };
-
+  
   const changePrice = (e, index) => {
     const currentPrices = prices;
     currentPrices[index] = e.target.value;
     setPrices(currentPrices);
     console.log("Prices", prices);
   };
-
+  
   return (
     <div className="fixed top-0 left-0 w-screen h-screen z-50 after:content-[''] after:w-screen after:h-screen after:bg-white after:absolute after:top-0 after:left-0 after:opacity-60 grid place-content-center">
       <OutsideClickHandler onOutsideClick={() => setIsProductModal(false)}>
@@ -239,12 +246,16 @@ const AddProduct = ({ setIsProductModal, categories }) => {
               </div>
             </div>
             <div className="flex justify-end">
-              <button
-                className="btn-primary !bg-success"
-                onClick={handleOnCreate}
-              >
-                Create
-              </button>
+              {isLoading ? (
+                <div>Loading...</div>
+              ) : (
+                <button
+                  className="btn-primary !bg-success"
+                  onClick={handleOnCreate}
+                >
+                  Create
+                </button>
+              )}
             </div>
             <button
               className="absolute  top-4 right-4"
