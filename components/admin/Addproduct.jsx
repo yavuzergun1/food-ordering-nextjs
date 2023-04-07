@@ -57,14 +57,18 @@ const AddProduct = ({ setIsProductModal, categories }) => {
         `${process.env.NEXT_PUBLIC_API_URL}/products`,
         newProduct
       );
-      console.log("resdataaa",res.data);
+      console.log("added product",res.data);
 
       if (res.status === 200) {
         setIsProductModal(false);
         toast.success("Product created successfully!");
       }
+      
     } catch (err) {
       console.log(err);
+      if (err.response.data.error.message === "Unsupported source URL: undefined") {
+        alert ("Please upload an image");
+      }
     }
   };
 
