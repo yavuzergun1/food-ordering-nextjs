@@ -12,7 +12,7 @@ const AddProduct = ({ setIsProductModal, categories }) => {
   const [imageSrc, setImageSrc] = useState();
   const [title, setTitle] = useState();
   const [desc, setDesc] = useState();
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState("pizza");
   const [prices, setPrices] = useState([]);
   const [extra, setExtra] = useState("");
   const [extraOptions, setExtraOptions] = useState([]);
