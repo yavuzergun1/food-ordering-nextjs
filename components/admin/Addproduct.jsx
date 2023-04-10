@@ -6,6 +6,7 @@ import Title from "../ui/Title";
 import { toast } from "react-toastify";
 import { GiCancel } from "react-icons/gi";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const AddProduct = ({ setIsProductModal, categories }) => {
   const [file, setFile] = useState();
@@ -17,6 +18,7 @@ const AddProduct = ({ setIsProductModal, categories }) => {
   const [extra, setExtra] = useState("");
   const [extraOptions, setExtraOptions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   const extraPrice = useRef();
   const extraName = useRef();
 
@@ -30,7 +32,6 @@ const AddProduct = ({ setIsProductModal, categories }) => {
     reader.readAsDataURL(changeEvent.target.files[0]);
     console.log(imageSrc);
   };
-
   // upload photo to cloudinary and upload data to db
   const handleOnCreate = async () => {
     const data = new FormData();
@@ -62,6 +63,7 @@ const AddProduct = ({ setIsProductModal, categories }) => {
       console.log("added product", res.data);
 
       if (res.status === 200) {
+        router.refresh();
         setIsProductModal(false);
         toast.success("Product created successfully!");
       }
@@ -160,7 +162,7 @@ const AddProduct = ({ setIsProductModal, categories }) => {
               >
                 {categories?.map((category) => {
                   return (
-                    <option key={category._id} value={category._id}>
+                    <option key={category._id} value={category.title.toLowerCase()}>
                       {category.title}
                     </option>
                   );
