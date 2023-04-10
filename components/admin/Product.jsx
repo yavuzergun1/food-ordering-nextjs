@@ -2,13 +2,16 @@
 
 import Image from "next/image";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const Product = ({ product }) => {
   const [clientProduct, setClientProduct] = useState();
   const router = useRouter();
   console.log(product);
+
+
+ 
 
   // useEffect(() => {
   //   const getProducts = async () => {
@@ -32,14 +35,13 @@ const Product = ({ product }) => {
         const res = await axios.delete(
           `${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`
         );
-        router.refresh()
+        router.refresh();
         if (res.status === 200) {
           // toast.success("Product Deleted!");
         }
       }
     } catch (err) {
       console.log(err);
-
     }
   };
 

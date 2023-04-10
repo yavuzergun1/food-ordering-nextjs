@@ -35,6 +35,7 @@ const Page = ({ params }) => {
     if (data) {
       setPrices(data.prices);
       setPrice(data.prices[0]);
+      setExtraItems(data.extraOptions);
     }
   }, [data]);
 
@@ -81,7 +82,9 @@ const Page = ({ params }) => {
         </span>
         <p className="text-sm my-4 md:pr-24">{food?.desc}</p>
         <div>
-          <h4 className="text-xl font-bold">Choose the size</h4>
+          <h4 className="text-xl font-bold">
+            {food.category === "pizza" ? "Choose the size" : null}
+          </h4>
           {food.category === "pizza" && (
             <div className="flex items-center gap-x-20 md:justify-start justify-center">
               <div
@@ -122,7 +125,7 @@ const Page = ({ params }) => {
                 className="w-5 h-5 accent-primary"
                 onChange={(e) => handleChange(e, item)}
               />
-              <span className="text-sm font-semibold">{item.text}</span>
+              <span className="text-sm font-semibold">{item.name}</span>
             </label>
           ))}
         </div>

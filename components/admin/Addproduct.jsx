@@ -63,9 +63,9 @@ const AddProduct = ({ setIsProductModal, categories }) => {
       console.log("added product", res.data);
 
       if (res.status === 200) {
-        router.refresh();
         setIsProductModal(false);
-        toast.success("Product created successfully!");
+        // toast.success("Product created successfully!");
+        router.refresh();
       }
 
     } catch (err) {
