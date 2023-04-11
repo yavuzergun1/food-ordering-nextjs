@@ -17,8 +17,8 @@ const Page = ({ params }) => {
   const [extras, setExtras] = useState([]);
   const cart = useSelector((state) => state.cart);
 
+  console.log("CART", cart)
   const dispatch = useDispatch();
-  console.log(params.id);
 
   const fetcher = async () =>
     await axios
@@ -29,6 +29,7 @@ const Page = ({ params }) => {
     fetcher
   );
   console.log("data", data);
+  const food = data;
 
   useEffect(() => {
     // Call setPrices function with data.prices as argument
@@ -42,7 +43,6 @@ const Page = ({ params }) => {
   if (error) return console.log(error);
   if (isLoading) return "Loading...";
 
-  const food = data;
 
   const handleSize = (sizeIndex) => {
     const difference = prices[sizeIndex] - prices[size];
@@ -54,17 +54,17 @@ const Page = ({ params }) => {
     setPrice(price + number);
   };
 
-  const handleChange = (e, item) => {
-    const checked = e.target.checked;
+ const handleChange = (e, item) => {
+   const checked = e.target.checked;
 
-    if (checked) {
-      changePrice(item.price);
-      setExtras([...extras, item]);
-    } else {
-      changePrice(-item.price);
-      setExtras(extras.filter((extra) => extra.id !== item.id));
-    }
-  };
+   if (checked) {
+     changePrice(item.price);
+     setExtras([...extras, item]);
+   } else {
+     changePrice(-item.price);
+     setExtras(extras.filter((extra) => extra.id !== item.id));
+   }
+ };
 
   const handleClick = () => {
     dispatch(addProduct({ ...food, extras, price, quantity: 1 }));

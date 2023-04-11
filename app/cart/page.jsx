@@ -47,7 +47,7 @@ const Cart = () => {
                       <span>{item.name}</span>
                     </td>
                     <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                      {item.extraOptions
+                      {item.extras
                         .map((extraItem) => extraItem.name)
                         .join("/ ")}
                     </td>
