@@ -5,8 +5,9 @@ import MenuWrapper from "../components/menu/MenuWrapper";
 import About from "../components/About";
 import Reservation from "../components/Reservation";
 import Comments from "../components/comments/Comments";
+import axios from "axios";
 
-const page = () => {
+const page = async () => {
   return (
     <div className="font-dancing text-primary">
       <Carousel />
