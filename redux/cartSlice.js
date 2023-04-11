@@ -10,23 +10,25 @@ const cartSlice = createSlice({
   reducers: {
     addProduct: (state, action) => {
       const product = action.payload;
-      console.log(state.products);
-      console.log("product", product);
+      // console.log(state.products);
+      // console.log("product", product);
       const existingProductIndex = state.products.findIndex(
         (item) => item._id === product._id
       );
-       const existingProduct = state.products.find(
-         (item) => item._id === product._id
-         );
-         console.log("existing product", existingProduct?.category);
-
-      if (existingProductIndex !== -1 && existingProduct?.price === product.price) {
-        // If product already exists in cart, update quantity
+      const existingProduct = state.products.find(
+        (item) => item._id === product._id
+      );
+      console.log("existing price", existingProduct);
+      if (
+        existingProductIndex !== -1 &&
+        existingProduct.category !== "pizza"
+      ) {
+        // If product already exists in cart and category is not "pizza", update quantity
         state.products[existingProductIndex].quantity += 1;
         state.quantity += 1;
         state.total += product.price;
       } else {
-        // If product doesn't exist in cart, add as new item
+        // If product doesn't exist in cart or category is "pizza", add as new item
         state.products.push({ ...product, quantity: 1 });
         state.quantity += 1;
         state.total += product.price;
