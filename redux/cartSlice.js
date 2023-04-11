@@ -10,12 +10,17 @@ const cartSlice = createSlice({
   reducers: {
     addProduct: (state, action) => {
       const product = action.payload;
+      console.log(state.products);
       console.log("product", product);
       const existingProductIndex = state.products.findIndex(
         (item) => item._id === product._id
       );
+       const existingProduct = state.products.find(
+         (item) => item._id === product._id
+         );
+         console.log("existing product", existingProduct?.category);
 
-      if (existingProductIndex !== -1) {
+      if (existingProductIndex !== -1 && existingProduct?.price === product.price) {
         // If product already exists in cart, update quantity
         state.products[existingProductIndex].quantity += 1;
         state.quantity += 1;
