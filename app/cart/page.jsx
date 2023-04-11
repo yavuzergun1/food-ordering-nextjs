@@ -39,7 +39,7 @@ const Cart = () => {
                   >
                     <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white flex items-center gap-x-1 justify-center">
                       <Image
-                        src="/assets/png/f1.png"
+                        src={item.img}
                         alt=""
                         width={50}
                         height={50}
@@ -47,7 +47,7 @@ const Cart = () => {
                       <span>{item.name}</span>
                     </td>
                     <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                      {item.extraItems
+                      {item.extras
                         .map((extraItem) => extraItem.name)
                         .join("/ ")}
                     </td>

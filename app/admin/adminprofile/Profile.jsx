@@ -27,7 +27,6 @@ const Profile = () => {
     getCategories();
   }, []);
 
-
   const logOut = async () => {
     try {
       if (confirm("Are you sure you want to log out?")) {
