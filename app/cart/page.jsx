@@ -47,12 +47,12 @@ const Cart = () => {
                       <span>{item.name}</span>
                     </td>
                     <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                      {item.extras
+                      {item.extras && item.extras
                         .map((extraItem) => extraItem.name)
                         .join("/ ")}
                     </td>
                     <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                      ${item.price}
+                      ${item.price ? item.price : item.prices[0]}
                     </td>
                     <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
                       {item.quantity}
