@@ -35,7 +35,7 @@ const Products = () => {
   // console.log(products);
 
   return (
-    <div className="lg:p-8 flex-1 lg:mt-0 mt-5">
+    <div className=" flex-1 lg:mt-0 mt-5">
       <Title addClass="text-[40px]">Products</Title>
       <div className="overflow-x-auto w-full mt-5">
         <div className="lg:p-8 flex-1 lg:mt-0 mt-5">

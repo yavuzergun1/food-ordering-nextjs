@@ -89,7 +89,7 @@ const Page = ({ params }) => {
           <h4 className="text-xl font-bold">
             {food.category === "pizza" ? "Choose the size" : null}
           </h4>
-          {food.category === "pizza" && (
+        
             <div className="flex items-center gap-x-20 md:justify-start justify-center">
               <div
                 className="relative w-8 h-8 cursor-pointer"
@@ -119,7 +119,7 @@ const Page = ({ params }) => {
                 </span>
               </div>
             </div>
-          )}
+       
         </div>
         <div className="flex gap-x-4 my-6 md:justify-start justify-center">
           {extraItems?.map((item) => (
