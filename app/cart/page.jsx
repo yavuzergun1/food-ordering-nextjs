@@ -20,6 +20,9 @@ const Cart = () => {
                   PRODUCT
                 </th>
                 <th scope="col" className="py-3 px-6">
+                  SIZE
+                </th>
+                <th scope="col" className="py-3 px-6">
                   EXTRAS
                 </th>
                 <th scope="col" className="py-3 px-6">
@@ -38,18 +41,17 @@ const Cart = () => {
                     className="transition-all bg-secondary border-gray-700 hover:bg-primary "
                   >
                     <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white flex items-center gap-x-1 justify-center">
-                      <Image
-                        src={item.img}
-                        alt=""
-                        width={50}
-                        height={50}
-                      />
+                      <Image src={item.img} alt="" width={50} height={50} />
                       <span>{item.name}</span>
                     </td>
                     <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                      {item.extras && item.extras
-                        .map((extraItem) => extraItem.name)
-                        .join("/ ")}
+                      {item.sizeName}
+                    </td>
+                    <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                      {item.extras &&
+                        item.extras
+                          .map((extraItem) => extraItem.name)
+                          .join("/ ")}
                     </td>
                     <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
                       ${item.price ? item.price : item.prices[0]}

@@ -13,7 +13,7 @@ const cartSlice = createSlice({
       console.log("products", state.products);
       // console.log("product", product);
       const existingProductIndex = state.products.findIndex(
-        (item) => item._id === product._id
+        (item) => item.price === product.price
       );
       const existingProduct = state.products.find(
         (item) => item._id === product._id

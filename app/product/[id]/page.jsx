@@ -15,9 +15,11 @@ const Page = ({ params }) => {
   const [size, setSize] = useState(0);
   const [extraItems, setExtraItems] = useState();
   const [extras, setExtras] = useState([]);
+  const [sizeName, setSizeName] = useState("Small");
+
   const cart = useSelector((state) => state.cart);
 
-  console.log("CART", cart)
+  console.log("CART", cart);
   const dispatch = useDispatch();
 
   const fetcher = async () =>
@@ -43,31 +45,33 @@ const Page = ({ params }) => {
   if (error) return console.log(error);
   if (isLoading) return "Loading...";
 
-
   const handleSize = (sizeIndex) => {
     const difference = prices[sizeIndex] - prices[size];
     setSize(sizeIndex);
     changePrice(difference);
+    setSizeName(
+      sizeIndex === 0 ? "Small" : sizeIndex === 1 ? "Medium" : "Large"
+    );
   };
-
   const changePrice = (number) => {
+    console.log(number);
     setPrice(price + number);
   };
 
- const handleChange = (e, item) => {
-   const checked = e.target.checked;
+  const handleChange = (e, item) => {
+    const checked = e.target.checked;
 
-   if (checked) {
-     changePrice(item.price);
-     setExtras([...extras, item]);
-   } else {
-     changePrice(-item.price);
-     setExtras(extras.filter((extra) => extra.id !== item.id));
-   }
- };
+    if (checked) {
+      changePrice(item.price);
+      setExtras([...extras, item]);
+    } else {
+      changePrice(-item.price);
+      setExtras(extras.filter((extra) => extra.id !== item.id));
+    }
+  };
 
   const handleClick = () => {
-    dispatch(addProduct({ ...food, extras, price, quantity: 1 }));
+    dispatch(addProduct({ ...food, extras, sizeName, price, quantity: 1 }));
   };
 
   return (

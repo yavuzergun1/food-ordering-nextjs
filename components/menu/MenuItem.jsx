@@ -10,7 +10,8 @@ const MenuItem = ({ product }) => {
   const dispatch = useDispatch();
   const handleClick = () => {
     console.log(product);
-    dispatch(addProduct({ ...product, price, quantity: 1 }));
+    const sizeName = "Small";
+    dispatch(addProduct({ ...product, sizeName, price, quantity: 1 }));
   };
   return (
     <div className="bg-secondary rounded-3xl">
@@ -27,14 +28,14 @@ const MenuItem = ({ product }) => {
         <div className="flex justify-between items-center mt-4">
           <span>${product.prices[0]}</span>
           {/* if category is not pizza, show add to cart button */}
-          {product.category !== "pizza" && (
+         
             <button
               onClick={handleClick}
               className="btn-primary !w-10 !h-10 !rounded-full !p-0 grid place-content-center"
             >
               <RiShoppingCart2Fill />
             </button>
-          )}
+     
         </div>
       </div>
     </div>
