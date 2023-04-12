@@ -23,8 +23,7 @@ const cartSlice = createSlice({
 
       if (
         existingProductIndex !== -1 &&
-        existingProduct &&
-        state.products.find((item) => item.price === product.price)
+        existingProduct 
       ) {
         // If product already exists in cart and category is not "pizza", update quantity
         state.products[existingProductIndex].quantity += 1;
