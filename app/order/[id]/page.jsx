@@ -1,6 +1,13 @@
+import axios from "axios";
 import Image from "next/image";
 
-const Order = () => {
+const Order = async ({ params }) => {
+  console.log(params);
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/orders/${params.id}`
+  );
+  const order = res.data;
+  console.log(order);
   return (
     <div className="overflow-x-auto">
       <div className="min-h-[calc(100vh_-_433px)] flex  justify-center items-center flex-col p-10  min-w-[1000px]">
@@ -25,23 +32,27 @@ const Order = () => {
             <tbody>
               <tr className="transition-all bg-secondary border-gray-700 hover:bg-primary ">
                 <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white flex items-center gap-x-1 justify-center">
-                  63107f5559...
+                  {order?._id.substring(0, 5)}...
                 </td>
                 <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                  Emin Başbayan
+                  {order?.customer}
                 </td>
                 <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                  Adana
+                  {order?.address}
                 </td>
                 <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                  $18
+                  ${order?.total}
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
         <div className="flex justify-between w-full p-10 bg-primary mt-6">
-          <div className="relative flex flex-col">
+          <div
+            className={`relative flex flex-col ${
+              order.status === 0 && "animate-pulse"
+            } `}
+          >
             <Image
               src="/assets/png/paid.png"
               alt=""
@@ -51,7 +62,11 @@ const Order = () => {
             />
             <span>Payment</span>
           </div>
-          <div className="relative flex flex-col animate-pulse">
+          <div
+            className={`relative flex flex-col ${
+              order.status === 1 && "animate-pulse"
+            } `}
+          >
             <Image
               src="/assets/png/bake.png"
               alt=""
@@ -61,7 +76,11 @@ const Order = () => {
             />
             <span>Preparing</span>
           </div>
-          <div className="relative flex flex-col">
+          <div
+            className={`relative flex flex-col ${
+              order.status === 0 && "animate-pulse"
+            } `}
+          >
             <Image
               src="/assets/png/bike.png"
               alt=""
@@ -71,7 +90,11 @@ const Order = () => {
             />
             <span>On the way</span>
           </div>
-          <div className="relative flex flex-col">
+          <div
+            className={`relative flex flex-col ${
+              order.status === 0 && "animate-pulse"
+            } `}
+          >
             <Image
               src="/assets/png/delivered.png"
               alt=""

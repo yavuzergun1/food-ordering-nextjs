@@ -5,13 +5,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { reset } from "@/redux/cartSlice";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import useSWR from "swr";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const session = useSession();
+  const router = useRouter();
   console.log("cart items", cartItems);
    
   const userId = session.data?.id;
@@ -30,7 +31,41 @@ const Cart = () => {
   if (isLoading) return "Loading...";
 
   const user = data;
-  console.log(user);
+
+  const newOrder = {
+    customer: user?.fullName,
+    email:user?.email,
+    address: user?.address ? user?.address : "No address",
+    total: cartItems.total,
+    method: 0,
+  };
+
+  const createOrder = async () => {
+    try {
+      if (session) {
+        if (confirm("Are you sure to order?")) {
+          const res = await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/orders`,
+            newOrder
+          );
+          if (res.status === 201) {
+            router.push(`/order/${res.data._id}`);
+            dispatch(reset());
+            // toast.success("Order created successfully", {
+            //   autoClose: 1000,
+            // });
+            console.log(res);
+          }
+        }
+      } else {
+        toast.error("Please login first.", {
+          autoClose: 1000,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="min-h-[calc(100vh_-_433px)]">
       <div className="flex justify-between items-center md:flex-row flex-col">
@@ -97,7 +132,7 @@ const Cart = () => {
           <div>
             <button
               className="btn-primary mt-4 md:w-auto w-52"
-              onClick={() => dispatch(reset())}
+              onClick={createOrder}
             >
               CHECKOUT NOW!
             </button>
