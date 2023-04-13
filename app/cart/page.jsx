@@ -11,19 +11,26 @@ import useSWR from "swr";
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const session = useSession()
-  console.log(session);
+  const session = useSession();
   console.log("cart items", cartItems);
-
-    const fetcher = async () =>
-      await axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/products`)
-        .then((res) => res.data);
-    const { data, error, isLoading } = useSWR(
-      `${process.env.NEXT_PUBLIC_API_URL}/products`,
-      fetcher
-    );
+   
+  const userId = session.data?.id;
+  console.log(userId);
   
+  const fetcher = async () =>
+  userId &&  await axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`)
+      .then((res) => res.data);
+  const { data, error, isLoading } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/products`,
+    fetcher
+  );
+
+  if (error) return console.log(error);
+  if (isLoading) return "Loading...";
+
+  const user = data;
+  console.log(user);
   return (
     <div className="min-h-[calc(100vh_-_433px)]">
       <div className="flex justify-between items-center md:flex-row flex-col">

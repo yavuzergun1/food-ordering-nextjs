@@ -1,5 +1,5 @@
 import Order from "../../../models/Order";
-import dbConnect from "../../../util/dbConnect";
+import dbConnect from "../../../utils/dbConnect";
 
 const handler = async (req, res) => {
   await dbConnect();
