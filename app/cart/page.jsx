@@ -3,11 +3,26 @@ import Image from "next/image";
 import Title from "../../components/ui/Title";
 import { useSelector, useDispatch } from "react-redux";
 import { reset } from "@/redux/cartSlice";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import useSWR from "swr";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const session = useSession()
+  console.log(session);
   console.log("cart items", cartItems);
+
+    const fetcher = async () =>
+      await axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/products`)
+        .then((res) => res.data);
+    const { data, error, isLoading } = useSWR(
+      `${process.env.NEXT_PUBLIC_API_URL}/products`,
+      fetcher
+    );
   
   return (
     <div className="min-h-[calc(100vh_-_433px)]">
