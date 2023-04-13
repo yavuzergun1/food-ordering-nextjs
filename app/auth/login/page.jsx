@@ -90,6 +90,12 @@ const Login = () => {
               Dont have an account? Register here
             </span>
           </Link>
+          <Link
+            className="text-sm underline cursor-pointer text-secondary"
+            href="/admin"
+          >
+            Admin Login
+          </Link>
         </div>
       </form>
     </div>
