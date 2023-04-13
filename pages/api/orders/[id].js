@@ -12,6 +12,8 @@ const handler = async (req, res) => {
     try {
       const order = await Order.findById(id);
       res.status(200).json(order);
+      console.log(order);
+      return order;
     } catch (err) {
       console.log(err);
     }
@@ -20,6 +22,17 @@ const handler = async (req, res) => {
   if (method === "DELETE") {
     try {
       const order = await Order.findByIdAndDelete(id);
+      res.status(200).json(order);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  if (method === "PUT") {
+    try {
+      const order = await Order.findByIdAndUpdate(id, req.body, {
+        new: true,
+      });
       res.status(200).json(order);
     } catch (err) {
       console.log(err);

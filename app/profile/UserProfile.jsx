@@ -33,10 +33,10 @@ const Profile = () => {
         <div className="relative h-48 flex flex-col items-center px-10 py-5 border border-b-0">
           <div className="relative w-28 h-28 rounded-full">
             <Image
-              src={user?.image ? user.image : "/assets/png/client1.jpg"}
+              src={user?.image}
               alt="client2 "
               fill
-              className="object-contain rounded-full"
+              className="object-contain rounded-full border"
             />
           </div>
           <b className="text-2xl mt-1">

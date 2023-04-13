@@ -1,10 +1,38 @@
+"use client";
 import React from "react";
 import Title from "../../../components/ui/Title";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
 
-const Order = () => {
+const Orders = () => {
+  const [orders, setOrders] = useState([]);
+  const status = ["preparing", "on the way", "delivered"];
+
+  useEffect(() => {
+    const getOrders = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/orders`
+        );
+        setOrders(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getOrders();
+  }, []);
+  const session = useSession();
+  console.log(orders);
+  console.log(session.data?.user.email);
+
+ const userOrders = orders?.filter(
+    (order) => order.email === session.data.user.email
+  );
+  console.log(userOrders);
   return (
     <div className="lg:p-8 flex-1 lg:mt-0 mt-5">
-      <Title addClass="text-[40px]">Password</Title>
+      <Title addClass="text-[40px]">Orders</Title>
       <div className="overflow-x-auto w-full mt-5">
         <table className="w-full text-sm text-center text-gray-500 min-w-[1000px]">
           <thead className="text-xs text-gray-400 uppercase bg-gray-700">
@@ -27,23 +55,33 @@ const Order = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="transition-all bg-secondary border-gray-700 hover:bg-primary ">
-              <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white flex items-center gap-x-1 justify-center">
-                <span>63107...</span>
-              </td>
-              <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                Adana
-              </td>
-              <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                01-09-2022
-              </td>
-              <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                $18
-              </td>
-              <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                preparing
-              </td>
-            </tr>
+            {
+              userOrders?.map((order) => {
+                return (
+                  <React.Fragment key={order._id}>
+                    <tr className="transition-all bg-secondary border-gray-700 hover:bg-primary h-36 ">
+                      <td className="py-4 px-6  font-medium  hover:text-white flex items-center gap-x-1 justify-center">
+                        <span> {order?._id.substring(0, 6)}...</span>
+                      </td>
+                      <td className="py-4 h-32 px-6 max-w-md font-medium  hover:text-white">
+                        {order.address}
+                      </td>
+                      <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                        {order.createdAt}
+                      </td>
+                      <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                        {order.total}
+                      </td>
+                      <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                        {status[order.status]}
+                      </td>
+                    </tr>
+                  </React.Fragment>
+                );
+              })
+            }
+          
+       
           </tbody>
         </table>
       </div>
@@ -51,4 +89,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default Orders;
