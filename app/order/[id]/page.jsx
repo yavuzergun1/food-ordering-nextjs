@@ -78,7 +78,7 @@ const Order = async ({ params }) => {
           </div>
           <div
             className={`relative flex flex-col ${
-              order.status === 0 && "animate-pulse"
+              order.status === 2 && "animate-pulse"
             } `}
           >
             <Image
@@ -92,7 +92,7 @@ const Order = async ({ params }) => {
           </div>
           <div
             className={`relative flex flex-col ${
-              order.status === 0 && "animate-pulse"
+              order.status === 3 && "animate-pulse"
             } `}
           >
             <Image

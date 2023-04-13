@@ -1,5 +1,5 @@
 "use client";
-
+import React from "react";
 import Title from "../../../components/ui/Title";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -58,12 +58,12 @@ const Orders = () => {
             {
               userOrders?.map((order) => {
                 return (
-                  <>
-                    <tr className="transition-all bg-secondary border-gray-700 hover:bg-primary ">
-                      <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white flex items-center gap-x-1 justify-center">
+                  <React.Fragment key={order._id}>
+                    <tr className="transition-all bg-secondary border-gray-700 hover:bg-primary h-36 ">
+                      <td className="py-4 px-6  font-medium  hover:text-white flex items-center gap-x-1 justify-center">
                         <span> {order?._id.substring(0, 6)}...</span>
                       </td>
-                      <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                      <td className="py-4 h-32 px-6 max-w-md font-medium  hover:text-white">
                         {order.address}
                       </td>
                       <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
@@ -76,7 +76,7 @@ const Orders = () => {
                         {status[order.status]}
                       </td>
                     </tr>
-                  </>
+                  </React.Fragment>
                 );
               })
             }
