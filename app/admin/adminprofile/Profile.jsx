@@ -81,7 +81,7 @@ const Profile = () => {
             <i className="fa fa-ellipsis-h"></i>
             <button className="ml-1">Categories</button>
           </li>
-          <li
+          {/* <li
             className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
               path === "footer" && "bg-primary text-white"
             }`}
@@ -89,7 +89,7 @@ const Profile = () => {
           >
             <i className="fa fa-window-maximize"></i>
             <button className="ml-1">Footer</button>
-          </li>
+          </li> */}
           <li
             className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
               path === "exit" && "bg-primary text-white"

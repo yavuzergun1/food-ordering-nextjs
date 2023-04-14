@@ -7,12 +7,13 @@ const handler = async (req, res) => {
 
   if (method === "GET") {
     try {
-      const categories = await Category.find({});
-      res.status(200).json({ success: true, data: categories });
-    } catch (error) {
-      console.log(error);
+      const categories = await Category.find();
+      res.status(200).json(categories);
+    } catch (err) {
+      console.log(err);
     }
   }
+  
   if (method === "POST") {
     try {
       const newCategory = await Category.create(req.body);

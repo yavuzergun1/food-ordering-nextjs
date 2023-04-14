@@ -4,12 +4,24 @@ import { useState, useEffect } from "react";
 import Input from "../../../../components/form/Input";
 import Title from "../../../../components/ui/Title";
 import axios from "axios";
+import useSWR from "swr";
 
 const Category = () => {
   const [inputText, setInputText] = useState("");
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
 
-
+  const fetcher = async () =>
+    await axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
+      .then((res) => res.data);
+  const { data, error, isLoading } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/products`,
+    fetcher
+  );
+  if (error) return console.log(error);
+  if (isLoading) return "Loading...";
+  
+  const categories = data;
 
   const addCategory = async (e) => {
     try {
