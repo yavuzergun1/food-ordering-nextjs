@@ -18,7 +18,7 @@ const Password = () => {
         `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
         values
       );
-      console.log(res);
+      // console.log(res);
       actions.resetForm();
     } catch (err) {
       console.log(err);

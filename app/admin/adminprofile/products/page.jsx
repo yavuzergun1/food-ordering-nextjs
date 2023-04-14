@@ -19,20 +19,7 @@ const Products = () => {
 
   if (error) return console.log(error);
   if (isLoading) return "Loading...";
-  console.log("data", data);
-
-  // useEffect(() => {
-  //   // Call setPrices function with data.prices as argument
-  //   if (data) {
-  //     setPrices(data.prices);
-  //     setPrice(data.prices[0]);
-  //     setExtraItems(data.extraOptions);
-  //   }
-  // }, [data]);
-
-  // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`);
-  // const products = await res.json();
-  // console.log(products);
+  // console.log("data", data);
 
   return (
     <div className=" flex-1 lg:mt-0 mt-5">

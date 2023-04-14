@@ -30,7 +30,7 @@ const AddProduct = ({ setIsProductModal, categories }) => {
       setFile(changeEvent.target.files[0]);
     };
     reader.readAsDataURL(changeEvent.target.files[0]);
-    console.log(imageSrc);
+    // console.log(imageSrc);
   };
   // upload photo to cloudinary and upload data to db
   const handleOnCreate = async () => {
@@ -44,7 +44,7 @@ const AddProduct = ({ setIsProductModal, categories }) => {
         "https://api.cloudinary.com/v1_1/dz2y5zsex/image/upload",
         data
       );
-      console.log(uploadRes);
+      // console.log(uploadRes);
 
       const { url } = uploadRes.data;
       const newProduct = {
@@ -60,7 +60,7 @@ const AddProduct = ({ setIsProductModal, categories }) => {
         `${process.env.NEXT_PUBLIC_API_URL}/products`,
         newProduct
       );
-      console.log("added product", res.data);
+      // console.log("added product", res.data);
 
       if (res.status === 200) {
         setIsProductModal(false);
@@ -84,7 +84,7 @@ const AddProduct = ({ setIsProductModal, categories }) => {
   const addExtraOptions = () => {
     if (extra) {
       const isExtra = extraOptions.find((option) => option.name === extra.name);
-      console.log(isExtra);
+      // console.log(isExtra);
       if (isExtra) {
         alert("Extra option already exists");
         return;
@@ -96,14 +96,14 @@ const AddProduct = ({ setIsProductModal, categories }) => {
         setExtra(null);
       }
     }
-    console.log(extraOptions);
+    // console.log(extraOptions);
   };
   
   const changePrice = (e, index) => {
     const currentPrices = prices;
     currentPrices[index] = e.target.value;
     setPrices(currentPrices);
-    console.log("Prices", prices);
+    // console.log("Prices", prices);
   };
   
   return (
@@ -227,7 +227,7 @@ const AddProduct = ({ setIsProductModal, categories }) => {
                 {extraOptions.map((extra, index) => {
                   return (
                     <Fragment key={index}>
-                      {console.log(extra)}
+                      {/* {console.log(extra)} */}
                       <span
                         onClick={() =>
                           setExtraOptions(

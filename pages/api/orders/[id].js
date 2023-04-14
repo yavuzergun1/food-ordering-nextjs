@@ -12,7 +12,7 @@ const handler = async (req, res) => {
     try {
       const order = await Order.findById(id);
       res.status(200).json(order);
-      console.log(order);
+      // console.log(order);
       return order;
     } catch (err) {
       console.log(err);

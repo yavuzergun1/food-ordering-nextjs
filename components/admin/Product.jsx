@@ -8,26 +8,7 @@ import { useRouter } from "next/navigation";
 const Product = ({ product }) => {
   const [clientProduct, setClientProduct] = useState();
   const router = useRouter();
-  console.log(product);
-
-
- 
-
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         `${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`
-  //       );
-  //       setClientProduct(res.data);
-  //       console.log(res);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
-  //   getProducts();
-  // }, []);
+  // console.log(product);
 
   const handleDelete = async () => {
     try {

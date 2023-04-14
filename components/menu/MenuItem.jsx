@@ -9,7 +9,7 @@ const MenuItem = ({ product }) => {
   const [price, setPrice] = useState(product.prices[0]);
   const dispatch = useDispatch();
   const handleClick = () => {
-    console.log(product);
+    // console.log(product);
     const sizeName = "Small";
     dispatch(addProduct({ ...product, sizeName, price, quantity: 1 }));
   };
@@ -28,14 +28,13 @@ const MenuItem = ({ product }) => {
         <div className="flex justify-between items-center mt-4">
           <span>${product.prices[0]}</span>
           {/* if category is not pizza, show add to cart button */}
-         
-            <button
-              onClick={handleClick}
-              className="btn-primary !w-10 !h-10 !rounded-full !p-0 grid place-content-center"
-            >
-              <RiShoppingCart2Fill />
-            </button>
-     
+
+          <button
+            onClick={handleClick}
+            className="btn-primary !w-10 !h-10 !rounded-full !p-0 grid place-content-center"
+          >
+            <RiShoppingCart2Fill />
+          </button>
         </div>
       </div>
     </div>

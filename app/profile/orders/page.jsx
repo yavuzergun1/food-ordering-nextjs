@@ -23,13 +23,13 @@ const Orders = () => {
     getOrders();
   }, []);
   const session = useSession();
-  console.log(orders);
-  console.log(session.data?.user.email);
+  // console.log(orders);
+  // console.log(session.data?.user.email);
 
  const userOrders = orders?.filter(
     (order) => order.email === session.data.user.email
   );
-  console.log(userOrders);
+  // console.log(userOrders);
   return (
     <div className="lg:p-8 flex-1 lg:mt-0 mt-5">
       <Title addClass="text-[40px]">Orders</Title>

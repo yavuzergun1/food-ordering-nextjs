@@ -19,7 +19,7 @@ const Page = ({ params }) => {
 
   const cart = useSelector((state) => state.cart);
 
-  console.log("CART", cart);
+  // console.log("CART", cart);
   const dispatch = useDispatch();
 
   const fetcher = async () =>
@@ -30,7 +30,7 @@ const Page = ({ params }) => {
     `${process.env.NEXT_PUBLIC_API_URL}/products/${params.id}`,
     fetcher
   );
-  console.log("data", data);
+  // console.log("data", data);
   const food = data;
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Page = ({ params }) => {
     );
   };
   const changePrice = (number) => {
-    console.log(number);
+    // console.log(number);
     setPrice(price + number);
   };
 

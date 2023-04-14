@@ -9,10 +9,10 @@ const handler = async (req, res) => {
     query: { id },
   } = req;
     if (method === "GET" && id) {
-      console.log(id);
+      // console.log(id);
     try {
         const user = await User.findById(id);
-        console.log(user);
+        // console.log(user);
       res.status(200).json(user);
     } catch (err) {
       console.log(err);
