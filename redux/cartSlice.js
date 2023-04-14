@@ -10,7 +10,7 @@ const cartSlice = createSlice({
   reducers: {
     addProduct: (state, action) => {
       const product = action.payload;
-      console.log("products", state.products);
+      // console.log("products", state.products);
       // console.log("product", product);
       const existingProductIndex = state.products.findIndex(
         (item) => item.price === product.price && item._id === product._id
@@ -18,8 +18,8 @@ const cartSlice = createSlice({
       const existingProduct = state.products.find(
         (item) => item._id === product._id
       );
-      console.log("existing price", existingProduct);
-      console.log("product price", product.price);
+      // console.log("existing price", existingProduct);
+      // console.log("product price", product.price);
 
       if (
         existingProductIndex !== -1 &&

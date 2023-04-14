@@ -2,12 +2,12 @@ import axios from "axios";
 import Image from "next/image";
 
 const Order = async ({ params }) => {
-  console.log(params);
+  // console.log(params);
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}/orders/${params.id}`
   );
   const order = res.data;
-  console.log(order);
+  // console.log(order);
   return (
     <div className="overflow-x-auto">
       <div className="min-h-[calc(100vh_-_433px)] flex  justify-center items-center flex-col p-10  min-w-[1000px]">

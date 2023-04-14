@@ -9,7 +9,7 @@ import axios from "axios";
 
 const Profile = () => {
   const session = useSession();
-  console.log(session);
+  // console.log(session);
   const userId = session?.data?.id;
   const [user, setUser] = useState();
   const router = useRouter();
@@ -89,7 +89,7 @@ export async function getUser(userId) {
     const res = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
     );
-    console.log(res?.data);
+    // console.log(res?.data);
     return res?.data;
   } catch (err) {
     console.log(err);

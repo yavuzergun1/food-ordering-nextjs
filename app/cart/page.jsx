@@ -13,10 +13,10 @@ const Cart = () => {
   const dispatch = useDispatch();
   const session = useSession();
   const router = useRouter();
-  console.log("cart items", cartItems);
+  // console.log("cart items", cartItems);
    
   const userId = session.data?.id;
-  console.log(userId);
+  // console.log(userId);
   
   const fetcher = async () =>
   userId &&  await axios
@@ -54,7 +54,7 @@ const Cart = () => {
             // toast.success("Order created successfully", {
             //   autoClose: 1000,
             // });
-            console.log(res);
+            // console.log(res);
           }
         }
       } else {

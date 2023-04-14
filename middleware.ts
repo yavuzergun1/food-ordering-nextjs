@@ -2,15 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {
 
-// console.log("PATHNAME",req.nextUrl.pathname);
+console.log("PATHNAME",req.nextUrl.pathname);
   const isAdminAuth = req.cookies.has("admin_token");
   // console.log(isAdminAuth);
 
-  const sessionToken = req.cookies.has(
-
-    "next-auth.session-token"
-
-  );
+  const sessionToken = req.cookies.has("__Secure-next-auth.session-token");
   // console.log("ISSESSION", sessionToken);
 
   const host = req.nextUrl.protocol + req.headers.get("host");

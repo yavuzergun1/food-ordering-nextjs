@@ -28,7 +28,7 @@ export default NextAuth({
         const email = credentials.email;
         const password = credentials.password;
         const user = await User.findOne({ email: email });
-        console.log("user", user);
+        // console.log("user", user);
         if (!user) {
           // Any object returned will be saved in `user` property of the JWT
           console.error("user could not found!");
@@ -67,7 +67,7 @@ export default NextAuth({
 
 const signInUser = async ({ user, password }) => {
   const isMatch = await bcrypt.compare(password, user.password);
-  console.log("isMatch", isMatch);
+  // console.log("isMatch", isMatch);
   if (isMatch === false ) {
     throw new Error("incorrect password");
   }

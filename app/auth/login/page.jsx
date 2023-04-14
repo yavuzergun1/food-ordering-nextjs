@@ -16,7 +16,7 @@ const Login = () => {
     const { email, password } = values;
     let options = { redirect: false, email, password };
     const res = await signIn("credentials", options);
-    console.log("res", res);
+    // console.log("res", res);
     actions.resetForm();
     if (res.ok) {
       router.push("/profile/account")
@@ -24,7 +24,7 @@ const Login = () => {
     alert(res.error);
     }
   };
-  console.log("Session",session);
+  // console.log("Session",session);
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
       initialValues: {

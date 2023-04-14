@@ -11,8 +11,8 @@ function MenuWrapper() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const params = useSearchParams().get("category");
-  console.log(products);
-  
+  // console.log(products);
+
   useEffect(() => {
     const getCategories = async () => {
       try {
@@ -33,7 +33,7 @@ function MenuWrapper() {
 
   // console.log(products[0]?.category);
   const handleClick = (title) => {
-    console.log(title);
+    // console.log(title);
     const url = `/menu?category=${title}`;
     router.push(url);
   };
@@ -43,8 +43,8 @@ function MenuWrapper() {
       ? (product) => product?.category == params
       : (product) => product?.category == product?.category
   );
-  
-  console.log("filtered", filteredProducts);
+
+  // console.log("filtered", filteredProducts);
   return (
     <div className="container mx-auto  mb-16">
       <div className="flex flex-col items-center w-full">
