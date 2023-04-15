@@ -22,7 +22,8 @@ function MenuWrapper() {
         const pro = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/products`
         );
-        setCategories(res?.data.data);
+        console.log(res?.data);
+        setCategories(res?.data);
         setProducts(pro?.data);
       } catch (err) {
         console.log(err);
@@ -30,7 +31,6 @@ function MenuWrapper() {
     };
     getCategories();
   }, [params]);
-
   // console.log(products[0]?.category);
   const handleClick = (title) => {
     // console.log(title);
