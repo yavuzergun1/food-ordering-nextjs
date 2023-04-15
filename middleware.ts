@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {
-  console.log("PATHNAME", req.nextUrl.pathname);
+  // console.log("PATHNAME", req.nextUrl.pathname);
   const isAdminAuth = req.cookies.has("admin_token");
   // console.log(isAdminAuth);
 
@@ -35,7 +35,3 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(`${host}/auth/login`);
   }
 }
-
-// export const config = {
-//   matcher: "/admin",
-// };
