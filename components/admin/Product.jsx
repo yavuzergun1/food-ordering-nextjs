@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 const Product = ({ product }) => {
   const [clientProduct, setClientProduct] = useState();
   const router = useRouter();
-  // console.log(product);
+  console.log(product);
 
   const handleDelete = async () => {
     try {
@@ -39,7 +39,7 @@ const Product = ({ product }) => {
           {product.title}
         </td>
         <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-          $ {product.prices[0]}
+          $ {product?.prices[0]}
         </td>
         <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
           <button onClick={handleDelete} className="btn-primary !bg-danger">
