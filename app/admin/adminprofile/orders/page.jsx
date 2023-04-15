@@ -3,7 +3,6 @@
 import Title from "../../../../components/ui/Title";
 import { useEffect, useState } from "react";
 import axios from "axios";
-// import useSWR from "swr";
 
 const Order = () => {
   const [orders, setOrders] = useState([]);
