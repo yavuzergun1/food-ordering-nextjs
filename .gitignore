@@ -37,4 +37,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-middleware.ts
+/pages/api/middleware.ts
