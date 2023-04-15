@@ -10,12 +10,9 @@ export const metadata = {
   description: "Fullstack Ordering Project",
 };
 
-export default function RootLayout({
-  children,
-}) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      
       <head />
       <body>
         <Providers>
