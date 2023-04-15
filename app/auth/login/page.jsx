@@ -87,7 +87,7 @@ const Login = () => {
           </button> */}
           <Link href="/auth/register">
             <span className="text-sm underline cursor-pointer text-secondary">
-              Dont have an account? Register here
+              Create an Account
             </span>
           </Link>
           <Link
