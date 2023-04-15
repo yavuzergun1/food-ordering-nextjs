@@ -2,7 +2,6 @@
 
 import Title from "../../../../components/ui/Title";
 import Product from "../../../../components/admin/Product";
-import useSWR from "swr";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
