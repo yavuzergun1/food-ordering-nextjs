@@ -22,7 +22,7 @@ function MenuWrapper() {
         const pro = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/products`
         );
-        console.log(res?.data);
+        // console.log(res?.data);
         setCategories(res?.data);
         setProducts(pro?.data);
       } catch (err) {
