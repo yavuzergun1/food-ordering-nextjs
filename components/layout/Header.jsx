@@ -70,11 +70,11 @@ const Header = () => {
               className=" hover:text-primary cursor-pointer transition-all"
             />
           </Link>
-          <Link href="#" className="md:inline-block hidden ">
+          {/* <Link href="#" className="md:inline-block hidden ">
             <button className="btn-primary font-josefin font-bold">
               Order Online
             </button>
-          </Link>
+          </Link> */}
           <button
             className="md:hidden inline-block"
             onClick={() => setIsMenuModal(true)}
