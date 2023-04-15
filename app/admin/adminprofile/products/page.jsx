@@ -4,22 +4,25 @@ import Title from "../../../../components/ui/Title";
 import Product from "../../../../components/admin/Product";
 import useSWR from "swr";
 import axios from "axios";
-
+import { useState, useEffect } from "react";
 
 const Products = () => {
-  const fetcher = async () =>
-    await axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/products`)
-      .then((res) => res.data);
-  const { data, error, isLoading } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/products`,
-    fetcher
-  );
+    const [products, setProducts] = useState([]);
 
+  const getProducts = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/products`
+      );
+      setProducts(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  if (error) return console.log(error);
-  if (isLoading) return "Loading...";
-  // console.log("data", data);
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   return (
     <div className=" flex-1 lg:mt-0 mt-5">
@@ -46,7 +49,7 @@ const Products = () => {
                 </th>
               </tr>
             </thead>
-            {data.map((product) => {
+            {products?.map((product) => {
               return (
                 <>
                   <Product product={product} />
