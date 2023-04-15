@@ -5,7 +5,6 @@ import Input from "../../../../components/form/Input";
 import Title from "../../../../components/ui/Title";
 import axios from "axios";
 import useSWR from "swr";
-import { useRouter } from "next/navigation";
 
 const Category = () => {
   const [inputText, setInputText] = useState("");
