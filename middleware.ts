@@ -5,7 +5,6 @@ export function middleware(req: NextRequest) {
   const isAdminAuth = req.cookies.has("admin_token");
   // console.log(isAdminAuth);
 
-
   const sessionToken = req.cookies.has("__Secure-next-auth.session-token");
   // console.log("ISSESSION", sessionToken);
 
@@ -17,9 +16,7 @@ export function middleware(req: NextRequest) {
 
   // if is admin logged in, it redirects to admin/profile page when you go to admin page
   if (isAdminAuth && req.nextUrl.pathname === "/admin") {
-    return NextResponse.redirect(
-      new URL("/admin/adminprofile/products")
-    );
+    return NextResponse.redirect(new URL("/admin/adminprofile/products"));
   }
   // if you're not admin logged in, it redirects to /admin page when you go to admin/profile page
   if (!isAdminAuth && url.includes("/admin/adminprofile")) {
@@ -28,16 +25,15 @@ export function middleware(req: NextRequest) {
   }
 
   // user login control
-
   if (sessionToken && req.nextUrl.pathname === "/auth/login") {
-    return NextResponse.redirect(
-     new URL(`${host}/profile/account`)
-    );
-  } if (!sessionToken && req.nextUrl.pathname.includes("/profile")) {
+    return NextResponse.redirect(new URL(`${host}/profile/account`));
+  }
+  // Add a closing bracket here
+  if (!sessionToken && req.nextUrl.pathname.includes("/profile")) {
     return NextResponse.redirect(new URL(`${host}/auth/login`));
   }
 }
 
-// export const config = {
-//   matcher: ["/adminprofile", "/profile"], // Add "/profile" path here
-// };
+export const config = {
+  matcher: ["/adminprofile/:path*", "/profile/:path*"], // Add "/profile" path here
+};
