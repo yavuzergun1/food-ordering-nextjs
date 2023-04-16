@@ -6,7 +6,7 @@ export function middleware(req: NextRequest) {
   // console.log(isAdminAuth);
 
   const sessionToken = req.cookies.has("__Secure-next-auth.session-token");
-  // console.log("ISSESSION", sessionToken);
+  console.log("ISSESSION", sessionToken);
 
   const host = req.nextUrl.protocol + req.headers.get("host");
   // console.log("host", host);
@@ -35,5 +35,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/adminprofile/:path*", "/profile/:path*"], // Add "/profile" path here
+  matcher: ["/admin/:path*", "/profile/:path*"], // Add "/profile" path here
 };
