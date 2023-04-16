@@ -29,11 +29,13 @@ export function middleware(req: NextRequest) {
 
   // user login control
 
-  // if (sessionToken && req.nextUrl.pathname === "/auth/login") {
-  //   return NextResponse.redirect(`${host}/profile/account`);
-  // } else if (!sessionToken && req.nextUrl.pathname.includes("/profile")) {
-  //   return NextResponse.redirect(`${host}/auth/login`);
-  // }
+  if (sessionToken && req.nextUrl.pathname === "/auth/login") {
+    return NextResponse.redirect(
+     new URL(`${host}/profile/account`)
+    );
+  } if (!sessionToken && req.nextUrl.pathname.includes("/profile")) {
+    return NextResponse.redirect(new URL(`${host}/auth/login`));
+  }
 }
 
 // export const config = {
