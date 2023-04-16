@@ -14,7 +14,7 @@ const Login = () => {
 
   const onSubmit = async (values, actions) => {
     const { email, password } = values;
-    let options = { redirect: false, email, password };
+    let options = { redirect: true, email, password };
     const res = await signIn("credentials", options);
     // console.log("res", res);
     actions.resetForm();
