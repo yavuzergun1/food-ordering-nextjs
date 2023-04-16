@@ -13,10 +13,10 @@ import { getUser } from "../UserProfile";
 
 const Account = () => {
   const session = useSession();
-  // console.log("SESSION", session);
+  console.log("SESSION", session);
   const [user, setUser] = useState();
   const userId = session?.data?.id;
-  // console.log(userId);
+  console.log(userId);
 
   useEffect(() => {
     const getData = async () => {
@@ -26,16 +26,16 @@ const Account = () => {
     getData();
   }, [session, userId]);
 
-  // console.log("USER", user);
+  console.log("USER", user);
 
   const onSubmit = async (values, actions) => {
-    // console.log("USERID", userId);
+    console.log("USERID", userId);
     try {
       const res = await axios.put(
         `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
         values
       );
-      // console.log(res);
+      console.log(res);
       const user = await getUser(userId);
       setUser(user);
     } catch (err) {
