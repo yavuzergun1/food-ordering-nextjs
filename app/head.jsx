@@ -4,7 +4,7 @@ export default function Head() {
       <meta content="width=device-width, initial-scale=1" name="viewport" />
       <link rel="icon" href="/assets/png/fooder logo4.png" />
 
-      {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link
         rel="preconnect"
         href="https://fonts.gstatic.com"
@@ -21,7 +21,7 @@ export default function Head() {
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
         crossOrigin="anonymous"
         referrerPolicy="no-referrer"
-      /> */}
+      />
     </>
   );
 }
