@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {
   console.log("PATHNAME", req.nextUrl.pathname);
-  const clientToken = req.cookies.get("admin_token");
-  console.log(clientToken);
+  const clientToken: string = req.cookies.get("admin_token")?.value || "";
 
   const isAdminAuth = clientToken === process.env.ADMIN_TOKEN;
   const sessionToken = req.cookies.has("__Secure-next-auth.session-token");
@@ -18,7 +17,7 @@ export function middleware(req: NextRequest) {
 
   // if is admin logged in, it redirects to admin/profile page when you go to admin page
   if (isAdminAuth && req.nextUrl.pathname === "/admin") {
-    return NextResponse.redirect(new URL("/admin/adminprofile/products"));
+    return NextResponse.redirect(`${host}/admin/adminprofile/products`);
   }
   // if you're not admin logged in, it redirects to /admin page when you go to admin/profile page
   if (!isAdminAuth && url.includes("/admin/adminprofile")) {
