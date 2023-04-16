@@ -73,7 +73,7 @@ const Order = () => {
                 .map((order) => (
                   <tr
                     className="transition-all bg-secondary border-gray-700 hover:bg-primary"
-                    key={order?._id}
+                    key={order._id}
                   >
                     <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white gap-x-1 ">
                       {order?._id.substring(0, 6)}...
