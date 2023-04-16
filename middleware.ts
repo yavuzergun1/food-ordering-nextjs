@@ -18,22 +18,22 @@ export function middleware(req: NextRequest) {
   // if is admin logged in, it redirects to admin/profile page when you go to admin page
   if (isAdminAuth && req.nextUrl.pathname === "/admin") {
     return NextResponse.redirect(
-      new URL("/admin/adminprofile/products", `https://food-ordering-nextjs-git-main-yavuzergun1.vercel.app/admin`)
+      new URL("/admin/adminprofile/products", `${host}/admin`)
     );
   }
   // if you're not admin logged in, it redirects to /admin page when you go to admin/profile page
   if (!isAdminAuth && url.includes("/admin/adminprofile")) {
     const pathname = req.nextUrl.pathname;
-    return NextResponse.redirect(`https://food-ordering-nextjs-git-main-yavuzergun1.vercel.app/admin`);
+    return NextResponse.redirect(`${host}/admin`);
   }
 
   // user login control
 
-  if (sessionToken && req.nextUrl.pathname === "/auth/login") {
-    return NextResponse.redirect(`https://food-ordering-nextjs-git-main-yavuzergun1.vercel.app/profile/account`);
-  } else if (!sessionToken && req.nextUrl.pathname.includes("/profile")) {
-    return NextResponse.redirect(`https://food-ordering-nextjs-git-main-yavuzergun1.vercel.app/auth/login`);
-  }
+  // if (sessionToken && req.nextUrl.pathname === "/auth/login") {
+  //   return NextResponse.redirect(`${host}/profile/account`);
+  // } else if (!sessionToken && req.nextUrl.pathname.includes("/profile")) {
+  //   return NextResponse.redirect(`${host}/auth/login`);
+  // }
 }
 
 // export const config = {
