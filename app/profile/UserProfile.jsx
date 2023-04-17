@@ -32,14 +32,12 @@ const Profile = () => {
       <div className="lg:w-80 w-100 flex-shrink-0">
         <div className="relative h-48 flex flex-col items-center px-10 py-5 border border-b-0">
           <div className="relative w-28 h-28 rounded-full">
-            {user?.img && 
-              <Image
-                src={user.img}
-                alt="client2 "
-                fill
-                className="object-contain rounded-full border"
-              />
-            }
+            <Image
+              src={user?.img ? user.img : "/assets/png/fooder logo4.png"}
+              alt="client2 "
+              fill
+              className="object-contain rounded-full border"
+            />
           </div>
           <b className="text-2xl mt-1">
             {user?.fullName ? user?.fullName : user?.name}{" "}
