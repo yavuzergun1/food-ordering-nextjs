@@ -33,7 +33,7 @@ const Profile = () => {
         <div className="relative h-48 flex flex-col items-center px-10 py-5 border border-b-0">
           <div className="relative w-28 h-28 rounded-full">
               <Image
-                src={user.img ? user.img : "/assets/png/fooder logo4.png"}
+                src={user?.img ? user.img : "/assets/png/fooder logo4.png"}
                 alt="client2 "
                 fill
                 className="object-contain rounded-full border"
