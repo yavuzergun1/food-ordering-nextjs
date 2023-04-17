@@ -10,7 +10,6 @@ export function middleware(req: NextRequest) {
 
   console.log("ISSESSION", sessionToken);
 
-
   const host = req.nextUrl.protocol + req.headers.get("host");
   // console.log("host", host);
 
