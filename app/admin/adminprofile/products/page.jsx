@@ -1,5 +1,5 @@
 "use client";
-
+import React from "react";
 import Title from "../../../../components/ui/Title";
 import Product from "../../../../components/admin/Product";
 import axios from "axios";
@@ -48,11 +48,11 @@ const Products = () => {
                 </th>
               </tr>
             </thead>
-            {products?.map((product) => {
+            {products?.map((product, index) => {
               return (
-                <>
+                <React.Fragment key={index}>
                   <Product product={product} />
-                </>
+                </React.Fragment>
               );
             })}
           </table>

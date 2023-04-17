@@ -1,7 +1,7 @@
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 
 const Page = () => {
-  redirect("/profile/account");
+  // redirect("/profile/account");
   return <div></div>;
 };
 
