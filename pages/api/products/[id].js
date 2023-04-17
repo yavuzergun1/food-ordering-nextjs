@@ -1,5 +1,6 @@
 import Product from "../../../models/Product";
 import dbConnect from "../../../utils/dbConnect";
+import User from "../../../models/User";
 
 const handler = async (req, res) => {
   await dbConnect();
@@ -16,6 +17,7 @@ const handler = async (req, res) => {
       console.log(err);
     }
   }
+
 
   if (method === "DELETE") {
     try {

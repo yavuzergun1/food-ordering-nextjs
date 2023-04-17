@@ -15,54 +15,60 @@ const Account = () => {
   const session = useSession();
   // console.log("SESSION", session);
   const [user, setUser] = useState();
-  const userId = session?.data?.id;
+  const userId = session.data?.id;
   // console.log(userId);
 
   useEffect(() => {
     const getData = async () => {
-       const user = await getUser(userId);
-       setUser(user);
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
+        );
+        // console.log(res?.data);
+        setUser(res?.data);
+      } catch (err) {
+        console.log(err);
+      }
     };
     getData();
   }, [session, userId]);
 
   // console.log("USER", user);
 
-  const onSubmit = async (values, actions) => {
-    // console.log("USERID", userId);
-    try {
-      const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
-        values
-      );
-      // console.log(res);
-      const user = await getUser(userId);
-      setUser(user);
-    } catch (err) {
-      console.log(err);
-    }
-    actions.resetForm();
-  };
-
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
+      enableReinitialize: true,
       initialValues: {
-        fullName: user?.fullName ? user?.fullName : user?.name,
-        phoneNumber: user?.phoneNumber,
-        email: user?.email,
-        address: user?.address,
-        job: user?.job,
-        bio: user?.bio,
+        fullName: user?.fullName || "",
+        phoneNumber: user?.phoneNumber || "",
+        email: user?.email || "",
+        address: user?.address || "",
+        job: user?.job || "",
       },
-      onSubmit,
       validationSchema: profileSchema,
+      onSubmit: async (values, actions) => {
+        try {
+          const res = await axios.put(
+            `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
+            values
+            );
+            console.log(values);
+          if (res.status === 200) {
+            // toast.success("Profile updated successfully");
+            console.log(res);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      },
     });
+
   const inputs = [
     {
       id: 1,
       name: "fullName",
       type: "text",
-      placeholder: user?.fullName ? user?.fullName : user?.name,
+      placeholder: "Your Full Name",
       value: values.fullName,
       errorMessage: errors.fullName,
       touched: touched.fullName,
@@ -104,10 +110,13 @@ const Account = () => {
       touched: touched.job,
     },
   ];
+
   return (
     <div className="flex flex-col justify-start items-start w-full ">
-      <div className="w-full mt-5 font-bold text-primary text-2xl text-right"></div>
-      <form className=" flex-1 lg:mt-0 mt-5 w-full" onSubmit={handleSubmit}>
+      <form
+        className="lg:p-8 flex-1 lg:mt-0 mt-5 w-full"
+        onSubmit={handleSubmit}
+      >
         <Title addClass="text-[40px]">Account Settings</Title>
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4">
           {inputs.map((input) => (
@@ -119,9 +128,11 @@ const Account = () => {
             />
           ))}
         </div>
-        <button className="btn-primary mt-4">Update</button>
+        <button className="btn-primary mt-4" type="submit">
+          Update
+        </button>
       </form>
-      <ShowAccount user={user} />
+      {/* <ShowAccount user={user} /> */}
     </div>
   );
 };
