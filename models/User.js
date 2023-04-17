@@ -18,6 +18,9 @@ const UserSchema = new mongoose.Schema(
     job: {
       type: String,
     },
+    img: {
+      type: String,
+    },
     password: {
       type: String,
       required: true,

@@ -10,59 +10,106 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { getUser } from "../UserProfile";
+import { useRouter } from "next/navigation";
 
 const Account = () => {
+  const [file, setFile] = useState();
+  const [imageSrc, setImageSrc] = useState();
   const session = useSession();
-  console.log("SESSION", session);
+  const router = useRouter();
+  // console.log("SESSION", session);
   const [user, setUser] = useState();
-  const userId = session?.data?.id;
-  console.log(userId);
+  const userId = session.data?.id;
+  // console.log(userId);
 
   useEffect(() => {
     const getData = async () => {
-       const user = await getUser(userId);
-       setUser(user);
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
+        );
+        // console.log(res?.data);
+        setUser(res?.data);
+      } catch (err) {
+        console.log(err);
+      }
     };
     getData();
   }, [session, userId]);
 
-  console.log("USER", user);
+  const onSubmit = async () => {
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "fooder");
 
-  const onSubmit = async (values, actions) => {
-    console.log("USERID", userId);
     try {
-      const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
-        values
+      const uploadRes = await axios.post(
+        "https://api.cloudinary.com/v1_1/dz2y5zsex/image/upload",
+        data
       );
-      console.log(res);
-      const user = await getUser(userId);
-      setUser(user);
+      // console.log(uploadRes);
+
+      const { url } = uploadRes.data;
+      const newProduct = {
+        img: url,
+        values,
+      };
+
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
+        newProduct
+      );
+
+      router.push("/profile/account");
+      if (res.status === 200) {
+        // toast.success("Profile updated successfully");
+        setUser(res?.data);
+      }
+
+      // console.log("added product", res.data);
     } catch (err) {
       console.log(err);
+      if (
+        err.response.data.error.message === "Unsupported source URL: undefined"
+      ) {
+        alert("Please upload an image");
+      } else {
+        alert("Something went wrong", err);
+      }
     }
-    actions.resetForm();
   };
 
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
+      enableReinitialize: true,
       initialValues: {
-        fullName: user?.fullName ? user?.fullName : user?.name,
-        phoneNumber: user?.phoneNumber,
-        email: user?.email,
-        address: user?.address,
-        job: user?.job,
-        bio: user?.bio,
+        fullName: user?.fullName || "",
+        phoneNumber: user?.phoneNumber || "",
+        email: user?.email || "",
+        address: user?.address || "",
+        job: user?.job || "",
       },
-      onSubmit,
       validationSchema: profileSchema,
+      onSubmit,
     });
+
+  // get photo from file input and set it to imageSrc
+  const handleOnChange = (changeEvent) => {
+    const reader = new FileReader();
+    reader.onload = function (onLoadEvent) {
+      setImageSrc(onLoadEvent.target.result);
+      setFile(changeEvent.target.files[0]);
+    };
+    reader.readAsDataURL(changeEvent.target.files[0]);
+    // console.log(imageSrc);
+  };
+
   const inputs = [
     {
       id: 1,
       name: "fullName",
       type: "text",
-      placeholder: user?.fullName ? user?.fullName : user?.name,
+      placeholder: "Your Full Name",
       value: values.fullName,
       errorMessage: errors.fullName,
       touched: touched.fullName,
@@ -104,11 +151,32 @@ const Account = () => {
       touched: touched.job,
     },
   ];
+
   return (
     <div className="flex flex-col justify-start items-start w-full ">
-      <div className="w-full mt-5 font-bold text-primary text-2xl text-right"></div>
-      <form className=" flex-1 lg:mt-0 mt-5 w-full" onSubmit={handleSubmit}>
+      <form
+        className="lg:p-8 flex-1 lg:mt-0 mt-5 w-full"
+        onSubmit={handleSubmit}
+      >
         <Title addClass="text-[40px]">Account Settings</Title>
+        <div className="flex flex-col text-sm mt-6">
+          <label className="flex gap-2 items-center">
+            <input
+              type="file"
+              onChange={(e) => handleOnChange(e)}
+              className="hidden"
+            />
+            <button className="btn-primary cursor-pointer !rounded-none !bg-blue-600 pointer-events-none">
+              Choose an Image
+            </button>
+            {imageSrc && (
+              <div>
+                {/*eslint-disable-next-line @next/next/no-img-element*/}
+                <img src={imageSrc} alt="" className="w-12 h-12 rounded-full" />
+              </div>
+            )}
+          </label>
+        </div>
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4">
           {inputs.map((input) => (
             <Input
@@ -119,7 +187,9 @@ const Account = () => {
             />
           ))}
         </div>
-        <button className="btn-primary mt-4">Update</button>
+        <button className="btn-primary mt-4" type="submit">
+          Update
+        </button>
       </form>
       <ShowAccount user={user} />
     </div>

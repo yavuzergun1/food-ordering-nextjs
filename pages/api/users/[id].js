@@ -3,16 +3,18 @@ import dbConnect from "../../../utils/dbConnect";
 import bcrypt from "bcrypt";
 
 const handler = async (req, res) => {
+  // console.log(req.body);
   await dbConnect();
   const {
     method,
     query: { id },
   } = req;
-    if (method === "GET" && id) {
-      // console.log(id);
+
+  if (method === "GET") {
+    // console.log(id);
     try {
-        const user = await User.findById(id);
-        // console.log(user);
+      const user = await User.findById(id);
+      // console.log(user);
       res.status(200).json(user);
     } catch (err) {
       console.log(err);
@@ -37,5 +39,4 @@ const handler = async (req, res) => {
     }
   }
 };
-
 export default handler;

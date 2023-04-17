@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 const Product = ({ product }) => {
   const [clientProduct, setClientProduct] = useState();
   const router = useRouter();
-  console.log(product);
+  // console.log(product);
 
   const handleDelete = async () => {
     try {
