@@ -37,66 +37,47 @@ const Account = () => {
     getData();
   }, [session, userId]);
 
-  // console.log("USER", user);
+  const onSubmit = async () => {
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "fooder");
 
-  // const onSubmit = async (values, actions) => {
-  //   try {
-  //     const res = await axios.put(
-  //       `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
-  //       values
-  //     );
+    try {
+      const uploadRes = await axios.post(
+        "https://api.cloudinary.com/v1_1/dz2y5zsex/image/upload",
+        data
+      );
+      // console.log(uploadRes);
 
-  //     router.push("/profile/account");
-  //     if (res.status === 200) {
-  //       // toast.success("Profile updated successfully");
-  //       setUser(res?.data);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+      const { url } = uploadRes.data;
+      const newProduct = {
+        img: url,
+        values,
+      };
 
-   const onSubmit = async () => {
-     const data = new FormData();
-     data.append("file", file);
-     data.append("upload_preset", "fooder");
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
+        newProduct
+      );
 
-     try {
-       const uploadRes = await axios.post(
-         "https://api.cloudinary.com/v1_1/dz2y5zsex/image/upload",
-         data
-       );
-       // console.log(uploadRes);
+      router.push("/profile/account");
+      if (res.status === 200) {
+        // toast.success("Profile updated successfully");
+        setUser(res?.data);
+      }
 
-       const { url } = uploadRes.data;
-       const newProduct = {
-         img: url,
-         values,
-       };
-
-       const res = await axios.put(
-         `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
-         newProduct
-       );
-
-       router.push("/profile/account");
-       if (res.status === 200) {
-         // toast.success("Profile updated successfully");
-         setUser(res?.data);
-       }
-
-       // console.log("added product", res.data);
-     } catch (err) {
-       console.log(err);
-       if (
-         err.response.data.error.message === "Unsupported source URL: undefined"
-       ) {
-         alert("Please upload an image");
-       } else {
-         alert("Something went wrong", err);
-       }
-     }
-   };
+      // console.log("added product", res.data);
+    } catch (err) {
+      console.log(err);
+      if (
+        err.response.data.error.message === "Unsupported source URL: undefined"
+      ) {
+        alert("Please upload an image");
+      } else {
+        alert("Something went wrong", err);
+      }
+    }
+  };
 
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
@@ -122,8 +103,6 @@ const Account = () => {
     reader.readAsDataURL(changeEvent.target.files[0]);
     // console.log(imageSrc);
   };
-
- 
 
   const inputs = [
     {
