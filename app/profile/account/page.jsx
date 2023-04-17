@@ -60,7 +60,6 @@ const Account = () => {
         newProduct
       );
 
-      router.push("/profile/account");
       if (res.status === 200) {
         // toast.success("Profile updated successfully");
         setUser(res?.data);
