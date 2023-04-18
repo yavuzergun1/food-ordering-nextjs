@@ -10,18 +10,23 @@ import { useRouter } from "next/navigation";
 
 const Login = () => {
   const { data: session } = useSession();
-  const router = useRouter()
+  const router = useRouter();
 
   const onSubmit = async (values, actions) => {
     const { email, password } = values;
     let options = { redirect: true, email, password };
-    const res = await signIn("credentials", options);
-    // console.log("res", res);
-    actions.resetForm();
-    if (res.ok) {
-      router.push("/profile/account")
-    } else if (res.status === 401) {
-    alert(res.error);
+    try {
+      const res = await signIn("credentials", options);
+      // console.log("res", res);
+      actions.resetForm();
+        if (res.status === 200) {
+          actions.resetForm();
+          push("/profile/account");
+        } else if (res.response.status === 400) {
+          console.log("resadmin", res.data);
+        }
+    } catch (error) {
+      console.log(error);
     }
   };
   // console.log("Session",session);
@@ -77,14 +82,14 @@ const Login = () => {
           <button type="submit" className="btn-primary">
             LOGIN
           </button>
-          {/* <button
+          <button
             type="button"
             onClick={() => signIn("github")}
             className="btn-primary !bg-secondary"
           >
-            <i className="fa fa-github mr-2 text-lg"></i>
+            <i className="fa-brands fa-github mr-2 text-lg"></i>
             GITHUB
-          </button> */}
+          </button>
           <Link href="/auth/register">
             <span className="text-sm underline cursor-pointer text-secondary">
               Create an Account

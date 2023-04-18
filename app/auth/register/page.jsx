@@ -9,21 +9,21 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 const Register = () => {
-  const router =useRouter()
+  const router = useRouter();
   const onSubmit = async (values, actions) => {
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/users/register`,
         values
       );
-      // console.log(res);
-      router.push("/")
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+      // console.log("res", res);
+      if (res.status === 200) {
+        actions.resetForm();
+        router.push("/auth/login");
+      }
     } catch (error) {
       console.log(error);
     }
-
-    actions.resetForm();
   };
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
