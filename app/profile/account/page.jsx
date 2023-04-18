@@ -11,6 +11,7 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { getUser } from "../UserProfile";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const Account = () => {
   const [file, setFile] = useState();
@@ -37,11 +38,10 @@ const Account = () => {
     getData();
   }, [session, userId]);
 
-  const onSubmit = async () => {
+  const updatePhoto = async () => {
     const data = new FormData();
     data.append("file", file);
     data.append("upload_preset", "fooder");
-
     try {
       const uploadRes = await axios.post(
         "https://api.cloudinary.com/v1_1/dz2y5zsex/image/upload",
@@ -52,7 +52,6 @@ const Account = () => {
       const { url } = uploadRes.data;
       const newProduct = {
         img: url,
-        values,
       };
 
       const res = await axios.put(
@@ -67,14 +66,21 @@ const Account = () => {
 
       // console.log("added product", res.data);
     } catch (err) {
-      console.log(err);
-      if (
-        err.response.data.error.message === "Unsupported source URL: undefined"
-      ) {
-        alert("Please upload an image");
-      } else {
-        alert("Something went wrong", err);
+    console.log(err);
+    }
+  }
+  const onSubmit = async (values, actions) => {
+    try {
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
+        values
+      );
+      console.log(res);
+      if (res.status === 200) {
+       setUser(res?.data);
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -88,21 +94,21 @@ const Account = () => {
         address: user?.address || "",
         job: user?.job || "",
       },
-      validationSchema: profileSchema,
+      // validationSchema: profileSchema,
       onSubmit,
     });
 
   // get photo from file input and set it to imageSrc
   const handleOnChange = (changeEvent) => {
+    const file = changeEvent.target.files[0];
     const reader = new FileReader();
     reader.onload = function (onLoadEvent) {
       setImageSrc(onLoadEvent.target.result);
       setFile(changeEvent.target.files[0]);
     };
-    reader.readAsDataURL(changeEvent.target.files[0]);
+    reader.readAsDataURL(file);
     // console.log(imageSrc);
   };
-
   const inputs = [
     {
       id: 1,
@@ -153,11 +159,24 @@ const Account = () => {
 
   return (
     <div className="flex flex-col justify-start items-start w-full ">
+        <Title addClass="text-[40px]">Account Settings</Title>
+        <div className="relative h-48 flex flex-col items-center px-10 py-5 border border-b-0">
+          <div className="relative w-28 h-28 rounded-full">
+            <Image
+              src={user?.img ? user.img : "/assets/png/fooder logo4.png"}
+              alt="client2 "
+              fill
+              className="object-contain rounded-full border"
+            />
+          </div>
+          <b className="text-2xl mt-1">
+            {user?.fullName ? user?.fullName : user?.name}{" "}
+          </b>
+        </div>
       <form
         className="lg:p-8 flex-1 lg:mt-0 mt-5 w-full"
         onSubmit={handleSubmit}
       >
-        <Title addClass="text-[40px]">Account Settings</Title>
         <div className="flex flex-col text-sm mt-6">
           <label className="flex gap-2 items-center">
             <input
@@ -168,6 +187,10 @@ const Account = () => {
             <button className="btn-primary cursor-pointer !rounded-none !bg-blue-600 pointer-events-none">
               Choose an Image
             </button>
+            {file &&
+            <button className="pb-3 mt-4" type="button" onClick={updatePhoto}>
+          Update Photo
+        </button>}
             {imageSrc && (
               <div>
                 {/*eslint-disable-next-line @next/next/no-img-element*/}

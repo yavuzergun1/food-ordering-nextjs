@@ -1,17 +1,12 @@
 "use client";
 
 import { useRouter, useSelectedLayoutSegment } from "next/navigation";
-import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Profile = () => {
-  const session = useSession();
-  // console.log(session);
-  const userId = session.data?.id;
-  const [user, setUser] = useState();
   const router = useRouter();
   const path = useSelectedLayoutSegment();
 
@@ -19,30 +14,10 @@ const Profile = () => {
     signOut();
   };
 
-  useEffect(() => {
-    const getData = async () => {
-      const user = await getUser(userId);
-      setUser(user);
-    };
-    getData();
-  }, [userId]);
-
   return (
-    <div className="flex px-10 min-h-[calc(100vh_-_433px)] lg:flex-row flex-col lg:mb-0 mb-10">
+    <div className="flex px-10 min-h-[calc(100vh_-_433px)] lg:mt-14 lg:flex-row flex-col lg:mb-0 mb-10">
       <div className="lg:w-80 w-100 flex-shrink-0">
-        <div className="relative h-48 flex flex-col items-center px-10 py-5 border border-b-0">
-          <div className="relative w-28 h-28 rounded-full">
-              <Image
-                src={user?.img ? user.img : "/assets/png/fooder logo4.png"}
-                alt="client2 "
-                fill
-                className="object-contain rounded-full border"
-              />
-          </div>
-          <b className="text-2xl mt-1">
-            {user?.fullName ? user?.fullName : user?.name}{" "}
-          </b>
-        </div>
+    
         <ul className="text-center font-semibold">
           <li
             className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
