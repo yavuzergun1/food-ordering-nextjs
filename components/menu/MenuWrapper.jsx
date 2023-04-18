@@ -50,6 +50,9 @@ function MenuWrapper() {
       <div className="flex flex-col items-center w-full">
         <Title addClass="text-[40px] text-primary">Our Menu</Title>
         <div className="mt-10">
+          {
+            categories.length > 0 &&
+
           <button
             onClick={() => handleClick("All")}
             className={`px-6 py-2 ${
@@ -58,6 +61,7 @@ function MenuWrapper() {
           >
             All
           </button>
+          }
           {categories?.map((cat) => {
             return (
               <React.Fragment key={cat._id}>
