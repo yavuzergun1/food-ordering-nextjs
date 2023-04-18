@@ -19,7 +19,11 @@ const Category = () => {
     fetcher
   );
   if (error) return console.log(error);
-  if (isLoading) return "Loading...";
+  if (isLoading) return (
+    <div className="flex w-full items-center m-auto justify-center h-full">
+      <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
+    </div>
+  );
 
   const addCategory = async (e) => {
     try {
