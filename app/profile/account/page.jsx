@@ -42,8 +42,6 @@ const Account = () => {
     const data = new FormData();
     data.append("file", file);
     data.append("upload_preset", "fooder");
-
-    
     try {
       const uploadRes = await axios.post(
         "https://api.cloudinary.com/v1_1/dz2y5zsex/image/upload",
@@ -102,12 +100,13 @@ const Account = () => {
 
   // get photo from file input and set it to imageSrc
   const handleOnChange = (changeEvent) => {
+    const file = changeEvent.target.files[0];
     const reader = new FileReader();
     reader.onload = function (onLoadEvent) {
       setImageSrc(onLoadEvent.target.result);
       setFile(changeEvent.target.files[0]);
     };
-    reader.readAsDataURL(changeEvent.target.files[0]);
+    reader.readAsDataURL(file);
     // console.log(imageSrc);
   };
   const inputs = [
