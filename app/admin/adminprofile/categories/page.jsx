@@ -15,11 +15,15 @@ const Category = () => {
       .get(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
       .then((res) => res.data);
   const { data, error, isLoading } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/products`,
+    `${process.env.NEXT_PUBLIC_API_URL}/categories`,
     fetcher
   );
   if (error) return console.log(error);
-  if (isLoading) return "Loading...";
+  if (isLoading) return (
+    <div className="flex w-full items-center m-auto justify-center h-full">
+      <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
+    </div>
+  );
 
   const addCategory = async (e) => {
     try {

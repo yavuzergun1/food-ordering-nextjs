@@ -5,27 +5,28 @@ import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import axios from "axios";
 import AddProduct from "../../../components/admin/AddProduct";
 import { useState, useEffect } from "react";
-import useSWR from "swr";
 
 const Profile = () => {
   const router = useRouter();
   const path = useSelectedLayoutSegment();
   const [isProductModal, setIsProductModal] = useState(false);
-  // const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
 
-  const fetcher = async () =>
-    await axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
-      .then((res) => res.data);
-  const { data, error, isLoading } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}`,
-    fetcher
-  );
-  if (error) return console.log(error);
-  if (isLoading) return "Loading...";
-  const categories = data;
 
-  console.log(categories);
+  useEffect(() => {
+    const getCategories = async () => {
+      try { 
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/categories`
+        );
+        setCategories(res?.data);
+      } catch (err ) {
+        console.log(err);
+      }
+    };
+    getCategories();
+  }, []);
+console.log(categories);
   const logOut = async () => {
     try {
       if (confirm("Are you sure you want to log out?")) {

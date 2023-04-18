@@ -17,10 +17,16 @@ const MenuItem = ({ product }) => {
     <div className="bg-secondary rounded-3xl">
       <div className="w-full  bg-[#f1f2f3] h-[210px] grid place-content-center rounded-bl-[46px] rounded-tl-2xl rounded-tr-2xl">
         <Link href={`/product/${product._id}`}>
-          <Suspense fallback={<div>Loading...</div>}>
-          <div className="relative w-36 h-36 hover:scale-110 transition-all">
-            <Image src={product.img} priority alt="" fill />
-          </div>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center h-full">
+                <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
+              </div>
+            }
+          >
+            <div className="relative w-36 h-36 hover:scale-110 transition-all">
+              <Image src={product.img} priority alt="" fill />
+            </div>
           </Suspense>
         </Link>
       </div>
