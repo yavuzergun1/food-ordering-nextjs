@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import Input from "../../../components/form/Input";
 import Title from "../../../components/ui/Title";
 import { useFormik } from "formik";
@@ -16,6 +16,7 @@ import Image from "next/image";
 const Account = () => {
   const [file, setFile] = useState();
   const [imageSrc, setImageSrc] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const session = useSession();
   const router = useRouter();
   // console.log("SESSION", session);
@@ -26,6 +27,7 @@ const Account = () => {
   useEffect(() => {
     const getData = async () => {
       try {
+        setIsLoading(true);
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
         );
@@ -34,6 +36,7 @@ const Account = () => {
       } catch (err) {
         console.log(err);
       }
+      setIsLoading(false);
     };
     getData();
   }, [session, userId]);
@@ -43,6 +46,7 @@ const Account = () => {
     data.append("file", file);
     data.append("upload_preset", "fooder");
     try {
+      setIsLoading(true);
       const uploadRes = await axios.post(
         "https://api.cloudinary.com/v1_1/dz2y5zsex/image/upload",
         data
@@ -62,6 +66,7 @@ const Account = () => {
       if (res.status === 200) {
         // toast.success("Profile updated successfully");
         setUser(res?.data);
+        setIsLoading(false);
       }
 
       // console.log("added product", res.data);
@@ -159,20 +164,26 @@ const Account = () => {
 
   return (
     <div className="flex flex-col justify-start items-start w-full ">
-        <Title addClass="text-[40px]">Account Settings</Title>
-        <div className="relative h-48 flex flex-col items-center px-10 py-5 border border-b-0">
-          <div className="relative w-28 h-28 rounded-full">
+      <Title addClass="text-[40px]">Account Settings</Title>
+      <div className="relative h-48 flex flex-col items-center px-10 py-5 border border-b-0">
+        <div className="relative w-28 h-28 rounded-full">
+          {isLoading ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
+            </div>
+          ) : (
             <Image
               src={user?.img ? user.img : "/assets/png/fooder logo4.png"}
               alt="client2 "
               fill
               className="object-contain rounded-full border"
             />
-          </div>
-          <b className="text-2xl mt-1">
-            {user?.fullName ? user?.fullName : user?.name}{" "}
-          </b>
+          )}
         </div>
+        <b className="text-2xl mt-1">
+          {user?.fullName ? user?.fullName : user?.name}{" "}
+        </b>
+      </div>
       <form
         className="lg:p-8 flex-1 lg:mt-0 mt-5 w-full"
         onSubmit={handleSubmit}
@@ -187,10 +198,11 @@ const Account = () => {
             <button className="btn-primary cursor-pointer !rounded-none !bg-blue-600 pointer-events-none">
               Choose an Image
             </button>
-            {file &&
-            <button className="pb-3 mt-4" type="button" onClick={updatePhoto}>
-          Update Photo
-        </button>}
+            {file && (
+              <button className="pb-3 mt-4" type="button" onClick={updatePhoto}>
+                Update Photo
+              </button>
+            )}
             {imageSrc && (
               <div>
                 {/*eslint-disable-next-line @next/next/no-img-element*/}
