@@ -1,9 +1,5 @@
-<h3 align="left">Tech Stacks:</h3>
-## Tech Stack
+<h3 align="left">Tech Stack:</h3>
 
-**Client:** React, Redux, TailwindCSS
-
-**Server:** MongoDB, Mongoose
 
 
 <p align="left">
