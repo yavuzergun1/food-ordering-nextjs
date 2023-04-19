@@ -82,14 +82,14 @@ const Login = () => {
           <button type="submit" className="btn-primary">
             LOGIN
           </button>
-          <button
+          {/* <button
             type="button"
             onClick={() => signIn("github")}
             className="btn-primary !bg-secondary"
           >
             <i className="fa-brands fa-github mr-2 text-lg"></i>
             GITHUB
-          </button>
+          </button> */}
           <Link href="/auth/register">
             <span className="text-sm underline cursor-pointer text-secondary">
               Create an Account
