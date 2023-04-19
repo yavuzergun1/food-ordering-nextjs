@@ -17,7 +17,9 @@ const Cart = () => {
 
   const userId = session.data?.id;
   // console.log(userId);
-
+  if (!userId) {
+  alert ("Please login first");
+}
   const fetcher = async () =>
     await axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`)
