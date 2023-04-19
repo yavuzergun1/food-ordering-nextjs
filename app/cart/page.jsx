@@ -18,7 +18,7 @@ const Cart = () => {
   const userId = session.data?.id;
   // console.log(userId);
   if (!userId) {
-  alert ("Please login first");
+  alert("Please login first");
 }
   const fetcher = async () =>
     await axios
