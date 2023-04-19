@@ -37,6 +37,7 @@ const Login = () => {
       actions.resetForm();
         if (res.status === 200) {
           actions.resetForm();
+          
           push("/profile/account");
         } else if (res.response.status === 400) {
           console.log("resadmin", res.data);
