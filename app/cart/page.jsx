@@ -14,12 +14,12 @@ const Cart = () => {
   const session = useSession();
   const router = useRouter();
   // console.log("cart items", cartItems);
-   
+
   const userId = session.data?.id;
   // console.log(userId);
-  
+
   const fetcher = async () =>
-  userId &&  await axios
+    await axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`)
       .then((res) => res.data);
   const { data, error, isLoading } = useSWR(
@@ -34,7 +34,7 @@ const Cart = () => {
 
   const newOrder = {
     customer: user?.fullName,
-    email:user?.email,
+    email: user?.email,
     address: user?.address ? user?.address : "No address",
     total: cartItems.total,
     method: 0,
