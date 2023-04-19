@@ -7,6 +7,8 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart);
@@ -14,27 +16,28 @@ const Cart = () => {
   const session = useSession();
   const router = useRouter();
   // console.log("cart items", cartItems);
-   
+
   const userId = session.data?.id;
-  // console.log(userId);
+  if (!userId) {
+     toast.error("Please login first");
+   }
   
   const fetcher = async () =>
-  userId &&  await axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`)
-      .then((res) => res.data);
+  await axios
+  .get(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`)
+  .then((res) => res.data);
   const { data, error, isLoading } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/products`,
+    `${process.env.NEXT_PUBLIC_API_URL}/users`,
     fetcher
   );
-
-  if (error) return console.log(error);
+  
   if (isLoading) return "Loading...";
-
+  if (error) return toast.error("Please login first");
+  
   const user = data;
-
   const newOrder = {
     customer: user?.fullName,
-    email:user?.email,
+    email: user?.email,
     address: user?.address ? user?.address : "No address",
     total: cartItems.total,
     method: 0,
@@ -51,16 +54,15 @@ const Cart = () => {
           if (res.status === 201) {
             router.push(`/order/${res.data._id}`);
             dispatch(reset());
-            // toast.success("Order created successfully", {
-            //   autoClose: 1000,
-            // });
+            toast.success("Order created successfully", {
+              autoClose: 1000,
+            }
+            );
             // console.log(res);
           }
         }
       } else {
-        toast.error("Please login first.", {
-          autoClose: 1000,
-        });
+       toast.error("Please login first");
       }
     } catch (err) {
       console.log(err);
