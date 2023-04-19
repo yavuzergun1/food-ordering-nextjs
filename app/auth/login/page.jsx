@@ -9,8 +9,24 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const { data: session } = useSession();
+  const session= useSession();
   const router = useRouter();
+  
+  const gitHubLogin = async () => {
+    try {
+      const res = await signIn("github");
+
+      if (session.status === "authenticated") {
+        // router.push("/profile/account");
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/register`,
+        session.data.user
+      );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const onSubmit = async (values, actions) => {
     const { email, password } = values;
@@ -84,7 +100,7 @@ const Login = () => {
           </button>
           <button
             type="button"
-            onClick={() => signIn("github")}
+            onClick={gitHubLogin}
             className="btn-primary !bg-secondary"
           >
             <i className="fa-brands fa-github mr-2 text-lg"></i>
