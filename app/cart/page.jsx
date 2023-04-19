@@ -25,7 +25,7 @@ const Cart = () => {
       .get(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`)
       .then((res) => res.data);
   const { data, error, isLoading } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/products`,
+    `${process.env.NEXT_PUBLIC_API_URL}/users`,
     fetcher
   );
 
@@ -33,7 +33,6 @@ const Cart = () => {
   if (isLoading) return "Loading...";
 
   const user = data;
-
   const newOrder = {
     customer: user?.fullName,
     email: user?.email,
