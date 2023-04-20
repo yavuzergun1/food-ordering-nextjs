@@ -10,23 +10,22 @@ const Footer = () => {
             <div className="flex flex-col gap-y-2 mt-3">
               <div>
                 <i className="fa fa-map-marker"></i>
-                <span className="inline-block ml-2">Location</span>
+                <span className="inline-block ml-2">Ankara / Turkey</span>
               </div>
               <div>
                 <i className="fa fa-phone"></i>
-                <span className="inline-block ml-2">Call +01 1234567890</span>
+                <span className="inline-block ml-2">Call +90 5315563549</span>
               </div>
               <div>
                 <i className="fa fa-envelope"></i>
-                <span className="inline-block ml-2">demo@gmail.com</span>
+                <span className="inline-block ml-2">posta.yavuzergun@gmail.com</span>
               </div>
             </div>
           </div>
           <div className="md:flex-1">
-            <Title addClass="text-[38px]">Feane</Title>
+            <Title addClass="text-[38px]">Fooder</Title>
             <p className="mt-3">
-              Necessary, making this the first true generator on the Internet.
-              It uses a dictionary of over 200 Latin words, combined with
+              Admin and User Panel for users. 
             </p>
             <div className="flex items-center justify-center mt-5 gap-x-2">
               <a
@@ -74,7 +73,7 @@ const Footer = () => {
           </div>
         </div>
         <p className="text-center mt-10">
-          © 2022 All Rights Reserved By Free Html Templates
+          © 2023 NextJS Project Developed by Yavuz Ergun
         </p>
       </div>
     </div>
