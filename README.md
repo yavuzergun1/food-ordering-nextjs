@@ -1,6 +1,4 @@
-# 💫 Fooder
-
-Full-Stack (CRUD) NextJS project with MongoDB + Mongoose
+# 💫 Fooder / Full-Stack (CRUD) NextJS project with MongoDB + Mongoose
 
 # 💻 Tech Stack:
 
