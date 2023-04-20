@@ -18,22 +18,22 @@ const Cart = () => {
   // console.log("cart items", cartItems);
 
   const userId = session.data?.id;
-  if (!userId) {
-     toast.error("Please login first");
-   }
-  
-  const fetcher = async () =>
+  // console.log(userId);
+if (!userId) {
+  toast.error("Please login first");
+}
+
+const fetcher = async () =>
   await axios
-  .get(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`)
-  .then((res) => res.data);
-  const { data, error, isLoading } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/users`,
-    fetcher
-  );
-  
+    .get(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`)
+    .then((res) => res.data);
+const { data, error, isLoading } = useSWR(
+  `${process.env.NEXT_PUBLIC_API_URL}/users`,
+  fetcher
+);
+
   if (isLoading) return "Loading...";
   if (error) return toast.error("Please login first");
-  
   const user = data;
   const newOrder = {
     customer: user?.fullName,
@@ -56,13 +56,14 @@ const Cart = () => {
             dispatch(reset());
             toast.success("Order created successfully", {
               autoClose: 1000,
-            }
-            );
+            });
             // console.log(res);
           }
         }
       } else {
-       toast.error("Please login first");
+        toast.error("Please login first.", {
+          autoClose: 1000,
+        });
       }
     } catch (err) {
       console.log(err);
