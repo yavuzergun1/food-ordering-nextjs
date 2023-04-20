@@ -17,7 +17,7 @@ Full-Stack (CRUD) NextJS project with MongoDB + Mongoose
 ![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)
 ![Chakra](https://img.shields.io/badge/chakra-%234ED1C5.svg?style=for-the-badge&logo=chakraui&logoColor=white)
 <p>
-Other Techs: Mongoose, Bcyrpt
+Other Techs: NextAuth, Mongoose, Bcyrpt
 </p>
 
 <h3>
