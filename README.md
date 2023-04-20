@@ -17,11 +17,11 @@ Full-Stack (CRUD) NextJS project with MongoDB + Mongoose
 ![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white) 
 ![Chakra](https://img.shields.io/badge/chakra-%234ED1C5.svg?style=for-the-badge&logo=chakraui&logoColor=white)
 
-Project description
-Full-Stack Project with NextJS + MongoDB + Mongoose
+#Project description
+#Full-Stack Project with NextJS + MongoDB + Mongoose
 with Authorization and CRUD abilities
 
-Some of the techs I used for this project:
+#Some of the techs I used for this project:
 -NextJS for client and server-side
 -MongoDB for database
 -Mongoose for database interaction
