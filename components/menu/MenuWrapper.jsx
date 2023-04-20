@@ -46,22 +46,20 @@ function MenuWrapper() {
 
   // console.log("filtered", filteredProducts);
   return (
-    <div className="container mx-auto  mb-16">
-      <div className="flex flex-col items-center w-full">
+    <div className="container mx-auto min-h-screen mb-16">
+      <div className="flex flex-col  items-center w-full">
         <Title addClass="text-[40px] text-primary">Our Menu</Title>
         <div className="mt-10">
-          {
-            categories.length > 0 &&
-
-          <button
-            onClick={() => handleClick("All")}
-            className={`px-6 py-2 ${
-              params === "All" ? " bg-secondary rounded-3xl text-white" : null
-            } `}
-          >
-            All
-          </button>
-          }
+          {categories.length > 0 && (
+            <button
+              onClick={() => handleClick("All")}
+              className={`px-6 py-2 ${
+                params === "All" ? " bg-secondary rounded-3xl text-white" : null
+              } `}
+            >
+              All
+            </button>
+          )}
           {categories?.map((cat) => {
             return (
               <React.Fragment key={cat._id}>
