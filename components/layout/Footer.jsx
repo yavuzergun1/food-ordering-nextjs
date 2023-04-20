@@ -10,11 +10,11 @@ const Footer = () => {
             <div className="flex flex-col gap-y-2 mt-3">
               <div>
                 <i className="fa fa-map-marker"></i>
-                <span className="inline-block ml-2">Location</span>
+                <span className="inline-block ml-2">Ankara / Turkey</span>
               </div>
               <div>
                 <i className="fa fa-phone"></i>
-                <span className="inline-block ml-2">Call +01 1234567890</span>
+                <span className="inline-block ml-2">Call +90 5315563549</span>
               </div>
               <div>
                 <i className="fa fa-envelope"></i>
