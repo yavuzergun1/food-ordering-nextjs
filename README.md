@@ -17,5 +17,34 @@ Full-Stack (CRUD) NextJS project with MongoDB + Mongoose
 ![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white) 
 ![Chakra](https://img.shields.io/badge/chakra-%234ED1C5.svg?style=for-the-badge&logo=chakraui&logoColor=white)
 
+Project description
+Full-Stack Project with NextJS + MongoDB + Mongoose
+with Authorization and CRUD abilities
 
+Some of the techs I used for this project:
+-NextJS for client and server-side
+-MongoDB for database
+-Mongoose for database interaction
+- NextAuth for login with credentials
+- Bcyrpt for password encryption
+-Redux for state management
+-TailwindCSS for styling
+-Responsive design
+
+
+User Abilities:
+-Login, Logout
+-Update user info (address, email, password, profile photo...)
+-Choose foods from the menu with extra options
+-Add to cart and display bill in cart
+-Checkout and send the order to seller
+-Display current and recent orders
+
+Admin Abilities
+- Display all foods
+-Add new foods with photos and all options
+-Display, add or delete categories
+-Delete existing foods
+-Display orders which come from the user side
+-Change order status (payment, preparing, on the way, delivered)
  
