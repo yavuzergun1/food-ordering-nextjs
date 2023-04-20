@@ -2,43 +2,75 @@
 import { useState } from "react";
 import { FaUserAlt, FaShoppingCart, FaSearch } from "react-icons/fa";
 import Image from "next/image";
-import { RiCloseFill } from "react-icons/ri";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { GiHamburgerMenu, GiCancel } from "react-icons/gi";
 import Search from "../ui/Search";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [isSearchModal, setIsSearchModal] = useState(false);
   const [isMenuModal, setIsMenuModal] = useState(false);
   const cart = useSelector((state) => state.cart);
+  const router = useRouter();
   return (
-    <div className="h-[7.5rem] bg-secondary font-josefin px-5 md:px-0">
+    <div
+      className={`h-[5.5rem] z-50 fixed w-full ${
+        router.asPath === "/" ? "bg-transparent" : "bg-secondary"
+      }`}
+    >
       <div className="container mx-auto text-white flex justify-between items-center h-full">
         <div className="logo-container relative h-[5.5rem]  w-48 lg:w-60">
           <Link href="/">
-            <Image src="/assets/png/fooder logo4.png" alt="logo" fill priority />
+            <Image
+              src="/assets/png/fooder logo4.png"
+              alt="logo"
+              fill
+              priority
+            />
           </Link>
         </div>
         <nav
-          className={`sm:hidden md:flex md:static absolute top-0 left-0 transition-all md:translate-x-0 sm:w-auto sm:h-auto w-full h-full sm:text-white text-black sm:bg-transparent bg-white sm:flex-col  ${
-            isMenuModal === true
-              ? "grid translate-x-0 place-content-center"
-              : "translate-x-full "
+          className={`sm:static absolute top-0 left-0 sm:w-auto sm:h-auto w-full h-screen sm:text-white text-black sm:bg-transparent bg-white sm:flex hidden  ${
+            isMenuModal === true && "!grid place-content-center"
           }`}
         >
-          <ul className="md:flex-row flex flex-col text-center gap-x-3">
-            <li className="px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer">
-              <Link href="/">Home</Link>
+          <ul className="flex gap-x-2 sm:flex-row flex-col items-center">
+            <li
+              className={`px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer ${
+                router.asPath === "/" && "text-primary"
+              }`}
+            >
+              <Link onClick={() => setIsMenuModal(false)} href="/">
+                Home
+              </Link>
             </li>
-            <li className="px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer">
-              <Link href="/menu?category=All">Menu</Link>
+            <li
+              className={`px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer ${
+                router.asPath === "/menu" && "text-primary"
+              }`}
+            >
+              <Link onClick={() => setIsMenuModal(false)} href="/menu">
+                Menu
+              </Link>
             </li>
-            <li className="px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer">
-              <Link href="/about">About</Link>
+            <li
+              className={`px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer ${
+                router.asPath === "/about" && "text-primary"
+              }`}
+            >
+              <Link onClick={() => setIsMenuModal(false)} href="/about">
+                About
+              </Link>
             </li>
-            <li className="px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer">
-              <Link href="/reservation">Book Table</Link>
+            <li
+              className={`px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer ${
+                router.asPath === "/reservation" && "text-primary"
+              }`}
+            >
+              <Link onClick={() => setIsMenuModal(false)} href="/reservation">
+                Book Table
+              </Link>
             </li>
           </ul>
           {isMenuModal && (
@@ -46,50 +78,51 @@ const Header = () => {
               className="absolute  top-4 right-4 z-50"
               onClick={() => setIsMenuModal(false)}
             >
-              <RiCloseFill size={25} className=" transition-all md:hidden" />
+              <GiCancel size={25} className=" transition-all" />
             </button>
           )}
         </nav>
         <div className="flex gap-x-4 items-center">
           <Link href="/auth/login">
-            <FaUserAlt className=" hover:text-primary cursor-pointer transition-all" />
+            <span>
+              <FaUserAlt
+                className=" hover:text-primary cursor-pointer transition-all"
+                size={18}
+              />
+            </span>
           </Link>
           <Link href="/cart">
             <span className="relative">
-              <FaShoppingCart className=" hover:text-primary cursor-pointer transition-all" />
-              {cart.products.length === 0 ? null : (
-                <span className="w-4 h-4 text-xs grid place-content-center rounded-full bg-primary absolute -top-2 -right-3 text-black font-bold">
-                  {cart.products.length}
-                </span>
-              )}
+              <FaShoppingCart
+                className={`hover:text-primary transition-all cursor-pointer ${
+                  router.asPath === "/cart" && "text-primary"
+                }`}
+                size={18}
+              />
+              <span className="w-4 h-4 text-xs grid place-content-center rounded-full bg-primary absolute -top-2 -right-3 text-black font-bold">
+                {cart.products.length === 0 ? "0" : cart.products.length}
+              </span>
             </span>
           </Link>
-          <Link href="#">
+          <button onClick={() => setIsSearchModal(true)}>
             <FaSearch
-              onClick={() => setIsSearchModal(!isSearchModal)}
-              className=" hover:text-primary cursor-pointer transition-all"
+              className="hover:text-primary transition-all cursor-pointer"
+              size={18}
             />
-          </Link>
-          {/* <Link href="#" className="md:inline-block hidden ">
-            <button className="btn-primary font-josefin font-bold">
-              Order Online
-            </button>
-          </Link> */}
+          </button>
+          <a href="#" className="md:inline-block hidden sm">
+            <button className="btn-primary">Order Online</button>
+          </a>
           <button
-            className="md:hidden inline-block"
+            className="sm:hidden inline-block"
             onClick={() => setIsMenuModal(true)}
           >
             <GiHamburgerMenu className="text-xl hover:text-primary transition-all" />
           </button>
         </div>
       </div>
-      {isSearchModal && (
-        <div>
-          <Search setIsSearchModal={setIsSearchModal} />
-        </div>
-      )}
+      {isSearchModal && <Search setIsSearchModal={setIsSearchModal} />}
     </div>
   );
 };
-
 export default Header;

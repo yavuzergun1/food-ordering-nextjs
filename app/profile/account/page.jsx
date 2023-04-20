@@ -182,7 +182,7 @@ const Account = () => {
             )
           ) : (
             <Image
-                src={session.data.user.image}
+                src={session.data?.user.image}
               alt="client2 "
               fill
               className="object-contain rounded-full border"
