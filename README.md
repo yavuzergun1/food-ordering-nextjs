@@ -16,7 +16,7 @@ Full-Stack (CRUD) NextJS project with MongoDB + Mongoose
 ![Google Cloud](https://img.shields.io/badge/Google%20Cloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white) ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7) 
 ![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white) 
 ![Chakra](https://img.shields.io/badge/chakra-%234ED1C5.svg?style=for-the-badge&logo=chakraui&logoColor=white)
-
+Other Techs: Mongoose, Bcyrpt
 <h3>
 Project description
 </h3>
@@ -25,24 +25,21 @@ Full-Stack Project with NextJS + MongoDB + Mongoose
 with Authorization and CRUD abilities
 </p>
 
-#Some of the techs I used for this project:
--NextJS for client and server-side
--MongoDB for database
--Mongoose for database interaction
-- NextAuth for login with credentials
-- Bcyrpt for password encryption
--Redux for state management
--TailwindCSS for styling
--Responsive design
 
 
+<ul>
 User Abilities:
--Login, Logout
--Update user info (address, email, password, profile photo...)
--Choose foods from the menu with extra options
--Add to cart and display bill in cart
--Checkout and send the order to seller
--Display current and recent orders
+<li>Login, Logout</li>
+<li>Update user info (address, email, password, profile photo...)</li>
+<li>Choose foods from the menu with extra options</li>
+<li>Add to cart and display bill in cart</li>
+<li>Checkout and send the order to seller</li>
+<li>Display current and recent orders</li>
+</ul>
+
+<li></li>
+
+
 
 Admin Abilities
 - Display all foods
