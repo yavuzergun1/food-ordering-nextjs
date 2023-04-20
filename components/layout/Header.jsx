@@ -15,7 +15,7 @@ const Header = () => {
   const router = useRouter();
   return (
     <div
-      className={`h-[5.5rem] z-50 fixed w-full ${
+      className={`h-[5.5rem] z-50  w-full ${
         router.asPath === "/" ? "bg-transparent" : "bg-secondary"
       }`}
     >
@@ -110,9 +110,9 @@ const Header = () => {
               size={18}
             />
           </button>
-          <a href="#" className="md:inline-block hidden sm">
+          {/* <a href="#" className="md:inline-block hidden sm">
             <button className="btn-primary">Order Online</button>
-          </a>
+          </a> */}
           <button
             className="sm:hidden inline-block"
             onClick={() => setIsMenuModal(true)}

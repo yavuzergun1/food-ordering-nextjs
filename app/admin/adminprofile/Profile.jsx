@@ -41,7 +41,7 @@ console.log(categories);
   };
 
   return (
-    <div className="flex px-2 min-h-[calc(100vh_-_433px)] lg:flex-row flex-col lg:mb-0 mb-10">
+    <div className="flex px-2 min-h-[calc(100vh_-_433px)] mt-52 lg:flex-row flex-col lg:mb-0 mb-10">
       <div className="lg:w-80 w-100 flex-shrink-0">
         <div className="relative flex flex-col items-center px-10 py-5 border border-b-0">
           <Image
@@ -111,7 +111,7 @@ console.log(categories);
       )}
       <button
         type="button"
-        className="btn-primary !w-12 !h-12 rounded-full !p-0 -pt-5 text-center absolute top-36 right-10 text-4xl"
+        className="btn-primary !w-12 !h-12 rounded-full !p-0 -pt-5 text-center absolute top-24 right-10 text-4xl"
         onClick={() => setIsProductModal(true)}
       >
         <p className="-mt-2">+</p>
