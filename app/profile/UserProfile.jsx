@@ -15,7 +15,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="flex px-10 min-h-[calc(100vh_-_433px)] lg:mt-14 lg:flex-row flex-col lg:mb-0 mb-10">
+    <div className="flex px-10 min-h-[calc(100vh_-_733px)] mt-10 lg:mt-14 lg:flex-row flex-col lg:mb-0 mb-10">
       <div className="lg:w-80 w-100 flex-shrink-0">
     
         <ul className="text-center font-semibold">

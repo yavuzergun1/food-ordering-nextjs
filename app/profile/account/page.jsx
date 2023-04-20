@@ -19,7 +19,7 @@ const Account = () => {
   const [isLoading, setIsLoading] = useState(false);
   const session = useSession();
   const router = useRouter();
-  // console.log("SESSION", session);
+  console.log("SESSION", session);
   const [user, setUser] = useState();
   const userId = session.data?.id;
   // console.log(userId);
@@ -167,13 +167,22 @@ const Account = () => {
       <Title addClass="text-[40px]">Account Settings</Title>
       <div className="relative h-48 flex flex-col items-center px-10 py-5 border border-b-0">
         <div className="relative w-28 h-28 rounded-full">
-          {isLoading ? (
-            <div className="flex items-center justify-center h-full">
-              <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
-            </div>
+          {user ? (
+            isLoading ? (
+              <div className="flex items-center justify-center h-full">
+                <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
+              </div>
+            ) : (
+              <Image
+                src={user?.img ? user.img : "/assets/png/fooder logo4.png"}
+                alt="client2 "
+                fill
+                className="object-contain rounded-full border"
+              />
+            )
           ) : (
             <Image
-              src={user?.img ? user.img : "/assets/png/fooder logo4.png"}
+                src={session.data?.user.image}
               alt="client2 "
               fill
               className="object-contain rounded-full border"
@@ -181,7 +190,7 @@ const Account = () => {
           )}
         </div>
         <b className="text-2xl mt-1">
-          {user?.fullName ? user?.fullName : user?.name}{" "}
+          {/* {user?.fullName ? user?.fullName : user?.name}{" "} */}
         </b>
       </div>
       <form
