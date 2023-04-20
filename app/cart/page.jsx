@@ -7,34 +7,60 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
-import { ToastContainer, toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Cart = () => {
+  const [user, setUser] = useState();
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const session = useSession();
   const router = useRouter();
   // console.log("cart items", cartItems);
-
   const userId = session.data?.id;
-  // console.log(userId);
-if (!userId) {
-  toast.error("Please login first");
-}
 
-const fetcher = async () =>
-  await axios
-    .get(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`)
-    .then((res) => res.data);
-const { data, error, isLoading } = useSWR(
-  `${process.env.NEXT_PUBLIC_API_URL}/users`,
-  fetcher
-);
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
+          );
+          console.log(res);
+         setUser(res.data);
+         
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUsers();
+  }, []);
+console.log(user);
 
-  if (isLoading) return "Loading...";
-  if (error) return toast.error("Please login first");
-  const user = data;
+
+  //   const fetcher = async () =>
+  //     await axios
+  //       .get(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`)
+  //       .then((res) => res.data);
+  //   const { data, error, isLoading } = useSWR(
+  //     `${process.env.NEXT_PUBLIC_API_URL}/users`,
+  //     fetcher
+  //   );
+  //   console.log(userId);
+  // // if (!userId) {
+  // //   toast.error("Please login first");
+  // // }
+
+  // if (isLoading) return (
+
+  //     <div className="flex w-full h-screen items-center m-auto justify-center">
+  //       <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
+  //     </div>
+
+  // );
+  // if (error) return toast.error("Please login first");
+  // const user = data;
+
   const newOrder = {
     customer: user?.fullName,
     email: user?.email,
@@ -46,6 +72,9 @@ const { data, error, isLoading } = useSWR(
   const createOrder = async () => {
     try {
       if (session) {
+        if (!newOrder.email) {
+          toast.error("Please login first");              
+        }
         if (confirm("Are you sure to order?")) {
           const res = await axios.post(
             `${process.env.NEXT_PUBLIC_API_URL}/orders`,
@@ -61,16 +90,16 @@ const { data, error, isLoading } = useSWR(
           }
         }
       } else {
-        toast.error("Please login first.", {
+        alert("Please login first.", {
           autoClose: 1000,
         });
       }
     } catch (err) {
-      console.log(err);
+         alert("Please login first.")
     }
   };
   return (
-    <div className="min-h-[calc(100vh_-_433px)]">
+    <div className="min-h-screen">
       <div className="flex justify-between items-center md:flex-row flex-col">
         <div className="md:min-h-[calc(100vh_-_433px)] flex items-center flex-1 p-10 overflow-x-auto w-full">
           <table className="w-full text-sm text-center text-gray-500 min-w-[1000px]">
