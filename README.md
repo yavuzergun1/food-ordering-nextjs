@@ -1,4 +1,4 @@
-# 💫 About Me:
+# 💫 Fooder
 Full-Stack (CRUD) NextJS project with MongoDB + Mongoose
 
 
