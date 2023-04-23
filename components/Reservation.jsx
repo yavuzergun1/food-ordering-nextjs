@@ -16,7 +16,7 @@ const Reservation = () => {
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
       initialValues: {
-        fullName: "",
+        name: "",
         phoneNumber: "",
         email: "",
         persons: "",
@@ -30,12 +30,12 @@ const Reservation = () => {
   const inputs = [
     {
       id: 1,
-      name: "fullName",
+      name: "name",
       type: "text",
       placeholder: "Your Full Name",
-      value: values.fullName,
-      errorMessage: errors.fullName,
-      touched: touched.fullName,
+      value: values.name,
+      errorMessage: errors.name,
+      touched: touched.name,
     },
     {
       id: 2,

@@ -6,6 +6,7 @@ const handler = async (req, res) => {
   const { method } = req;
   
   if (method === "GET") {
+    console.log("get");
     try {
       const users = await User.find({});
       res.status(200).json({ success: true, data: users })

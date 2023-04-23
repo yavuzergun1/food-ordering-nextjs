@@ -9,7 +9,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 const Register = () => {
-  const router =useRouter()
+  const router = useRouter();
   const onSubmit = async (values, actions) => {
     try {
       const res = await axios.post(
@@ -17,8 +17,7 @@ const Register = () => {
         values
       );
       // console.log(res);
-      router.push("/")
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+      router.push("/auth/login");
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +27,7 @@ const Register = () => {
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
       initialValues: {
-        fullName: "",
+        name: "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -40,12 +39,12 @@ const Register = () => {
   const inputs = [
     {
       id: 1,
-      name: "fullName",
+      name: "name",
       type: "text",
       placeholder: "Your Full Name",
-      value: values.fullName,
-      errorMessage: errors.fullName,
-      touched: touched.fullName,
+      value: values.name,
+      errorMessage: errors.name,
+      touched: touched.name,
     },
     {
       id: 2,
