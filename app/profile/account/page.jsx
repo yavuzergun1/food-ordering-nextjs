@@ -16,7 +16,6 @@ import Image from "next/image";
 const Account = () => {
   const [file, setFile] = useState();
   const [imageSrc, setImageSrc] = useState();
-  const [users, setUsers] = useState([]);
   const session = useSession();
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(false);
@@ -25,7 +24,7 @@ const Account = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const getData = async () => {
+    const addGitHubToDB = async () => {
       try {
         setLoading(true);
         await axios.post(
@@ -35,26 +34,25 @@ const Account = () => {
       } catch (err) {
         // console.log(err);
       }
-      try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
-        setUsers(res?.data.data);
-        console.log(users);
-      } catch (error) {
-        console.log(error);
-      }
     };
-    getData();
-    setLoading(false);
+    addGitHubToDB();
   }, []);
 
-  
-  const userData = users?.find((user) => user.email === userEmail);
   useEffect(() => {
-    setUser(userData);
-  }, [users]);
+    const fetchData = async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/users/userFind?email=${userEmail}`;
+      try {
+        const response = await axios.get(url);
+        const userData = response.data;
+        setUser(userData);
+      } catch (error) {
+        console.error(error);
+        setUser(null);
+      }
+    };
 
-  console.log(user);
-
+    fetchData();
+  }, [session]);
 
   const updatePhoto = async () => {
     const data = new FormData();
@@ -79,7 +77,6 @@ const Account = () => {
         // toast.success("Profile updated successfully");
         setUser(res?.data);
       }
-
       // console.log("added product", res.data);
     } catch (err) {
       console.log(err);
@@ -174,26 +171,19 @@ const Account = () => {
     },
   ];
 
-
   return (
     <div className="flex flex-col justify-start items-start w-full ">
       <Title addClass="text-[40px]">Account Settings</Title>
       <div className="relative h-48 flex flex-col items-center px-10 py-5 border border-b-0">
         <div className="relative w-28 h-28 rounded-full">
-         
-              <Image
-                src={user?.image ? user.image : "/assets/png/fooder logo4.png"}
-                alt="client2 "
-                fill
-                className="object-contain rounded-full border"
-              />
-            
-          
-          
+          <Image
+            src={user?.image ? user.image : "/assets/png/fooder logo4.png"}
+            alt="client2 "
+            fill
+            className="object-contain rounded-full border"
+          />
         </div>
-        <b className="text-2xl mt-1">
-          {user?.name }{" "}
-        </b>
+        <b className="text-2xl mt-1">{user?.name} </b>
       </div>
       <form
         className="lg:p-8 flex-1 lg:mt-0 mt-5 w-full"
