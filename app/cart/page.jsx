@@ -137,7 +137,7 @@ console.log(user);
                 </tbody>
               </table>
             ) : (
-              <p className="text-center font-semibold">Hiç Ürün Yok..</p>
+              <p className="text-center font-semibold">The Cart is Empty...</p>
             )}
           </div>
         </div>
