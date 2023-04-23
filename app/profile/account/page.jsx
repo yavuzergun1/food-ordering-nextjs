@@ -18,7 +18,7 @@ const Account = () => {
   const [imageSrc, setImageSrc] = useState();
   const session = useSession();
   const [user, setUser] = useState();
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   console.log("SESSION", session);
   const userEmail = session.data?.user.email;
   const router = useRouter();
@@ -26,7 +26,6 @@ const Account = () => {
   useEffect(() => {
     const addGitHubToDB = async () => {
       try {
-        setLoading(true);
         await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/users/githubRegister`,
           session.data.user
@@ -59,6 +58,7 @@ const Account = () => {
     data.append("file", file);
     data.append("upload_preset", "fooder");
     try {
+      setIsLoading(true);
       const uploadRes = await axios.post(
         "https://api.cloudinary.com/v1_1/dz2y5zsex/image/upload",
         data
@@ -81,6 +81,7 @@ const Account = () => {
     } catch (err) {
       console.log(err);
     }
+setIsLoading(false);
   };
 
   const onSubmit = async (values, actions) => {
@@ -170,18 +171,24 @@ const Account = () => {
       touched: touched.job,
     },
   ];
-
+console.log("isloading", isLoading);
   return (
     <div className="flex flex-col justify-start items-start w-full ">
       <Title addClass="text-[40px]">Account Settings</Title>
       <div className="relative h-48 flex flex-col items-center px-10 py-5 border border-b-0">
         <div className="relative w-28 h-28 rounded-full">
-          <Image
-            src={user?.image ? user.image : "/assets/png/fooder logo4.png"}
-            alt="client2 "
-            fill
-            className="object-contain rounded-full border"
-          />
+          {isLoading ? (
+            <div className="flex w-full items-center m-auto justify-center h-full">
+              <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
+            </div>
+          ) : (
+            <Image
+              src={user?.image ? user.image : "/assets/png/fooder logo4.png"}
+              alt="client2 "
+              fill
+              className="object-contain rounded-full border"
+            />
+          )}
         </div>
         <b className="text-2xl mt-1">{user?.name} </b>
       </div>
