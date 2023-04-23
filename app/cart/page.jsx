@@ -25,18 +25,16 @@ const Cart = () => {
       try {
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
-          );
-          console.log(res);
-         setUser(res.data);
-         
+        );
+        console.log(res);
+        setUser(res.data);
       } catch (err) {
         console.log(err);
       }
     };
     getUsers();
   }, []);
-console.log(user);
-
+  console.log(user);
 
   //   const fetcher = async () =>
   //     await axios
@@ -62,7 +60,7 @@ console.log(user);
   // const user = data;
 
   const newOrder = {
-    customer: user?.fullName,
+    customer: user?.name,
     email: user?.email,
     address: user?.address ? user?.address : "No address",
     total: cartItems.total,
@@ -73,7 +71,7 @@ console.log(user);
     try {
       if (session) {
         if (!newOrder.email) {
-          toast.error("Please login first");              
+          toast.error("Please login first");
         }
         if (confirm("Are you sure to order?")) {
           const res = await axios.post(
@@ -95,7 +93,7 @@ console.log(user);
         });
       }
     } catch (err) {
-         alert("Please login first.")
+      alert("Please login first.");
     }
   };
   return (

@@ -16,37 +16,51 @@ import Image from "next/image";
 const Account = () => {
   const [file, setFile] = useState();
   const [imageSrc, setImageSrc] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const [users, setUsers] = useState([]);
   const session = useSession();
-  const router = useRouter();
-  console.log("SESSION", session);
   const [user, setUser] = useState();
-  const userId = session.data?.id;
-  // console.log(userId);
+  const [loading, setLoading] = useState(false);
+  console.log("SESSION", session);
+  const userEmail = session.data?.user.email;
+  const router = useRouter();
 
   useEffect(() => {
     const getData = async () => {
       try {
-        setIsLoading(true);
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
+        setLoading(true);
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/users/githubRegister`,
+          session.data.user
         );
-        // console.log(res?.data);
-        setUser(res?.data);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
-      setIsLoading(false);
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+        setUsers(res?.data.data);
+        console.log(users);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getData();
-  }, [session, userId]);
+    setLoading(false);
+  }, []);
+
+  
+  const userData = users?.find((user) => user.email === userEmail);
+  useEffect(() => {
+    setUser(userData);
+  }, [users]);
+
+  console.log(user);
+
 
   const updatePhoto = async () => {
     const data = new FormData();
     data.append("file", file);
     data.append("upload_preset", "fooder");
     try {
-      setIsLoading(true);
       const uploadRes = await axios.post(
         "https://api.cloudinary.com/v1_1/dz2y5zsex/image/upload",
         data
@@ -55,25 +69,23 @@ const Account = () => {
 
       const { url } = uploadRes.data;
       const newProduct = {
-        img: url,
+        image: url,
       };
-
       const res = await axios.put(
         `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
         newProduct
       );
-
       if (res.status === 200) {
         // toast.success("Profile updated successfully");
         setUser(res?.data);
-        setIsLoading(false);
       }
 
       // console.log("added product", res.data);
     } catch (err) {
-    console.log(err);
+      console.log(err);
     }
-  }
+  };
+
   const onSubmit = async (values, actions) => {
     try {
       const res = await axios.put(
@@ -82,7 +94,7 @@ const Account = () => {
       );
       console.log(res);
       if (res.status === 200) {
-       setUser(res?.data);
+        setUser(res?.data);
       }
     } catch (err) {
       console.log(err);
@@ -93,7 +105,7 @@ const Account = () => {
     useFormik({
       enableReinitialize: true,
       initialValues: {
-        fullName: user?.fullName || "",
+        name: user?.name || "",
         phoneNumber: user?.phoneNumber || "",
         email: user?.email || "",
         address: user?.address || "",
@@ -117,12 +129,12 @@ const Account = () => {
   const inputs = [
     {
       id: 1,
-      name: "fullName",
+      name: "name",
       type: "text",
       placeholder: "Your Full Name",
-      value: values.fullName,
-      errorMessage: errors.fullName,
-      touched: touched.fullName,
+      value: values.name,
+      errorMessage: errors.name,
+      touched: touched.name,
     },
     {
       id: 2,
@@ -162,35 +174,25 @@ const Account = () => {
     },
   ];
 
+
   return (
     <div className="flex flex-col justify-start items-start w-full ">
       <Title addClass="text-[40px]">Account Settings</Title>
       <div className="relative h-48 flex flex-col items-center px-10 py-5 border border-b-0">
         <div className="relative w-28 h-28 rounded-full">
-          {user ? (
-            isLoading ? (
-              <div className="flex items-center justify-center h-full">
-                <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
-              </div>
-            ) : (
+         
               <Image
-                src={user?.img ? user.img : "/assets/png/fooder logo4.png"}
+                src={user?.image ? user.image : "/assets/png/fooder logo4.png"}
                 alt="client2 "
                 fill
                 className="object-contain rounded-full border"
               />
-            )
-          ) : (
-            <Image
-                src={session.data?.user.image}
-              alt="client2 "
-              fill
-              className="object-contain rounded-full border"
-            />
-          )}
+            
+          
+          
         </div>
         <b className="text-2xl mt-1">
-          {/* {user?.fullName ? user?.fullName : user?.name}{" "} */}
+          {user?.name }{" "}
         </b>
       </div>
       <form

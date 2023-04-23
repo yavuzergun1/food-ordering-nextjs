@@ -9,24 +9,17 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const session= useSession();
+  const session = useSession();
   const router = useRouter();
-  
+
   const gitHubLogin = async () => {
     try {
       const res = await signIn("github");
 
-      if (session.status === "authenticated") {
-        // router.push("/profile/account");
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/register`,
-        session.data.user
-      );
-      }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const onSubmit = async (values, actions) => {
     const { email, password } = values;
@@ -35,13 +28,13 @@ const Login = () => {
       const res = await signIn("credentials", options);
       // console.log("res", res);
       actions.resetForm();
-        if (res.status === 200) {
-          actions.resetForm();
-          
-          push("/profile/account");
-        } else if (res.response.status === 400) {
-          console.log("resadmin", res.data);
-        }
+      if (res.status === 200) {
+        actions.resetForm();
+
+        push("/profile/account");
+      } else if (res.response.status === 400) {
+        console.log("resadmin", res.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -99,14 +92,14 @@ const Login = () => {
           <button type="submit" className="btn-primary">
             LOGIN
           </button>
-          {/* <button
+          <button
             type="button"
             onClick={gitHubLogin}
             className="btn-primary !bg-secondary"
           >
             <i className="fa-brands fa-github mr-2 text-lg"></i>
             GITHUB
-          </button> */}
+          </button>
           <Link href="/auth/register">
             <span className="text-sm underline cursor-pointer text-secondary">
               Create an Account
