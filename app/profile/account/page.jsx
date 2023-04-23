@@ -25,7 +25,9 @@ const Account = () => {
 
   useEffect(() => {
     const addGitHubToDB = async () => {
+      router.refresh();
       try {
+        setIsLoading(true);
         await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/users/githubRegister`,
           session.data.user
@@ -33,9 +35,10 @@ const Account = () => {
       } catch (err) {
         // console.log(err);
       }
+      setIsLoading(false);
     };
     addGitHubToDB();
-  }, []);
+  }, [router, session]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,10 +51,11 @@ const Account = () => {
         console.error(error);
         setUser(null);
       }
+      setIsLoading(false);
     };
 
     fetchData();
-  }, [session]);
+  }, [session.status, isLoading]);
 
   const updatePhoto = async () => {
     const data = new FormData();
@@ -81,7 +85,7 @@ const Account = () => {
     } catch (err) {
       console.log(err);
     }
-setIsLoading(false);
+    setIsLoading(false);
   };
 
   const onSubmit = async (values, actions) => {
@@ -171,7 +175,7 @@ setIsLoading(false);
       touched: touched.job,
     },
   ];
-console.log("isloading", isLoading);
+  console.log("isloading", isLoading);
   return (
     <div className="flex flex-col justify-start items-start w-full ">
       <Title addClass="text-[40px]">Account Settings</Title>
@@ -233,7 +237,13 @@ console.log("isloading", isLoading);
           Update
         </button>
       </form>
-      <ShowAccount user={user} />
+      {isLoading ? (
+        <div className="flex w-full items-center m-auto justify-center h-full">
+          <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
+        </div>
+      ) : (
+        <ShowAccount user={user} />
+      )}
     </div>
   );
 };
