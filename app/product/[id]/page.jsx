@@ -43,7 +43,11 @@ const Page = ({ params }) => {
   }, [data]);
 
   if (error) return console.log(error);
-  if (isLoading) return "Loading...";
+  if (isLoading) return (
+    <div className="flex w-full items-center m-auto justify-center h-screen">
+      <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
+    </div>
+  );
 
   const handleSize = (sizeIndex) => {
     const difference = prices[sizeIndex] - prices[size];
