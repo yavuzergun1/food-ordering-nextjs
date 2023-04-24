@@ -16,7 +16,7 @@ const Providers = ({ children }) => {
           color="#29D"
           startPosition={0.3}
           stopDelayMs={200}
-          height={7}
+          height={4}
           showOnShallow={true}
         />
         <ToastContainer />
