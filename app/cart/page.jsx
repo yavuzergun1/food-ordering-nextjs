@@ -15,27 +15,20 @@ const Cart = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const email = session?.user.email;
-console.log(cart.products);
+  // console.log(cart.products);
+
   const fetcher = async (url) => {
     const response = await axios.get(url);
     return response.data;
   };
   const { data: user, error } = useSWR(
-    email
-      ? `${process.env.NEXT_PUBLIC_API_URL}/users/userFind?email=${email}`
-      : null,
+    `${process.env.NEXT_PUBLIC_API_URL}/users/userFind?email=${email}`,
     fetcher
   );
 
   if (error) {
     return <div>Error</div>;
-  } else if (!user) {
-    return (
-      <div className="flex w-full items-center m-auto justify-center h-screen">
-        <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
-      </div>
-    );
-  }
+  } 
 
   console.log(user);
 
@@ -58,9 +51,6 @@ console.log(cart.products);
           if (res.status === 201) {
             router.push(`/order/${res.data._id}`);
             dispatch(reset());
-            toast.success("Order created successfully", {
-              autoClose: 1000,
-            });
           }
         }
       } else {
