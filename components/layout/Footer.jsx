@@ -14,7 +14,7 @@ const Footer = () => {
               </div>
               <div>
                 <i className="fa fa-phone"></i>
-                <span className="inline-block ml-2">Call +90 5315563549</span>
+                <span className="inline-block ml-2">Call +90 5***6**49</span>
               </div>
               <div>
                 <i className="fa fa-envelope"></i>
