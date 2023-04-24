@@ -8,44 +8,36 @@ import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
-import { useState, useEffect } from "react";
 
 const Cart = () => {
   const { data: session } = useSession();
-  // const [user, setUser] = useState();
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const router = useRouter();
-const email = session?.user.email;
+  const email = session?.user.email;
+console.log(cart.products);
+  const fetcher = async (url) => {
+    const response = await axios.get(url);
+    return response.data;
+  };
+  const { data: user, error } = useSWR(
+    email
+      ? `${process.env.NEXT_PUBLIC_API_URL}/users/userFind?email=${email}`
+      : null,
+    fetcher
+  );
 
-  
-
-
-    const fetcher = async (url) => {
-      const response = await axios.get(url);
-      return response.data;
-    };
-    const { data: user, error } = useSWR(
-      email
-        ? `${process.env.NEXT_PUBLIC_API_URL}/users/userFind?email=${email}`
-        : null,
-      fetcher
+  if (error) {
+    return <div>Error</div>;
+  } else if (!user) {
+    return (
+      <div className="flex w-full items-center m-auto justify-center h-screen">
+        <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
+      </div>
     );
+  }
 
-    if (error) {
-      return <div>Error</div>;
-    } else if (!user) {
-      return (
-        <div className="flex w-full items-center m-auto justify-center h-screen">
-          <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
-        </div>
-      );
-    } 
-
-console.log(user);
-  // render user data
-
-
+  console.log(user);
 
   const newOrder = {
     customer: user?.name,
@@ -94,6 +86,9 @@ console.log(user);
                       PRODUCT
                     </th>
                     <th scope="col" className="py-3 px-6">
+                      SIZE
+                    </th>
+                    <th scope="col" className="py-3 px-6">
                       EXTRAS
                     </th>
                     <th scope="col" className="py-3 px-6">
@@ -105,35 +100,34 @@ console.log(user);
                   </tr>
                 </thead>
                 <tbody>
-                  {cart.products.map((product, index) => (
-                    <tr
-                      className="transition-all bg-secondary border-gray-700 hover:bg-primary"
-                      key={index}
-                    >
-                      <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white flex items-center gap-x-1 justify-center">
-                        <Image
-                          src={product?.img}
-                          alt=""
-                          width={50}
-                          height={50}
-                        />
-                        <span>{product.name}</span>
-                      </td>
-                      <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                        {product.extras?.length > 0
-                          ? product.extras.map((item) => (
-                              <span key={item.id}>{item.text}, </span>
-                            ))
-                          : "empty"}
-                      </td>
-                      <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                        ${product.price}
-                      </td>
-                      <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                        {product.quantity}
-                      </td>
-                    </tr>
-                  ))}
+                  {cart.products.map((item, i) => {
+                    return (
+                      <tr
+                        key={i}
+                        className="transition-all bg-secondary border-gray-700 hover:bg-primary "
+                      >
+                        <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white flex items-center gap-x-1 justify-center">
+                          <Image src={item.img} alt="" width={50} height={50} />
+                          <span>{item.name}</span>
+                        </td>
+                        <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                          {item.sizeName}
+                        </td>
+                        <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                          {item.extras &&
+                            item.extras
+                              .map((extraItem) => extraItem.name)
+                              .join("/ ")}
+                        </td>
+                        <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                          ${item.price ? item.price : item.prices[0]}
+                        </td>
+                        <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                          {item.quantity}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             ) : (
@@ -163,6 +157,5 @@ console.log(user);
     </div>
   );
 };
-
 
 export default Cart;
