@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 const Account = () => {
+
   const [file, setFile] = useState();
   const [imageSrc, setImageSrc] = useState();
   const session = useSession();
@@ -22,6 +23,7 @@ const Account = () => {
   console.log("SESSION", session);
   const userEmail = session.data?.user.email;
   const router = useRouter();
+
 
   useEffect(() => {
     const addGitHubToDB = async () => {
@@ -175,7 +177,7 @@ const Account = () => {
       touched: touched.job,
     },
   ];
-  console.log("isloading", isLoading);
+  // console.log("isloading", isLoading);
   return (
     <div className="flex flex-col justify-start items-start w-full ">
       <Title addClass="text-[40px]">Account Settings</Title>
