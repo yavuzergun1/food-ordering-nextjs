@@ -9,17 +9,12 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const session = useSession();
+  const {data:session} = useSession();
   const router = useRouter();
 
-  const gitHubLogin = async () => {
-    try {
-      const res = await signIn("github");
-
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  if (session) {
+    router.push("profile")
+  }
 
   const onSubmit = async (values, actions) => {
     const { email, password } = values;
@@ -94,7 +89,15 @@ const Login = () => {
           </button>
           <button
             type="button"
-            onClick={gitHubLogin}
+            onClick={() => signIn("google")}
+            className="btn-primary !bg-primary"
+          >
+            <i className="fa-brands fa-google mr-2 text-lg"></i>
+            Google
+          </button>
+          <button
+            type="button"
+            onClick={() => signIn("github")}
             className="btn-primary !bg-secondary"
           >
             <i className="fa-brands fa-github mr-2 text-lg"></i>

@@ -23,7 +23,7 @@ const Profile = () => {
             className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
               path === "account" && "bg-primary text-white"
             }`}
-            onClick={() => router.push("/profile/account")}
+            // onClick={() => router.push("/profile/account")}
           >
             <i className="fa fa-home"></i>
             <button className="ml-1 ">Account</button>
