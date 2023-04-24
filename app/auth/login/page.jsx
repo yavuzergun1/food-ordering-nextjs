@@ -9,12 +9,8 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const {data:session} = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
-
-  if (session) {
-    router.push("profile")
-  }
 
   const onSubmit = async (values, actions) => {
     const { email, password } = values;
