@@ -8,25 +8,23 @@ import { adminSchema } from "../../schema/admin";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-const Login = () => {
-  const { push } = useRouter();
-  const onSubmit = async (values, actions) => {
+const Login: React.FC = () => {
+  
+  const onSubmit = async (
+    values: { username: string, password: string },
+    actions: any
+  ) => {
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/admin`,
         values
+
       );
       // console.log("res", res.data);
-      if (res.status === 200) {
-        actions.resetForm();
-        push("./admin/adminprofile/products");
-      } else if (res.response.status === 400) {
-        console.log("resadmin", res.data);
-      }
-      } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      alert(error.response.data.message )
-      }
+      alert(error.response.data.message);
+    }
   };
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
@@ -77,7 +75,7 @@ const Login = () => {
           ))}
         </div>
         <div className="flex flex-col w-full gap-y-3 mt-6">
-          <button className="btn-primary">LOGIN</button>
+          <button type="submit" className="btn-primary">LOGIN</button>
           <Link href="/">
             <span className="text-sm underline cursor-pointer text-secondary">
               Home Page
@@ -90,4 +88,3 @@ const Login = () => {
 };
 
 export default Login;
-
