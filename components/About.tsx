@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Title from "./ui/Title";
 
-const About = () => {
+const About: React.FC = () => {
   return (
     <div className="bg-secondary py-14">
       <div className="container mx-auto flex items-center text-white gap-20 justify-center flex-wrap-reverse">
