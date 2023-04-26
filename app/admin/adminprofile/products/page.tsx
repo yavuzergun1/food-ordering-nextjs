@@ -6,6 +6,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
 
+
+
 const Products = () => {
   const fetcher = async () =>
     await axios
@@ -48,7 +50,7 @@ const Products = () => {
                 </th>
               </tr>
             </thead>
-            {products?.map((product, index) => {
+            {products?.map((product: Product, index:number) => {
               return (
                 <React.Fragment key={index}>
                   <Product product={product} />
