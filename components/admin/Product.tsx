@@ -5,8 +5,20 @@ import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const Product = ({ product }) => {
-  const [clientProduct, setClientProduct] = useState();
+type ProductProps = {
+  product: Product;
+};
+
+type Product = {
+  _id: string;
+  title: string;
+  prices: number[];
+  img: string;
+};
+
+
+const Product = ({ product }: ProductProps) => {
+  const [clientProduct, setClientProduct] = useState<Product>();
   const router = useRouter();
   // console.log(product);
 

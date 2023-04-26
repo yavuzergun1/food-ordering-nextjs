@@ -12,21 +12,20 @@ const Profile = () => {
   const [isProductModal, setIsProductModal] = useState(false);
   const [categories, setCategories] = useState([]);
 
-
   useEffect(() => {
     const getCategories = async () => {
-      try { 
+      try {
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/categories`
         );
         setCategories(res?.data);
-      } catch (err ) {
+      } catch (err) {
         console.log(err);
       }
     };
     getCategories();
   }, []);
-console.log(categories);
+  console.log(categories);
   const logOut = async () => {
     try {
       if (confirm("Are you sure you want to log out?")) {
