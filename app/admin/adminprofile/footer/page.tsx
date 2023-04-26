@@ -6,6 +6,15 @@ import Input from "../../../../components/form/Input";
 import { useFormik } from "formik";
 import { footerSchema } from "../../../../schema/footer";
 
+interface FormValues {
+  location: string;
+  email: string;
+  phoneNumber: string;
+  desc: string;
+  day: string;
+  time: string;
+}
+
 const Footer = () => {
   const [iconName, setIconName] = useState("");
   const [icons, setIcons] = useState([
@@ -13,7 +22,7 @@ const Footer = () => {
     "fa fa-twitter",
     "fa fa-instagram",
   ]);
-  const onSubmit = async (values, actions) => {
+  const onSubmit = async (values: FormValues, actions:any) => {
     await new Promise((resolve) => setTimeout(resolve, 4000));
     actions.resetForm();
   };
@@ -106,7 +115,9 @@ const Footer = () => {
           <Input
             placeholder="Icon Name"
             defaulValue="fa fa-"
-            onChange={(e) => setIconName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setIconName(e.target.value)
+            }
             value={iconName}
           />
           <button
