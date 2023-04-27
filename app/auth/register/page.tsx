@@ -8,9 +8,16 @@ import { registerSchema } from "../../../schema/register";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
+type Values = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 const Register = () => {
   const router = useRouter();
-  const onSubmit = async (values, actions) => {
+  const onSubmit = async (values: Values, actions: any) => {
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/users/register`,
