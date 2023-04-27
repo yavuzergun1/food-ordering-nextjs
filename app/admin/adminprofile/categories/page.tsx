@@ -12,10 +12,10 @@ type Category = {
   data: {
     title: string;
     _id: string;
-  }
+  };
 };
 
-const Category = (): JSX.Element => {
+const Category = () => {
   const [inputText, setInputText] = useState<string>("");
   const [categories, setCategories] = useState<Category[]>([]);
 
@@ -28,7 +28,6 @@ const Category = (): JSX.Element => {
     fetcher
   );
   if (error) {
-    // @ts-ignore
     return console.log(error);
   }
   if (isLoading)
@@ -51,7 +50,10 @@ const Category = (): JSX.Element => {
     }
   };
 
-  const deleteCategory = async (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
+  const deleteCategory = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: string
+  ) => {
     e.preventDefault();
     try {
       if (confirm("Are you sure you want to delete this category?")) {
@@ -60,6 +62,7 @@ const Category = (): JSX.Element => {
         );
         // @ts-ignore
         setCategories(data.filter((cat) => cat._id !== id));
+        setInputText("");
       }
     } catch (err) {
       console.log(err);
