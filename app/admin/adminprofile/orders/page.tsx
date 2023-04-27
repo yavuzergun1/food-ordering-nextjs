@@ -4,10 +4,19 @@ import Title from "../../../../components/ui/Title";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+interface Order {
+  _id: string;
+  customer: string;
+  total: number;
+  method: number;
+  status: number;
+  createdAt: string;
+}
+
 const Order = () => {
-  const [orders, setOrders] = useState([]);
-  const status = ["preparing", "on the way", "delivered"];
-  
+  const [orders, setOrders] = useState<Order[]>([]);
+  const status: string[] = ["preparing", "on the way", "delivered"];
+
   useEffect(() => {
     const getOrders = async () => {
       try {
@@ -22,8 +31,10 @@ const Order = () => {
     getOrders();
   }, []);
 
-  const handleStatus = async (id) => {
-    const item = orders.find((order) => order._id === id);
+  console.log("orderrrs", orders);
+
+  const handleStatus = async (id: string) => {
+    const item: any = orders.find((order) => order._id === id);
     const currentStatus = item.status;
 
     try {
@@ -69,7 +80,11 @@ const Order = () => {
           <tbody>
             {orders.length > 0 &&
               orders
-                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                .sort(
+                  (a, b) =>
+                    new Date(b.createdAt).getTime() -
+                    new Date(a.createdAt).getTime()
+                )
                 .map((order) => (
                   <tr
                     className="transition-all bg-secondary border-gray-700 hover:bg-primary"

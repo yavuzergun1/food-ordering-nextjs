@@ -12,17 +12,22 @@ const Login = () => {
   const { data: session } = useSession();
   const router = useRouter();
 
-  const onSubmit = async (values, actions) => {
+  if (session) {
+    router.push("/profile/account");
+  }
+  const onSubmit = async (
+    values: { email: string; password: string },
+    actions: any
+  ) => {
     const { email, password } = values;
     let options = { redirect: true, email, password };
     try {
-      const res = await signIn("credentials", options);
+      const res: any = await signIn("credentials", options);
       // console.log("res", res);
       actions.resetForm();
       if (res.status === 200) {
         actions.resetForm();
-
-        push("/profile/account");
+        router.push("/profile/account");
       } else if (res.response.status === 400) {
         console.log("resadmin", res.data);
       }
