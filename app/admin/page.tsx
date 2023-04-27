@@ -9,7 +9,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 const Login: React.FC = () => {
-  
+  const router = useRouter();
   const onSubmit = async (
     values: { username: string, password: string },
     actions: any
@@ -18,9 +18,11 @@ const Login: React.FC = () => {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/admin`,
         values
-
       );
-      // console.log("res", res.data);
+      console.log("res", res.data);
+      if(res.data.message === "Success"){
+        router.push("/admin/adminprofile/products");
+      }
     } catch (error: any) {
       console.log(error);
       alert(error.response.data.message);
