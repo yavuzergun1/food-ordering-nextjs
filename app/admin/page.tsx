@@ -19,7 +19,7 @@ const Login: React.FC = () => {
         `${process.env.NEXT_PUBLIC_API_URL}/admin`,
         values
       );
-      console.log("res", res.data);
+      // console.log("res", res.data);
       if(res.data.message === "Success"){
         router.push("/admin/adminprofile/products");
       }
