@@ -1,4 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+type Product = {
+  price: number;
+  _id: string;
+  quantity: number;
+};
+
+type CartState = {
+  products: Product[];
+  quantity: number;
+  total: number;
+};
 
 const cartSlice = createSlice({
   name: "cart",
@@ -6,9 +18,9 @@ const cartSlice = createSlice({
     products: [],
     quantity: 0,
     total: 0,
-  },
+  } as CartState,
   reducers: {
-    addProduct: (state, action) => {
+    addProduct: (state, action: PayloadAction<Product>) => {
       const product = action.payload;
       // console.log("products", state.products);
       // console.log("product", product);
@@ -21,10 +33,7 @@ const cartSlice = createSlice({
       // console.log("existing price", existingProduct);
       // console.log("product price", product.price);
 
-      if (
-        existingProductIndex !== -1 &&
-        existingProduct 
-      ) {
+      if (existingProductIndex !== -1 && existingProduct) {
         // If product already exists in cart and category is not "pizza", update quantity
         state.products[existingProductIndex].quantity += 1;
         state.quantity += 1;

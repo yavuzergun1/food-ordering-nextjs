@@ -5,19 +5,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { reset } from "../../redux/cartSlice";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
 
+
+
 const Cart = () => {
-  const { data: session } = useSession();
-  const cart = useSelector((state) => state.cart);
+ const { data: session }: { data?: Session | null } = useSession();
+
+  const cart = useSelector((state: { cart: { products: CartItem[]; total: number } })=> state.cart);
   const dispatch = useDispatch();
   const router = useRouter();
+  //@ts-ignore
   const email = session?.user.email;
   // console.log(cart.products);
 
-  const fetcher = async (url) => {
+  const fetcher = async (url:string) => {
     const response = await axios.get(url);
     return response.data;
   };
@@ -53,6 +58,7 @@ const Cart = () => {
             toast.success("Your Order is Succesfully Completed", {
               autoClose: 1500,
             });
+            //@ts-ignore
             dispatch(reset());
           }
         }
@@ -101,7 +107,8 @@ const Cart = () => {
                       >
                         <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white flex items-center gap-x-1 justify-center">
                           <Image src={item.img} alt="" width={50} height={50} />
-                          <span>{item.name}</span>
+                                   
+                          <span>{item.title}</span>
                         </td>
                         <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
                           {item.sizeName}
