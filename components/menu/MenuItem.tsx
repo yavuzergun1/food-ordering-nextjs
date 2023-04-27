@@ -5,12 +5,18 @@ import { addProduct } from "@/redux/cartSlice";
 import { useDispatch } from "react-redux";
 import { Suspense, useState } from "react";
 
-const MenuItem = ({ product }) => {
+type CategoryPageProps = {
+  product: Product;
+};
+
+
+const MenuItem = ({ product }: CategoryPageProps) => {
   const [price, setPrice] = useState(product.prices[0]);
   const dispatch = useDispatch();
   const handleClick = () => {
     // console.log(product);
-    const sizeName = "Small";
+    const sizeName: string = "Small";
+    // @ts-ignore
     dispatch(addProduct({ ...product, sizeName, price, quantity: 1 }));
   };
   return (
