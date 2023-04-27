@@ -28,7 +28,7 @@ const Cart = () => {
 
   if (error) {
     return <div>Error</div>;
-  } 
+  }
 
   // console.log(user);
 
@@ -50,9 +50,9 @@ const Cart = () => {
           );
           if (res.status === 201) {
             router.push(`/order/${res.data._id}`);
-               toast.success("Your Order is Succesfully Completed", {
-                 autoClose: 1500,
-               });
+            toast.success("Your Order is Succesfully Completed", {
+              autoClose: 1500,
+            });
             dispatch(reset());
           }
         }

@@ -12,8 +12,9 @@ const Login = () => {
   const { data: session } = useSession();
   const router = useRouter();
 
-
-
+  if (session) {
+    router.push("/profile/account");
+  }
   const onSubmit = async (
     values: { email: string; password: string },
     actions: any

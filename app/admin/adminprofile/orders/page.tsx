@@ -13,8 +13,6 @@ interface Order {
   createdAt: string;
 }
 
-
-
 const Order = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const status: string[] = ["preparing", "on the way", "delivered"];
@@ -36,7 +34,7 @@ const Order = () => {
   console.log("orderrrs", orders);
 
   const handleStatus = async (id: string) => {
-    const item : any = orders.find((order) => order._id === id);
+    const item: any = orders.find((order) => order._id === id);
     const currentStatus = item.status;
 
     try {
