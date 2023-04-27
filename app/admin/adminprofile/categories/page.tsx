@@ -45,6 +45,7 @@ const Category = () => {
       );
       // @ts-ignore
       setCategories([...data, res.data]);
+      setInputText("");
     } catch (err) {
       console.log(err);
     }
@@ -62,7 +63,6 @@ const Category = () => {
         );
         // @ts-ignore
         setCategories(data.filter((cat) => cat._id !== id));
-        setInputText("");
       }
     } catch (err) {
       console.log(err);
