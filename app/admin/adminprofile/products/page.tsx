@@ -3,10 +3,7 @@ import React from "react";
 import Title from "../../../../components/ui/Title";
 import Product from "../../../../components/admin/Product";
 import axios from "axios";
-import { useState, useEffect } from "react";
 import useSWR from "swr";
-
-
 
 const Products = () => {
   const fetcher = async () =>
