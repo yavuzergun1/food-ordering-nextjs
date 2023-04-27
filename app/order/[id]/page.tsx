@@ -1,10 +1,16 @@
 import axios from "axios";
 import Image from "next/image";
 
-const Order = async ({ params }) => {
+type OrderPageProps = {
+  params: {
+    id: string;
+  };
+};
+
+const Order = async ({ params: { id } }: OrderPageProps) => {
   // console.log(params);
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/orders/${params.id}`
+    `${process.env.NEXT_PUBLIC_API_URL}/orders/${id}`
   );
   const order = res.data;
   console.log(order);

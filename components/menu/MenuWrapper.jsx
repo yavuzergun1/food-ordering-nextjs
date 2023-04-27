@@ -11,7 +11,7 @@ function MenuWrapper() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const params = useSearchParams().get("category");
-  // console.log(products);
+  console.log(products);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -22,7 +22,7 @@ function MenuWrapper() {
         const pro = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/products`
         );
-        // console.log(res?.data);
+        console.log(res?.data);
         setCategories(res?.data);
         setProducts(pro?.data);
       } catch (err) {
@@ -61,6 +61,7 @@ function MenuWrapper() {
             </button>
           )}
           {categories?.map((cat) => {
+            
             return (
               <React.Fragment key={cat._id}>
                 <button
@@ -80,7 +81,7 @@ function MenuWrapper() {
       </div>
       <div className="mt-8 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
         {filteredProducts?.map((product) => (
-          <MenuItem key={product.id} product={product} />
+          <MenuItem key={product._id} product={product} />
         ))}
       </div>
     </div>

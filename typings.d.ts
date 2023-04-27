@@ -22,3 +22,19 @@ type CartItem = {
   updatedAt: string;
   __v: number;
 };
+
+type Product = {
+  category: string;
+  createdAt: string;
+  desc: string;
+  extraOptions: {
+    name: string;
+    price: number;
+    _id: string;
+  }[];
+  img: string;
+  prices: number[];
+  title: string;
+  updatedAt: string;
+    _id: string;
+};

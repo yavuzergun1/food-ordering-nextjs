@@ -15,7 +15,7 @@ const Page = ({ params }) => {
   const [size, setSize] = useState(0);
   const [extraItems, setExtraItems] = useState();
   const [extras, setExtras] = useState([]);
-  const [sizeName, setSizeName] = useState("Small");
+  const [sizeName, setSizeName] = useState<string>("Small");
 
   const cart = useSelector((state) => state.cart);
 
@@ -127,7 +127,7 @@ const Page = ({ params }) => {
         </div>
         <div className="flex gap-x-4 my-6 md:justify-start justify-center">
           {extraItems?.map((item) => (
-            <label className="flex items-center gap-x-1" key={item.id}>
+            <label className="flex items-center gap-x-1" key={item._id}>
               <input
                 type="checkbox"
                 className="w-5 h-5 accent-primary"
