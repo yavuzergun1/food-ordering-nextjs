@@ -13,27 +13,34 @@ import { getUser } from "../UserProfile";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-const Account = () => {
+type File = {
+  name: string;
+  size: number;
+  type: string;
+  webkitRelativePath: string;
+};
 
-  const [file, setFile] = useState();
-  const [imageSrc, setImageSrc] = useState();
+const Account = () => {
+  const [file, setFile] = useState<File | null>();
+  const [imageSrc, setImageSrc] = useState<string | null>();
+  const [user, setUser] = useState<User>();
   const session = useSession();
-  const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(false);
   console.log("SESSION", session);
-  const userEmail = session.data?.user.email;
+  const userEmail = session?.data?.user?.email;
   const router = useRouter();
 
-
+  console.log(user);
   useEffect(() => {
     const addGitHubToDB = async () => {
       router.refresh();
       try {
         setIsLoading(true);
-        await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/users/githubRegister`,
-          session.data.user
-        );
+        session.data &&
+          (await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/users/githubRegister`,
+            session.data.user
+          ));
       } catch (err) {
         // console.log(err);
       }
@@ -44,14 +51,16 @@ const Account = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/users/userFind?email=${userEmail}`;
-      try {
-        const response = await axios.get(url);
-        const userData = response.data;
-        setUser(userData);
-      } catch (error) {
-        console.error(error);
-        setUser(null);
+      if (userEmail) {
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/users/userFind?email=${userEmail}`;
+        try {
+          const response = await axios.get(url);
+          const userData = response.data as User;
+          setUser(userData);
+        } catch (error) {
+          console.error(error);
+          setUser(null as any);
+        }
       }
       setIsLoading(false);
     };
@@ -60,54 +69,59 @@ const Account = () => {
   }, [session.status, isLoading]);
 
   const updatePhoto = async () => {
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "fooder");
-    try {
-      setIsLoading(true);
-      const uploadRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/dz2y5zsex/image/upload",
-        data
-      );
-      // console.log(uploadRes);
+    if (user && file) {
+      const data = new FormData();
+      data.append("file", file as any);
+      data.append("upload_preset", "fooder");
+      try {
+        setIsLoading(true);
+        const uploadRes = await axios.post(
+          "https://api.cloudinary.com/v1_1/dz2y5zsex/image/upload",
+          data
+        );
+        // console.log(uploadRes);
 
-      const { url } = uploadRes.data;
-      const newProduct = {
-        image: url,
-      };
-      const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
-        newProduct
-      );
-      if (res.status === 200) {
-        // toast.success("Profile updated successfully");
-        setUser(res?.data);
+        const { url } = uploadRes.data;
+        const newProduct = {
+          image: url,
+        };
+        const res = await axios.put(
+          `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
+          newProduct
+        );
+        if (res.status === 200) {
+          // toast.success("Profile updated successfully");
+          setUser(res?.data);
+        }
+        // console.log("added product", res.data);
+      } catch (err) {
+        console.log(err);
       }
-      // console.log("added product", res.data);
-    } catch (err) {
-      console.log(err);
     }
     setIsLoading(false);
   };
 
-  const onSubmit = async (values, actions) => {
-    try {
-      const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
-        values
-      );
-      console.log(res);
-      if (res.status === 200) {
-        setUser(res?.data);
+  const onSubmit = async (values: User, actions: any) => {
+    if (user) {
+      try {
+        const res = await axios.put(
+          `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
+          values
+        );
+        console.log(res);
+        if (res.status === 200) {
+          setUser(res?.data);
+        }
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
     }
   };
 
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
       enableReinitialize: true,
+      // @ts-ignore
       initialValues: {
         name: user?.name || "",
         phoneNumber: user?.phoneNumber || "",
@@ -115,21 +129,31 @@ const Account = () => {
         address: user?.address || "",
         job: user?.job || "",
       },
-      // validationSchema: profileSchema,
+      validationSchema: profileSchema,
       onSubmit,
     });
 
   // get photo from file input and set it to imageSrc
-  const handleOnChange = (changeEvent) => {
-    const file = changeEvent.target.files[0];
-    const reader = new FileReader();
-    reader.onload = function (onLoadEvent) {
-      setImageSrc(onLoadEvent.target.result);
-      setFile(changeEvent.target.files[0]);
-    };
-    reader.readAsDataURL(file);
-    // console.log(imageSrc);
+  const handleOnChange = (changeEvent: any) => {
+    if (
+      changeEvent.target &&
+      changeEvent.target.files &&
+      changeEvent.target.files[0]
+    ) {
+      const file = changeEvent.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (onLoadEvent) {
+        if (onLoadEvent.target) {
+          setImageSrc(onLoadEvent.target.result as string);
+          setFile(changeEvent.target.files[0]);
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
   };
+
   const inputs = [
     {
       id: 1,
@@ -244,7 +268,7 @@ const Account = () => {
           <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
         </div>
       ) : (
-        <ShowAccount user={user} />
+       user && <ShowAccount user={user} />
       )}
     </div>
   );

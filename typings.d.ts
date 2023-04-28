@@ -50,3 +50,33 @@ type Category = {
     _id: string;
   };
 };
+
+type Inputs = {
+  _id?: string;
+  name?: string;
+  type?: string;
+  phoneNumber?: string;
+  email?: string;
+  address?: string;
+  job?: string;
+  placeholder?: string;
+  value?: string;
+  errorMessage?: string;
+  touched?: string;
+
+};
+
+type User = {
+  _id: string;
+  name: string;
+  email: string;
+  image: string;
+  emailVerified: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  address: string;
+  job: string;
+  phoneNumber: string;
+  null: any
+}
