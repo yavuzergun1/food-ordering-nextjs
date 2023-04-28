@@ -38,3 +38,12 @@ type Product = {
   updatedAt: string;
     _id: string;
 };
+
+type Category = {
+  _id: string;
+  title: string;
+  data: {
+    title: string;
+    _id: string;
+  };
+};

@@ -8,10 +8,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 function MenuWrapper() {
   const router = useRouter();
-  const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState([]);
-  const params = useSearchParams().get("category");
-  console.log(products);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const params= useSearchParams()?.get("category");
+  // console.log(params);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -32,7 +32,7 @@ function MenuWrapper() {
     getCategories();
   }, [params]);
   // console.log(products[0]?.category);
-  const handleClick = (title) => {
+  const handleClick = (title: string) => {
     // console.log(title);
     const url = `/menu?category=${title}`;
     router.push(url);
@@ -61,7 +61,6 @@ function MenuWrapper() {
             </button>
           )}
           {categories?.map((cat) => {
-            
             return (
               <React.Fragment key={cat._id}>
                 <button

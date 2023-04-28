@@ -6,15 +6,6 @@ import Title from "../../../../components/ui/Title";
 import axios from "axios";
 import useSWR from "swr";
 
-type Category = {
-  _id: string;
-  title: string;
-  data: {
-    title: string;
-    _id: string;
-  };
-};
-
 const Category = () => {
   const [inputText, setInputText] = useState<string>("");
   const [categories, setCategories] = useState<Category[]>([]);
@@ -49,11 +40,11 @@ const Category = () => {
         { title: inputText }
       );
       // console.log("res", res);
-       const newCategory: Category = {
-         _id: res.data._id,
-         title: inputText,
-         data: { _id: "", title: "" },
-       };
+      const newCategory: Category = {
+        _id: res.data._id,
+        title: inputText,
+        data: { _id: "", title: "" },
+      };
       setCategories([...categories, newCategory]);
       setInputText("");
     } catch (err) {
@@ -71,7 +62,7 @@ const Category = () => {
         await axios.delete(
           `${process.env.NEXT_PUBLIC_API_URL}/categories/${id}`
         );
-        setCategories(categories.filter((cat:Category) => cat._id !== id));
+        setCategories(categories.filter((cat: Category) => cat._id !== id));
       }
     } catch (err) {
       console.log(err);
@@ -95,27 +86,22 @@ const Category = () => {
           </button>
         </div>
         <div className="mt-10 max-h-[250px] overflow-auto pb-4">
-
-          {categories?.map(
-            (category:Category, index:number) => (
-              <div className="flex justify-between mt-4" key={index}>
-                <b className="text-xl">
-                  {category.title}
-                </b>
-                <button
-                  className="btn-primary !bg-danger"
-                  onClick={(e) =>
-                    deleteCategory(
-                      e,
-                      category.data ? category.data._id : category._id
-                    )
-                  }
-                >
-                  Delete
-                </button>
-              </div>
-            )
-          )}
+          {categories?.map((category: Category, index: number) => (
+            <div className="flex justify-between mt-4" key={index}>
+              <b className="text-xl">{category.title}</b>
+              <button
+                className="btn-primary !bg-danger"
+                onClick={(e) =>
+                  deleteCategory(
+                    e,
+                    category.data ? category.data._id : category._id
+                  )
+                }
+              >
+                Delete
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>
