@@ -13,12 +13,12 @@ const Carousel = () => {
     arrows: false,
     autoplay: true,
     autoplaySpeed: 30000,
-    appendDots: (dots) => (
+    appendDots: (dots:any) => (
       <div>
         <ul className="container mx-auto w-full text-start">{dots}</ul>
       </div>
     ),
-    customPaging: (i) => (
+    customPaging: (i:number) => (
       <div className="w-3 h-3 border bg-white rounded-full mt-10"></div>
     ),
   };

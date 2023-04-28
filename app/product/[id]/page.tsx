@@ -9,15 +9,19 @@ import Title from "../../../components/ui/Title";
 import { addProduct } from "../../../redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const Page = ({ params }) => {
-  const [prices, setPrices] = useState();
-  const [price, setPrice] = useState();
-  const [size, setSize] = useState(0);
-  const [extraItems, setExtraItems] = useState();
-  const [extras, setExtras] = useState([]);
+type Params = {
+  id: string;
+};
+
+const Page = ({ params }: { params: Params }) => {
+  const [prices, setPrices] = useState<number[]>();
+  const [price, setPrice] = useState<number>();
+  const [size, setSize] = useState<number>(0);
+  const [extraItems, setExtraItems] = useState<ExtraOption[]>();
+  const [extras, setExtras] = useState<ExtraOption[]>([]);
   const [sizeName, setSizeName] = useState<string>("Small");
 
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state: any) => state.cart);
 
   // console.log("CART", cart);
   const dispatch = useDispatch();
@@ -43,26 +47,31 @@ const Page = ({ params }) => {
   }, [data]);
 
   if (error) return console.log(error);
-  if (isLoading) return (
-    <div className="flex w-full items-center m-auto justify-center h-screen">
-      <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
-    </div>
-  );
-
-  const handleSize = (sizeIndex) => {
-    const difference = prices[sizeIndex] - prices[size];
-    setSize(sizeIndex);
-    changePrice(difference);
-    setSizeName(
-      sizeIndex === 0 ? "Small" : sizeIndex === 1 ? "Medium" : "Large"
+  if (isLoading)
+    return (
+      <div className="flex w-full items-center m-auto justify-center h-screen">
+        <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
+      </div>
     );
+
+  const handleSize = (sizeIndex: number) => {
+    if (prices) {
+      const difference = prices[sizeIndex] - prices[size];
+      setSize(sizeIndex);
+      changePrice(difference);
+      setSizeName(
+        sizeIndex === 0 ? "Small" : sizeIndex === 1 ? "Medium" : "Large"
+      );
+    }
   };
-  const changePrice = (number) => {
-    // console.log(number);
-    setPrice(price + number);
+  const changePrice = (number: number) => {
+    price && setPrice(price + number);
   };
 
-  const handleChange = (e, item) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    item: ExtraOption
+  ) => {
     const checked = e.target.checked;
 
     if (checked) {
@@ -77,6 +86,7 @@ const Page = ({ params }) => {
   const handleClick = () => {
     dispatch(addProduct({ ...food, extras, sizeName, price, quantity: 1 }));
   };
+  console.log(prices);
 
   return (
     <div className="flex items-center md:h-[calc(100vh_-_88px)] gap-5 py-20 flex-wrap ">
@@ -93,37 +103,36 @@ const Page = ({ params }) => {
           <h4 className="text-xl font-bold">
             {food.category === "pizza" ? "Choose the size" : null}
           </h4>
-        
-            <div className="flex items-center gap-x-20 md:justify-start justify-center">
-              <div
-                className="relative w-8 h-8 cursor-pointer"
-                onClick={() => handleSize(0)}
-              >
-                <Image src="/assets/png/size.png" alt="" fill />
-                <span className="absolute top-0 -right-6 text-xs bg-primary rounded-full px-[5px] font-medium">
-                  Small
-                </span>
-              </div>
-              <div
-                className="relative w-12 h-12 cursor-pointer"
-                onClick={() => handleSize(1)}
-              >
-                <Image src="/assets/png/size.png" alt="" fill />
-                <span className="absolute top-0 -right-6 text-xs bg-primary rounded-full px-[5px] font-medium">
-                  Medium
-                </span>
-              </div>
-              <div
-                className="relative w-16 h-16 cursor-pointer"
-                onClick={() => handleSize(2)}
-              >
-                <Image src="/assets/png/size.png" alt="" fill />
-                <span className="absolute top-0 -right-6 text-xs bg-primary rounded-full px-[5px] font-medium">
-                  Large
-                </span>
-              </div>
+
+          <div className="flex items-center gap-x-20 md:justify-start justify-center">
+            <div
+              className="relative w-8 h-8 cursor-pointer"
+              onClick={() => handleSize(0)}
+            >
+              <Image src="/assets/png/size.png" alt="" fill />
+              <span className="absolute top-0 -right-6 text-xs bg-primary rounded-full px-[5px] font-medium">
+                Small
+              </span>
             </div>
-       
+            <div
+              className="relative w-12 h-12 cursor-pointer"
+              onClick={() => handleSize(1)}
+            >
+              <Image src="/assets/png/size.png" alt="" fill />
+              <span className="absolute top-0 -right-6 text-xs bg-primary rounded-full px-[5px] font-medium">
+                Medium
+              </span>
+            </div>
+            <div
+              className="relative w-16 h-16 cursor-pointer"
+              onClick={() => handleSize(2)}
+            >
+              <Image src="/assets/png/size.png" alt="" fill />
+              <span className="absolute top-0 -right-6 text-xs bg-primary rounded-full px-[5px] font-medium">
+                Large
+              </span>
+            </div>
+          </div>
         </div>
         <div className="flex gap-x-4 my-6 md:justify-start justify-center">
           {extraItems?.map((item) => (
