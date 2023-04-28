@@ -268,7 +268,7 @@ const Account = () => {
           <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
         </div>
       ) : (
-        <ShowAccount user={user} />
+       user && <ShowAccount user={user} />
       )}
     </div>
   );
