@@ -1,16 +1,21 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
-import Title from "../ui/Title";
+import Title from "./Title";
 import { GiCancel } from "react-icons/gi";
 import axios from "axios";
 import Input from "../form/Input";
 import { useRouter } from "next/navigation";
 
-const Search = ({ setIsSearchModal }) => {
-  const [products, setProducts] = useState([]);
-  const [filtered, setFiltered] = useState([]);
+type ModalProps = {
+  setIsSearchModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Search = ({ setIsSearchModal }: ModalProps) => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filtered, setFiltered] = useState<Product[]>([]);
   const router = useRouter();
+// console.log("products", products);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -29,7 +34,7 @@ const Search = ({ setIsSearchModal }) => {
     }, 1000);
   }, []);
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchFilter = products.filter((product) =>
       product.title.toLowerCase().includes(e.target.value.toLowerCase())
     );

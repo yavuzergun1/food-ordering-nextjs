@@ -9,7 +9,6 @@ type CategoryPageProps = {
   product: Product;
 };
 
-
 const MenuItem = ({ product }: CategoryPageProps) => {
   const [price, setPrice] = useState(product.prices[0]);
   const dispatch = useDispatch();
