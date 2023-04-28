@@ -7,8 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Next13NProgress from "next13-nprogress";
 
-
-const Providers = ({ children }) => {
+const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <SessionProvider>
       <Provider store={store}>
@@ -17,6 +16,7 @@ const Providers = ({ children }) => {
           startPosition={0.3}
           stopDelayMs={200}
           height={4}
+          // @ts-ignore
           showOnShallow={true}
         />
         <ToastContainer />
