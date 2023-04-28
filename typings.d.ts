@@ -80,3 +80,16 @@ type User = {
   phoneNumber: string;
   null: any
 }
+
+type Order = {
+  address: string;
+  createdAt: string;
+  customer: string;
+  email: string;
+  method: number;
+  status: number;
+  total: number;
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}
