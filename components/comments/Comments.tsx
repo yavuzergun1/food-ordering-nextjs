@@ -3,9 +3,14 @@ import Title from "../ui/Title";
 import CommentItem from "./CommentItem";
 import Slider from "react-slick";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { ReactEventHandler } from "react";
+
+type NextPrevBtnProps = {
+  onClick: ReactEventHandler;
+};
 
 const Comments = () => {
-  function NextBtn({ onClick }) {
+  function NextBtn({ onClick }: { onClick: () => void }) {
     return (
       <button
         className="absolute -bottom-12 left-1/2 bg-primary flex items-center justify-center w-10 h-10 rounded-full text-white"
@@ -16,7 +21,7 @@ const Comments = () => {
     );
   }
 
-  function PrevBtn({ onClick }) {
+  function PrevBtn({ onClick }: NextPrevBtnProps) {
     return (
       <button
         className="absolute -bottom-12 right-1/2 bg-primary flex items-center justify-center w-10 h-10 rounded-full text-white mr-2"
@@ -36,8 +41,8 @@ const Comments = () => {
     autoplay: true,
     autoplaySpeed: 3500,
     arrows: true,
-    nextArrow: <NextBtn />,
-    prevArrow: <PrevBtn />,
+    nextArrow: <NextBtn onClick={() => {}} />,
+    prevArrow: <PrevBtn onClick={() => {}} />,
     responsive: [
       {
         breakpoint: 768,
