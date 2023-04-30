@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = (props) => {
+const Input = (props:any) => {
   const { type, errorMessage, touched, placeholder, ...inputProps } = props;
 
   return (
