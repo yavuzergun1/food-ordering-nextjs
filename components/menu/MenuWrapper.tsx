@@ -6,31 +6,18 @@ import MenuItem from "./MenuItem";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 
-function MenuWrapper() {
+type MenuWrapperProps = {
+  categories: Category[];
+  products: Product[];
+}
+
+function MenuWrapper({categories, products}: MenuWrapperProps) {
   const router = useRouter();
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [products, setProducts] = useState<Product[]>([]);
+
   const params= useSearchParams()?.get("category");
   // console.log(params);
 
-  useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/categories`
-        );
-        const pro = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/products`
-        );
-        console.log(res?.data);
-        setCategories(res?.data);
-        setProducts(pro?.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getCategories();
-  }, [params]);
+
   // console.log(products[0]?.category);
   const handleClick = (title: string) => {
     // console.log(title);

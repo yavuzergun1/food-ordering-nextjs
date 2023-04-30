@@ -18,10 +18,9 @@ const Button = ({ children, order }: ButtonProps) => {
   const handleStatus = async (id: string) => {
     const currentStatus = order.status;
     console.log(order);
-
     try {
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/orders/${order?._id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/orders/${id}`,
         {
           status: currentStatus + 1,
         }
@@ -34,13 +33,13 @@ const Button = ({ children, order }: ButtonProps) => {
     }
   };
   return (
-   <button
-  className="btn-primary !bg-success"
-  disabled={order?.status > 1}
-  onClick={() => handleStatus(order?._id)}
->
-  {children}
-</button>
+    <button
+      className="btn-primary !bg-success"
+      disabled={order?.status > 1}
+      onClick={() => handleStatus(order?._id)}
+    >
+      {children}
+    </button>
   );
 };
 

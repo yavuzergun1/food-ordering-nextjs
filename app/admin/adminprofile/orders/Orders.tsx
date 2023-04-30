@@ -1,15 +1,13 @@
 import Title from "../../../../components/ui/Title";
-import Button from "../../../../components/ui/Button";
+import Button from "../../../../components/ui/StageButton";
 
 type OrderProps = {
-    orders: Order[];
-
+  orders: Order[];
 };
 
-
- function Orders ({orders}:OrderProps) {
+function Orders({ orders }: OrderProps) {
   const status: string[] = ["preparing", "on the way", "delivered"];
-console.log("orders", orders);
+  console.log("orders", orders);
 
   return (
     <div className="lg:p-8 flex-1 lg:mt-0 mt-5">
@@ -77,6 +75,6 @@ console.log("orders", orders);
       </div>
     </div>
   );
-};
+}
 
 export default Orders;
