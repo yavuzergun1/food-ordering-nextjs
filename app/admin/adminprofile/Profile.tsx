@@ -9,23 +9,7 @@ import { useState, useEffect } from "react";
 const Profile = () => {
   const router = useRouter();
   const path = useSelectedLayoutSegment();
-  const [isProductModal, setIsProductModal] = useState(false);
-  const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/categories`
-        );
-        setCategories(res?.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getCategories();
-  }, []);
-  console.log(categories);
   const logOut = async () => {
     try {
       if (confirm("Are you sure you want to log out?")) {
@@ -102,19 +86,8 @@ const Profile = () => {
           </li>
         </ul>
       </div>
-      {isProductModal && (
-        <AddProduct
-          categories={categories}
-          setIsProductModal={setIsProductModal}
-        />
-      )}
-      <button
-        type="button"
-        className="btn-primary !w-12 !h-12 rounded-full !p-0 -pt-5 text-center absolute top-24 right-10 text-4xl"
-        onClick={() => setIsProductModal(true)}
-      >
-        <p className="-mt-2">+</p>
-      </button>
+
+   
     </div>
   );
 };
