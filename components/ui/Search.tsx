@@ -38,7 +38,6 @@ const Search = ({ setIsSearchModal }: ModalProps) => {
     const searchFilter = products.filter((product) =>
       product.title.toLowerCase().includes(e.target.value.toLowerCase())
     );
-
     setFiltered(searchFilter);
   };
 
@@ -82,7 +81,9 @@ const Search = ({ setIsSearchModal }: ModalProps) => {
                 </ul>
               ) : (
                 <div className="flex justify-center items-center mt-3">
-                  Loading...
+                  <div className="flex w-full items-center m-auto justify-center h-auto">
+                    <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
+                  </div>
                 </div>
               )}
             </div>

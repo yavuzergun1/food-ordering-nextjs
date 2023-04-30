@@ -14,7 +14,7 @@ const Header = () => {
   const cart = useSelector((state: any) => state.cart);
   const router = useRouter();
   const path = useSelectedLayoutSegment();
-  // console.log("path", path);
+  console.log("path", path);
   
   return (
     <div
@@ -86,10 +86,12 @@ const Header = () => {
           )}
         </nav>
         <div className="flex gap-x-4 items-center">
-          <Link href="/auth/login">
+          <Link href="auth/login">
             <span>
               <FaUserAlt
-                className=" hover:text-primary cursor-pointer transition-all"
+                className={`hover:text-primary transition-all cursor-pointer ${
+                  path === "auth" || "profile" && "text-primary"
+                }`}
                 size={18}
               />
             </span>
