@@ -5,14 +5,19 @@ import MenuWrapper from "../components/menu/MenuWrapper";
 import About from "../components/About";
 import Reservation from "../components/Reservation";
 import Comments from "../components/comments/Comments";
-import axios from "axios";
+import { getCategories, getProducts } from "@/Data";
+
 
 const page = async () => {
+  const products = getProducts()
+  const categories = getCategories()
+  const result = await Promise.all([products, categories]);
+
   return (
     <div className="font-dancing text-primary">
       <Carousel />
       <Campaigns />
-      <MenuWrapper />
+      <MenuWrapper categories={result[1]} products={result[0]} />
       <About />
       <Reservation />
       <Comments />
