@@ -6,17 +6,20 @@ import { GiHamburgerMenu, GiCancel } from "react-icons/gi";
 import Search from "../ui/Search";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 
 const Header = () => {
   const [isSearchModal, setIsSearchModal] = useState(false);
   const [isMenuModal, setIsMenuModal] = useState(false);
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state: any) => state.cart);
   const router = useRouter();
+  const path = useSelectedLayoutSegment();
+  console.log("path", path);
+  
   return (
     <div
       className={`h-[5.5rem] z-50  w-full ${
-        router.asPath === "/" ? "bg-transparent" : "bg-secondary"
+        path === "/" ? "bg-transparent" : "bg-secondary"
       }`}
     >
       <div className="container mx-auto text-white flex justify-between items-center h-full">
@@ -38,7 +41,7 @@ const Header = () => {
           <ul className="flex gap-x-2 sm:flex-row flex-col items-center">
             <li
               className={`px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer ${
-                router.asPath === "/" && "text-primary"
+                path === "/" && "text-primary"
               }`}
             >
               <Link onClick={() => setIsMenuModal(false)} href="/">
@@ -47,7 +50,7 @@ const Header = () => {
             </li>
             <li
               className={`px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer ${
-                router.asPath === "/menu" && "text-primary"
+                path === "menu" && "text-primary"
               }`}
             >
               <Link onClick={() => setIsMenuModal(false)} href="/menu">
@@ -56,7 +59,7 @@ const Header = () => {
             </li>
             <li
               className={`px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer ${
-                router.asPath === "/about" && "text-primary"
+                path === "about" && "text-primary"
               }`}
             >
               <Link onClick={() => setIsMenuModal(false)} href="/about">
@@ -65,7 +68,7 @@ const Header = () => {
             </li>
             <li
               className={`px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer ${
-                router.asPath === "/reservation" && "text-primary"
+                path === "reservation" && "text-primary"
               }`}
             >
               <Link onClick={() => setIsMenuModal(false)} href="/reservation">
@@ -83,10 +86,12 @@ const Header = () => {
           )}
         </nav>
         <div className="flex gap-x-4 items-center">
-          <Link href="/auth/login">
+          <Link href="auth/login">
             <span>
               <FaUserAlt
-                className=" hover:text-primary cursor-pointer transition-all"
+                className={`hover:text-primary transition-all cursor-pointer ${
+                  path === "auth" || "profile" && "text-primary"
+                }`}
                 size={18}
               />
             </span>
@@ -95,7 +100,7 @@ const Header = () => {
             <span className="relative">
               <FaShoppingCart
                 className={`hover:text-primary transition-all cursor-pointer ${
-                  router.asPath === "/cart" && "text-primary"
+                  path === "cart" && "text-primary"
                 }`}
                 size={18}
               />
