@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const CommentItem = ({ imgSrc }) => {
+const CommentItem = ({ imgSrc }:{imgSrc:string}) => {
   return (
     <div className="mt-5 mx-4">
       <div className="p-6 bg-secondary text-white rounded-[5px]">

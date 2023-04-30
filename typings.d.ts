@@ -3,16 +3,8 @@ type CartItem = {
   category: string;
   createdAt: string;
   desc: string;
-  extraOptions: {
-    name: string;
-    price: number;
-    _id: string;
-  }[];
-  extras: {
-    name: string;
-    price: number;
-    _id: string;
-  }[];
+  extraOptions: ExtraOption[];
+  extras: Extras[];
   img: string;
   price: number;
   prices: number[];
@@ -27,7 +19,13 @@ type ExtraOption = {
   name: string;
   price: number;
   _id: string;
-  id: string
+  id: string;
+};
+
+type Extras = {
+  name: string;
+  price: string;
+  _id: string;
 };
 
 type Product = {
@@ -39,7 +37,7 @@ type Product = {
   prices: number[];
   title: string;
   updatedAt: string;
-    _id: string;
+  _id: string;
 };
 
 type Category = {
@@ -50,6 +48,15 @@ type Category = {
     _id: string;
   };
 };
+
+type AddProductCategory = {
+  _id: string;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
 
 type Inputs = {
   _id?: string;
@@ -63,7 +70,6 @@ type Inputs = {
   value?: string;
   errorMessage?: string;
   touched?: string;
-
 };
 
 type User = {
@@ -78,5 +84,18 @@ type User = {
   address: string;
   job: string;
   phoneNumber: string;
-  null: any
-}
+  null: any;
+};
+
+type Order = {
+  address: string;
+  createdAt: string;
+  customer: string;
+  email: string;
+  method: number;
+  status: number;
+  total: number;
+  updatedAt: string;
+  __v: number;
+  _id: string;
+};

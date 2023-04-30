@@ -1,5 +1,5 @@
 "use client";
-
+import React from "react";
 import { Fragment, useRef, useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import Title from "../ui/Title";
@@ -8,28 +8,42 @@ import { GiCancel } from "react-icons/gi";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-const AddProduct = ({ setIsProductModal, categories }) => {
-  const [file, setFile] = useState();
-  const [imageSrc, setImageSrc] = useState();
-  const [title, setTitle] = useState();
-  const [desc, setDesc] = useState();
-  const [category, setCategory] = useState("pizza");
-  const [prices, setPrices] = useState([]);
-  const [extra, setExtra] = useState("");
-  const [extraOptions, setExtraOptions] = useState([]);
+type AddProductProps = {
+  setIsProductModal: (value: boolean) => void;
+  categories: AddProductCategory[];
+};
+
+const AddProduct = ({ setIsProductModal, categories }: AddProductProps) => {
+  const [file, setFile] = useState<any>();
+  const [imageSrc, setImageSrc] = useState<string>();
+  const [title, setTitle] = useState<string>();
+  const [desc, setDesc] = useState<string>();
+  const [category, setCategory] = useState<string>("pizza");
+  const [prices, setPrices] = useState<string[]>([]);
+  const [extra, setExtra] = useState<Extras>();
+  const [extraOptions, setExtraOptions] = useState<Extras[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const extraPrice = useRef();
-  const extraName = useRef();
+  const extraPrice = useRef<any>(null);
+  const extraName = useRef<any>(null);
+
+  console.log(extraOptions);
 
   // get photo from file input and set it to imageSrc
-  const handleOnChange = (changeEvent) => {
+  const handleOnChange = (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
-    reader.onload = function (onLoadEvent) {
-      setImageSrc(onLoadEvent.target.result);
-      setFile(changeEvent.target.files[0]);
-    };
-    reader.readAsDataURL(changeEvent.target.files[0]);
+    if (
+      changeEvent.target &&
+      changeEvent.target.files &&
+      changeEvent.target.files[0]
+    ) {
+      reader.onload = function (onLoadEvent) {
+        setImageSrc(onLoadEvent.target?.result as string);
+        // @ts-ignore
+        setFile(changeEvent.target?.files[0]);
+      };
+      reader.readAsDataURL(changeEvent.target.files[0]);
+    }
     // console.log(imageSrc);
   };
   // upload photo to cloudinary and upload data to db
@@ -67,20 +81,19 @@ const AddProduct = ({ setIsProductModal, categories }) => {
         // toast.success("Product created successfully!");
         router.refresh();
       }
-
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
       setIsLoading(false);
       if (
         err.response.data.error.message === "Unsupported source URL: undefined"
-        ) {
-          alert("Please upload an image");
-        } else {
-          alert("Something went wrong", err);
-        }
+      ) {
+        alert("Please upload an image");
+      } else {
+        alert("Something went wrong");
       }
-      setIsLoading(false);
-    };
+    }
+    setIsLoading(false);
+  };
   const addExtraOptions = () => {
     if (extra) {
       const isExtra = extraOptions.find((option) => option.name === extra.name);
@@ -89,23 +102,28 @@ const AddProduct = ({ setIsProductModal, categories }) => {
         alert("Extra option already exists");
         return;
       }
-      if (extra.name && extra.price) {
+      if (
+        extra.name &&
+        extra.price 
+      ) {
         setExtraOptions([...extraOptions, extra]);
+
         extraName.current.value = null;
         extraPrice.current.value = null;
+        // @ts-ignore
         setExtra(null);
       }
     }
     // console.log(extraOptions);
   };
-  
-  const changePrice = (e, index) => {
+
+  const changePrice = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const currentPrices = prices;
     currentPrices[index] = e.target.value;
     setPrices(currentPrices);
     // console.log("Prices", prices);
   };
-  
+
   return (
     <div className="fixed top-0 left-0 w-screen h-screen z-50 after:content-[''] after:w-screen after:h-screen after:bg-white after:absolute after:top-0 after:left-0 after:opacity-60 grid place-content-center">
       <OutsideClickHandler onOutsideClick={() => setIsProductModal(false)}>
@@ -162,7 +180,10 @@ const AddProduct = ({ setIsProductModal, categories }) => {
               >
                 {categories?.map((category) => {
                   return (
-                    <option key={category._id} value={category.title.toLowerCase()}>
+                    <option
+                      key={category._id}
+                      value={category.title.toLowerCase()}
+                    >
                       {category.title}
                     </option>
                   );
@@ -202,6 +223,7 @@ const AddProduct = ({ setIsProductModal, categories }) => {
                   className="border-b-2 p-1 pl-0 text-sm px-1 outline-none w-36"
                   placeholder="item"
                   onChange={(e) =>
+                    // @ts-ignore
                     setExtra({ ...extra, [e.target.name]: e.target.value })
                   }
                   ref={extraName}
@@ -212,6 +234,7 @@ const AddProduct = ({ setIsProductModal, categories }) => {
                   className="border-b-2 p-1 pl-0 text-sm px-1 outline-none w-36"
                   placeholder="price"
                   onChange={(e) =>
+// @ts-ignore
                     setExtra({ ...extra, [e.target.name]: e.target.value })
                   }
                   ref={extraPrice}

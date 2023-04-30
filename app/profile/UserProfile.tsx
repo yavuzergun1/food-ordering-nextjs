@@ -59,7 +59,7 @@ const Profile = () => {
     </div>
   );
 };
-export async function getUser(userId) {
+export async function getUser(userId: string) {
   try {
     const res = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`

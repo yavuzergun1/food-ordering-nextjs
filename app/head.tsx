@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-page-custom-font */
 export default function Head() {
   return (
     <>
@@ -8,6 +9,7 @@ export default function Head() {
       <link
         rel="preconnect"
         href="https://fonts.gstatic.com"
+        // @ts-ignore
         crossOrigin="true"
       />
       <link

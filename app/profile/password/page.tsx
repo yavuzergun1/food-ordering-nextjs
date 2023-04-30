@@ -8,11 +8,16 @@ import { useSession } from "next-auth/react";
 import { newPasswordSchema } from "../../../schema/newPassword";
 import axios from "axios";
 
-const Password = () => {
-  const session = useSession();
-  const userId = session?.data?.id;
+type PasswordValues = {
+  password: string;
+  confirmPassword: string;
+};
 
-  const onSubmit = async (values, actions) => {
+const Password = () => {
+  const { data: session } = useSession();
+  const userId = (session as any)?.id;
+
+  const onSubmit = async (values: PasswordValues, actions: any) => {
     try {
       const res = await axios.put(
         `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,

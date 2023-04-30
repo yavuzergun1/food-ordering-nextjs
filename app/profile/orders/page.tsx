@@ -6,8 +6,9 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 
 const Orders = () => {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const status = ["preparing", "on the way", "delivered"];
+  console.log(orders);
 
   useEffect(() => {
     const getOrders = async () => {
@@ -26,9 +27,10 @@ const Orders = () => {
   // console.log(orders);
   // console.log(session.data?.user.email);
 
- const userOrders = orders?.filter(
-    (order) => order.email === session.data.user.email
-  );
+    const userOrders = orders?.filter(
+      (order) => order.email === session?.data?.user?.email
+    );
+  
   // console.log(userOrders);
   return (
     <div className="lg:p-8 flex-1 lg:mt-0 mt-5">
@@ -55,33 +57,29 @@ const Orders = () => {
             </tr>
           </thead>
           <tbody>
-            {
-              userOrders?.map((order) => {
-                return (
-                  <React.Fragment key={order._id}>
-                    <tr className="transition-all bg-secondary border-gray-700 hover:bg-primary h-36 ">
-                      <td className="py-4 px-6  font-medium  hover:text-white flex items-center gap-x-1 justify-center">
-                        <span> {order?._id.substring(0, 6)}...</span>
-                      </td>
-                      <td className="py-4 h-32 px-6 max-w-md font-medium  hover:text-white">
-                        {order.address}
-                      </td>
-                      <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                        {order.createdAt}
-                      </td>
-                      <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                        {order.total}
-                      </td>
-                      <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                        {status[order.status]}
-                      </td>
-                    </tr>
-                  </React.Fragment>
-                );
-              })
-            }
-          
-       
+            {userOrders?.map((order) => {
+              return (
+                <React.Fragment key={order._id}>
+                  <tr className="transition-all bg-secondary border-gray-700 hover:bg-primary h-36 ">
+                    <td className="py-4 px-6  font-medium  hover:text-white flex items-center gap-x-1 justify-center">
+                      <span> {order?._id.substring(0, 6)}...</span>
+                    </td>
+                    <td className="py-4 h-32 px-6 max-w-md font-medium  hover:text-white">
+                      {order.address}
+                    </td>
+                    <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                      {order.createdAt}
+                    </td>
+                    <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                      {order.total}
+                    </td>
+                    <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                      {status[order.status]}
+                    </td>
+                  </tr>
+                </React.Fragment>
+              );
+            })}
           </tbody>
         </table>
       </div>
