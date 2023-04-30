@@ -1,54 +1,15 @@
-"use client";
-
+import "server-only"
 import Title from "../../../../components/ui/Title";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import Button from "@/components/ui/Button";
 
-interface Order {
-  _id: string;
-  customer: string;
-  total: number;
-  method: number;
-  status: number;
-  createdAt: string;
-}
-
-const Order = () => {
-  const [orders, setOrders] = useState<Order[]>([]);
+const Order = async () => {
+  // const [orders, setOrders] = useState<Order[]>([]);
   const status: string[] = ["preparing", "on the way", "delivered"];
 
-  useEffect(() => {
-    const getOrders = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/orders`
-        );
-        setOrders(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getOrders();
-  }, []);
-
-  console.log("orderrrs", orders);
-
-  const handleStatus = async (id: string) => {
-    const item: any = orders.find((order) => order._id === id);
-    const currentStatus = item.status;
-
-    try {
-      const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/orders/${id}`,
-        {
-          status: currentStatus + 1,
-        }
-      );
-      setOrders([res.data, ...orders.filter((order) => order._id !== id)]);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/orders`);
+  const orders: Order[] = res.data;
+  // console.log("orders", orders);
 
   return (
     <div className="lg:p-8 flex-1 lg:mt-0 mt-5">
@@ -107,13 +68,7 @@ const Order = () => {
                       {status[order?.status]}
                     </td>
                     <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                      <button
-                        className="btn-primary !bg-success"
-                        onClick={() => handleStatus(order?._id)}
-                        disabled={order?.status > 1}
-                      >
-                        Next Stage
-                      </button>
+                      <Button order={order}> Next Stage </Button>
                     </td>
                   </tr>
                 ))}
