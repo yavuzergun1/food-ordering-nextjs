@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useRef, useState, useEffect } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import Title from "../ui/Title";
 import { toast } from "react-toastify";
@@ -10,10 +10,10 @@ import { useRouter } from "next/navigation";
 
 type AddProductProps = {
   setIsProductModal: (value: boolean) => void;
-  categories: AddProductCategory[];
+  setProducts: (value: Product[]) => void;
 };
 
-const AddProduct = ({ setIsProductModal, categories }: AddProductProps) => {
+const AddProduct = ({ setIsProductModal, setProducts }: AddProductProps) => {
   const [file, setFile] = useState<any>();
   const [imageSrc, setImageSrc] = useState<string>();
   const [title, setTitle] = useState<string>();
@@ -23,11 +23,22 @@ const AddProduct = ({ setIsProductModal, categories }: AddProductProps) => {
   const [extra, setExtra] = useState<Extras>();
   const [extraOptions, setExtraOptions] = useState<Extras[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
   const router = useRouter();
   const extraPrice = useRef<any>(null);
   const extraName = useRef<any>(null);
 
-  console.log(extraOptions);
+  // console.log(extraOptions);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data);
+        setIsLoading(false);
+      });
+  }, []);
 
   // get photo from file input and set it to imageSrc
   const handleOnChange = (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,11 +86,12 @@ const AddProduct = ({ setIsProductModal, categories }: AddProductProps) => {
         newProduct
       );
       // console.log("added product", res.data);
+      const resProducts = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products`);
+      setProducts(resProducts.data);
 
       if (res.status === 200) {
         setIsProductModal(false);
-        // toast.success("Product created successfully!");
-        router.refresh();
+        toast.success("Product successfully created!");
       }
     } catch (err: any) {
       console.log(err);
@@ -102,10 +114,7 @@ const AddProduct = ({ setIsProductModal, categories }: AddProductProps) => {
         alert("Extra option already exists");
         return;
       }
-      if (
-        extra.name &&
-        extra.price 
-      ) {
+      if (extra.name && extra.price) {
         setExtraOptions([...extraOptions, extra]);
 
         extraName.current.value = null;
@@ -117,7 +126,10 @@ const AddProduct = ({ setIsProductModal, categories }: AddProductProps) => {
     // console.log(extraOptions);
   };
 
-  const changePrice = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const changePrice = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const currentPrices = prices;
     currentPrices[index] = e.target.value;
     setPrices(currentPrices);
@@ -234,7 +246,7 @@ const AddProduct = ({ setIsProductModal, categories }: AddProductProps) => {
                   className="border-b-2 p-1 pl-0 text-sm px-1 outline-none w-36"
                   placeholder="price"
                   onChange={(e) =>
-// @ts-ignore
+                    // @ts-ignore
                     setExtra({ ...extra, [e.target.name]: e.target.value })
                   }
                   ref={extraPrice}
