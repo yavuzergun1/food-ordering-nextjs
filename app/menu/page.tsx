@@ -1,11 +1,10 @@
 import MenuWrapper from "../../components/menu/MenuWrapper";
 import { getCategories, getProducts } from "../../Data";
-async function Menu() {
+
+async function Menu(context: any) {
   const products = getProducts();
   const categories = getCategories();
-
-const result = await Promise.all([products, categories])
-console.log(result[1]);
+  const result = await Promise.all([products, categories]);
 
   return (
     <div>

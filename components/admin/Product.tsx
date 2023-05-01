@@ -10,14 +10,12 @@ type ProductProps = {
   product: Product;
   setProducts: (value: Product[]) => void;
 };
-
 type Product = {
   _id: string;
   title: string;
   prices: number[];
   img: string;
 };
-
 
 const Product = ({ product, setProducts }: ProductProps) => {
   const [clientProduct, setClientProduct] = useState<Product>();

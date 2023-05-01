@@ -24,6 +24,9 @@ const Orders = () => {
   // console.log(orders);
   // console.log(session.data?.user.email);
 
+
+  
+
   const userOrders = orders?.filter(
     (order) => order.email === session?.data?.user?.email
   );
