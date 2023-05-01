@@ -4,54 +4,39 @@ import Title from "../../../../components/ui/Title";
 import Product from "../../../../components/admin/Product";
 import axios from "axios";
 import useSWR from "swr";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import AddProduct from "../../../../components/admin/AddProduct";
-import { useRouter } from "next/navigation";
 
 const Products = () => {
   const [isProductModal, setIsProductModal] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const router = useRouter();
-
-  const fetcher = async () =>
-    await axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/products`)
-      .then((res) => res.data);
-  const { data, error, isLoading } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/products`,
-    fetcher
-  );
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/categories`
-        );
-        setCategories(res?.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getCategories();
+    setIsLoading(true);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setIsLoading(false);
+      });
   }, []);
+
   // console.log(categories);
 
-
-  if (error) return console.log(error);
-  if (isLoading)
+  if (isLoading) {
     return (
       <div className="flex w-full items-center m-auto justify-center h-full">
         <div className="animate-spin w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full"></div>
       </div>
     );
-  const products = data;
+  }
   return (
     <div className=" flex-1 lg:mt-0 mt-5">
       {isProductModal && (
         <AddProduct
-          categories={categories}
           setIsProductModal={setIsProductModal}
+          setProducts={setProducts}
         />
       )}
       <button
@@ -87,7 +72,7 @@ const Products = () => {
             {products?.map((product: Product, index: number) => {
               return (
                 <React.Fragment key={index}>
-                  <Product product={product} />
+                  <Product product={product} setProducts={setProducts} />
                 </React.Fragment>
               );
             })}

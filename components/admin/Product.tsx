@@ -4,9 +4,11 @@ import Image from "next/image";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 type ProductProps = {
   product: Product;
+  setProducts: (value: Product[]) => void;
 };
 
 type Product = {
@@ -17,8 +19,9 @@ type Product = {
 };
 
 
-const Product = ({ product }: ProductProps) => {
+const Product = ({ product, setProducts }: ProductProps) => {
   const [clientProduct, setClientProduct] = useState<Product>();
+
   const router = useRouter();
   // console.log(product);
 
@@ -28,9 +31,12 @@ const Product = ({ product }: ProductProps) => {
         const res = await axios.delete(
           `${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`
         );
-        router.refresh();
         if (res.status === 200) {
-          // toast.success("Product Deleted!");
+          toast.error("Product Deleted!");
+          const resProducts = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/products`
+          );
+          setProducts(resProducts.data);
         }
       }
     } catch (err) {
