@@ -12,8 +12,8 @@ const About: React.FC = () => {
         </div>
         <div className="md:w-1/2 ">
           <Title addClass="text-[40px]">Project Description</Title>
-          <p className="my-5 flex flex-col items-center">
-            <h3>
+        
+            <h3 className="my-5 flex flex-col items-center">
               Full-Stack Project with NextJS + MongoDB + Mongoose with
               Authorization and CRUD abilities
             </h3>
@@ -64,7 +64,7 @@ const About: React.FC = () => {
                 -Change order status (payment, preparing, on the way, delivered)
               </li>
             </ul>
-          </p>
+        
         </div>
       </div>
     </div>
