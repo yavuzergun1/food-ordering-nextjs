@@ -94,7 +94,7 @@ const Header = () => {
             <span>
               <FaUserAlt
                 className={`hover:text-primary transition-all cursor-pointer ${
-                  path === "auth" || ("profile" && "text-primary")
+                     path === ("auth" || "profile") && "text-primary"
                 }`}
                 size={18}
               />
