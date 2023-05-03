@@ -11,16 +11,60 @@ const About: React.FC = () => {
           </div>
         </div>
         <div className="md:w-1/2 ">
-          <Title addClass="text-[40px]">We Are Feane</Title>
+          <Title addClass="text-[40px]">Project Description</Title>
           <p className="my-5 flex flex-col items-center">
-            There are many variations of passages of Lorem Ipsum available, but
-            the majority have suffered alteration in some form, by injected
-            humour, or randomised words which don`t look even slightly
-            believable. If you are going to use a passage of Lorem Ipsum, you
-            need to be sure there isn`t anything embarrassing hidden in the
-            middle of text. All
+            <h3>
+              Full-Stack Project with NextJS + MongoDB + Mongoose with
+              Authorization and CRUD abilities
+            </h3>
+            <br />
+
+            <h4>Some of the techs I used for this project:</h4>
+            <ul>
+              <li> -NextJS for client and server-side -MongoDB for database</li>
+              <li>-Mongoose for database interaction</li>
+              <li> -NextAuth for login with credentials</li>
+              <li> -Bcyrpt for password encryption</li>
+              <li> -Redux for state management</li>
+              <li> -TailwindCSS for styling</li>
+              <li>-Responsive design</li>
+            </ul>
+            <br />
+            <br />
+            <h4>User Abilities:</h4>
+            <ul>
+              <li> -Login, Logout</li>
+              <li>
+                {" "}
+                -Update user info (address, email, password, profile photo...)
+              </li>
+              <li>
+                {" "}
+                -Choose foods from the menu with extra options -Add to cart and
+                display bill in cart
+              </li>
+              <li>
+                {" "}
+                -Checkout and send the order to seller -Display current and
+                recent orders Admin Abilities
+              </li>
+              <li> -Checkout and send the order to seller</li>
+
+              <li>-Display current and recent orders</li>
+            </ul>
+            <br />
+            <h4> Admin Abilities</h4>
+            <ul>
+              <li>-Display all foods</li>
+              <li>-Add new foods with photo and all options</li>
+              <li>-Display, add or delete categories</li>
+              <li>-Delete existing foods</li>
+              <li>-Display orders which come from the user side</li>
+              <li>
+                -Change order status (payment, preparing, on the way, delivered)
+              </li>
+            </ul>
           </p>
-          <button className="btn-primary">Read More</button>
         </div>
       </div>
     </div>

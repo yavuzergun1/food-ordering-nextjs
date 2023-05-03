@@ -11,11 +11,17 @@ import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 const Header = () => {
   const [isSearchModal, setIsSearchModal] = useState(false);
   const [isMenuModal, setIsMenuModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const cart = useSelector((state: any) => state.cart);
   const router = useRouter();
   const path = useSelectedLayoutSegment();
   console.log("path", path);
   
+
+  function handleMenuClick() {
+    setIsOpen(!isOpen);
+  }
+
   return (
     <div
       className={`h-[5.5rem] z-50  w-full ${
@@ -90,7 +96,7 @@ const Header = () => {
             <span>
               <FaUserAlt
                 className={`hover:text-primary transition-all cursor-pointer ${
-                  path === "auth" || "profile" && "text-primary"
+                  path === "auth" || ("profile" && "text-primary")
                 }`}
                 size={18}
               />
@@ -122,8 +128,79 @@ const Header = () => {
             className="sm:hidden inline-block"
             onClick={() => setIsMenuModal(true)}
           >
-            <GiHamburgerMenu className="text-xl hover:text-primary transition-all" />
+            {/* <GiHamburgerMenu className="text-xl hover:text-primary transition-all" /> */}
           </button>
+          <div className="hamburger-menu relative w-full sm:hidden inline-block ">
+            <input
+              type="checkbox"
+              checked={isOpen}
+              onChange={handleMenuClick}
+              className="hidden"
+              id="menuToggle"
+            />
+            <label
+              htmlFor="menuToggle"
+              className={`block text-sm cursor-pointer ${
+                isOpen && "relative z-20 "
+              }`}
+            >
+              <span
+                className={`block w-5 h-[3px] mb-[3px] ${
+                  isOpen
+                    ? "bg-gray-500 relative z-20 rotate-45 translate-y-[5px] transition-all"
+                    : "bg-white z-50 transition-all"
+                }`}
+              ></span>
+              <span
+                className={`block  w-5 h-[3px] mb-[3px] ${
+                  isOpen
+                    ? "transition-all hidden"
+                    : "bg-white z-50 transition-all"
+                }`}
+              ></span>
+              <span
+                className={`block  w-5 h-[3px] mb-1 ${
+                  isOpen
+                    ? "bg-gray-500 relative z-20 -rotate-45 -translate-y-[1px] transition-all "
+                    : "bg-white z-50 transition-all"
+                }`}
+              ></span>
+            </label>
+            <div
+              className={`absolute flex flex-col -top-10 left-0 h-screen z-10 bg-white shadow-lg p-4 transition-all duration-300 ease-in-out ${
+                isOpen ? "-translate-x-52 w-screen" : "translate-x-52"
+              }`}
+            >
+              <Link
+                href="/"
+                onClick={handleMenuClick}
+                className="my-2 text-gray-800 mt-16 font-medium hover:text-primary"
+              >
+                Home
+              </Link>
+              <Link
+                onClick={handleMenuClick}
+                href="/menu"
+                className="my-2 text-gray-800 font-medium hover:text-primary"
+              >
+                Menu
+              </Link>
+              <Link
+                onClick={handleMenuClick}
+                href="/about"
+                className="my-2 text-gray-800 font-medium hover:text-primary"
+              >
+                About
+              </Link>
+              <Link
+                onClick={handleMenuClick}
+                href="/reservation"
+                className="my-2 text-gray-800 font-medium hover:text-primary"
+              >
+                Book Table
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
       {isSearchModal && <Search setIsSearchModal={setIsSearchModal} />}

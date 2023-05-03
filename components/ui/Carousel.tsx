@@ -28,17 +28,17 @@ const Carousel = () => {
       <div className="absolute top-0 left-0 w-full h-full">
         <div className="relative h-full w-full">
           <Image
-            src="/assets/png/hero-bg.jpg"
+            src="/assets/png/front-view-burger.jpg"
             alt=""
             fill
             priority
-            className="object-cover"
+            className="object-cover object-right-bottom h-full w-full"
           />
         </div>
       </div>
       <Slider {...settings}>
         <div>
-          <div className="mt-48 container mx-auto  text-white flex flex-col items-start gap-y-8">
+          <div className="mt-48 container ml-5 -translate-y-[180px] md:translate-y-0 text-white flex flex-col items-start gap-y-8">
             <Title addClass="text-5xl">Best Restaurant Ever</Title>
             <p className="text-sm sm:w-2/5 w-full">
               Doloremque, itaque aperiam facilis rerum, commodi, temporibus

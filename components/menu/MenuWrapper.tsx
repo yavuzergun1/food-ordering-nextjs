@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 type MenuWrapperProps = {
   categories: Category[];
   products: Product[];
+  title: string
 }
 
 function MenuWrapper({categories, products}: MenuWrapperProps) {
@@ -16,7 +17,7 @@ function MenuWrapper({categories, products}: MenuWrapperProps) {
 
   const params= useSearchParams()?.get("category");
   // console.log(params);
-
+//  router.push(`/menu?category=${title}`);
 
   // console.log(products[0]?.category);
   const handleClick = (title: string) => {
