@@ -3,7 +3,7 @@ import Title from "./ui/Title";
 
 const About: React.FC = () => {
   return (
-    <div className="bg-secondary py-14">
+    <div className="bg-secondary font-josefin py-14">
       <div className="container mx-auto flex items-center text-white gap-20 justify-center flex-wrap-reverse">
         <div className="flex justify-center">
           <div className="relative sm:w-[445px] sm:h-[600px]  flex justify-center w-[300px] h-[450px]">
