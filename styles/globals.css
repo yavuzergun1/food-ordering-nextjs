@@ -20,3 +20,9 @@ body {
 .slick-dots .slick-active div{
   @apply bg-primary w-4 h-4 transition-all
 }
+h3{
+  @apply text-2xl font-bold my-4
+}
+h4{
+  @apply text-lg font-bold
+}

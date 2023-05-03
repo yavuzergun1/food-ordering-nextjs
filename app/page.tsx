@@ -9,15 +9,15 @@ import { getCategories, getProducts } from "@/Data";
 
 
 const page = async () => {
-  const products = getProducts()
-  const categories = getCategories()
-  const result = await Promise.all([products, categories]);
+  // const products = getProducts()
+  // const categories = getCategories()
+  // const result = await Promise.all([products, categories]);
 
   return (
     <div className="font-dancing text-primary">
       <Carousel />
       <Campaigns />
-      <MenuWrapper categories={result[1]} products={result[0]} />
+      {/* <MenuWrapper title="all" categories={result[1]} products={result[0]} /> */}
       <About />
       <Reservation />
       <Comments />
