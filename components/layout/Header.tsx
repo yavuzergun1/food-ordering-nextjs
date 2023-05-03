@@ -13,17 +13,15 @@ const Header = () => {
   const [isMenuModal, setIsMenuModal] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const cart = useSelector((state: any) => state.cart);
-  const router = useRouter();
   const path = useSelectedLayoutSegment();
-  console.log("path", path);
+  // console.log("path", path);
   
-
   function handleMenuClick() {
     setIsOpen(!isOpen);
   }
 
   return (
-    <div
+    <nav
       className={`h-[5.5rem] z-50  w-full ${
         path === "/" ? "bg-transparent" : "bg-secondary"
       }`}
@@ -39,8 +37,8 @@ const Header = () => {
             />
           </Link>
         </div>
-        <nav
-          className={`sm:static absolute top-0 left-0 sm:w-auto sm:h-auto w-full h-screen sm:text-white text-black sm:bg-transparent bg-white sm:flex hidden  ${
+        <div
+          className={`sm:static absolute top-0 font-josefin left-0 sm:w-auto sm:h-auto w-full h-screen sm:text-white text-black sm:bg-transparent bg-white sm:flex hidden  ${
             isMenuModal === true && "!grid place-content-center"
           }`}
         >
@@ -90,7 +88,7 @@ const Header = () => {
               <GiCancel size={25} className=" transition-all" />
             </button>
           )}
-        </nav>
+        </div>
         <div className="flex gap-x-4 items-center">
           <Link href="auth/login">
             <span>
@@ -204,7 +202,7 @@ const Header = () => {
         </div>
       </div>
       {isSearchModal && <Search setIsSearchModal={setIsSearchModal} />}
-    </div>
+    </nav>
   );
 };
 export default Header;
