@@ -5,6 +5,7 @@ import Input from "./form/Input";
 import Title from "./ui/Title";
 import { useFormik } from "formik";
 import { reservationSchema } from "../schema/reservation";
+import { toast } from "react-toastify";
 
 type ReservationValues = {
   name: string;
@@ -12,12 +13,11 @@ type ReservationValues = {
   email: string;
   persons: string;
   date: string;
-}
+};
 
 const Reservation = () => {
-  const onSubmit = async (values: ReservationValues, actions:any) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    alert(JSON.stringify(values, null, 2));
+  const onSubmit = async (values: ReservationValues, actions: any) => {
+    toast.success("Reservation is successfully made!");
     actions.resetForm();
   };
 
