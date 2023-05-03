@@ -15,7 +15,7 @@ const Header = () => {
   const cart = useSelector((state: any) => state.cart);
   const path = useSelectedLayoutSegment();
   // console.log("path", path);
-  
+
   function handleMenuClick() {
     setIsOpen(!isOpen);
   }
