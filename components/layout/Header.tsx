@@ -2,11 +2,12 @@
 import { useState } from "react";
 import { FaUserAlt, FaShoppingCart, FaSearch } from "react-icons/fa";
 import Image from "next/image";
-import { GiHamburgerMenu, GiCancel } from "react-icons/gi";
+import { GiCancel } from "react-icons/gi";
 import Search from "../ui/Search";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { useRouter, useSelectedLayoutSegment } from "next/navigation";
+import { useSelectedLayoutSegment } from "next/navigation";
+import { josefin } from "@/fonts";
 
 const Header = () => {
   const [isSearchModal, setIsSearchModal] = useState(false);
@@ -38,7 +39,7 @@ const Header = () => {
           </Link>
         </div>
         <div
-          className={`sm:static absolute top-0 font-josefin left-0 sm:w-auto sm:h-auto w-full h-screen sm:text-white text-black sm:bg-transparent bg-white sm:flex hidden  ${
+          className={`${josefin.className} sm:static absolute top-0  left-0 sm:w-auto sm:h-auto w-full h-screen sm:text-white text-black sm:bg-transparent bg-white sm:flex hidden  ${
             isMenuModal === true && "!grid place-content-center"
           }`}
         >

@@ -4,11 +4,12 @@ import "slick-carousel/slick/slick-theme.css";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import Providers from "./Providers";
-
-export const metadata = {
-  title: "Food Order!",
-  description: "Fullstack Ordering Project",
-};
+import { josefin } from "@/styles/fonts";
+import Head from "./head";
+// export const metadata = {
+//   title: "Food Order!",
+//   description: "Fullstack Ordering Project",
+// };
 
 export default function RootLayout({
   children,
@@ -16,9 +17,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head />
-      <body>
+    <html lang="en" className={josefin.className}>
+      <Head />
+      <body >
         <Providers>
           <Header />
           {children}

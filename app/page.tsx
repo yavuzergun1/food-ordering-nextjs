@@ -14,7 +14,7 @@ const page = async () => {
   // const result = await Promise.all([products, categories]);
 
   return (
-    <div className="font-dancing text-primary">
+    <div className="text-primary">
       <Carousel />
       <Campaigns />
       {/* <MenuWrapper title="all" categories={result[1]} products={result[0]} /> */}

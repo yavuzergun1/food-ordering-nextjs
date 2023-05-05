@@ -19,9 +19,8 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"],
+      "@/fonts": ["./styles/fonts"]
     },
     "plugins": [
       {

@@ -22,11 +22,11 @@ module.exports = {
         secondary: "#222831",
         danger: "#ff0000",
       },
-      fontFamily: {
-        dancing: ["Dancing Script", "cursive"],
-        oswald: ["Oswald", "sans-serif"],
-        josefin: ["Josefin Sans", "sans-serif"],
-      },
+      // fontFamily: {
+      //   dancing: ["var(--font-dancing)"],
+      //   oswald: ["var(--font-oswald)"],
+      // // josefin: ["Josefin Sans", "sans-serif"],
+      // },
     },
   },
   plugins: [],
