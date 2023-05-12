@@ -7,11 +7,9 @@ import Search from "../ui/Search";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useSelectedLayoutSegment } from "next/navigation";
-import { josefin } from "@/fonts";
 
 const Header = () => {
   const [isSearchModal, setIsSearchModal] = useState(false);
-  const [isMenuModal, setIsMenuModal] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const cart = useSelector((state: any) => state.cart);
   const path = useSelectedLayoutSegment();
@@ -39,9 +37,7 @@ const Header = () => {
           </Link>
         </div>
         <div
-          className={`${josefin.className} sm:static absolute top-0  left-0 sm:w-auto sm:h-auto w-full h-screen sm:text-white text-black sm:bg-transparent bg-white sm:flex hidden  ${
-            isMenuModal === true && "!grid place-content-center"
-          }`}
+          className={`font-josefin sm:static absolute top-0  left-0 sm:w-auto sm:h-auto w-full h-screen sm:text-white text-black sm:bg-transparent bg-white sm:flex hidden`}
         >
           <ul className="flex gap-x-2 sm:flex-row flex-col items-center">
             <li
@@ -49,46 +45,30 @@ const Header = () => {
                 path === "/" && "text-primary"
               }`}
             >
-              <Link onClick={() => setIsMenuModal(false)} href="/">
-                Home
-              </Link>
+              <Link href="/">Home</Link>
             </li>
             <li
               className={`px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer ${
                 path === "menu" && "text-primary"
               }`}
             >
-              <Link onClick={() => setIsMenuModal(false)} href="/menu">
-                Menu
-              </Link>
+              <Link href="/menu">Menu</Link>
             </li>
             <li
               className={`px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer ${
                 path === "about" && "text-primary"
               }`}
             >
-              <Link onClick={() => setIsMenuModal(false)} href="/about">
-                About
-              </Link>
+              <Link href="/about">About</Link>
             </li>
             <li
               className={`px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer ${
                 path === "reservation" && "text-primary"
               }`}
             >
-              <Link onClick={() => setIsMenuModal(false)} href="/reservation">
-                Book Table
-              </Link>
+              <Link href="/reservation">Book Table</Link>
             </li>
           </ul>
-          {isMenuModal && (
-            <button
-              className="absolute  top-4 right-4 z-50"
-              onClick={() => setIsMenuModal(false)}
-            >
-              <GiCancel size={25} className=" transition-all" />
-            </button>
-          )}
         </div>
         <div className="flex gap-x-4 items-center">
           <Link href="auth/login">
@@ -123,10 +103,7 @@ const Header = () => {
           {/* <a href="#" className="md:inline-block hidden sm">
             <button className="btn-primary">Order Online</button>
           </a> */}
-          <button
-            className="sm:hidden inline-block"
-            onClick={() => setIsMenuModal(true)}
-          >
+          <button className="sm:hidden inline-block">
             {/* <GiHamburgerMenu className="text-xl hover:text-primary transition-all" /> */}
           </button>
           <div className="hamburger-menu relative w-full sm:hidden inline-block ">
@@ -192,8 +169,8 @@ const Header = () => {
                 About
               </Link>
               <Link
-                onClick={handleMenuClick}
                 href="/reservation"
+                onClick={handleMenuClick}
                 className="my-2 text-gray-800 font-medium hover:text-primary"
               >
                 Book Table

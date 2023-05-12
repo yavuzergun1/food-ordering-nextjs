@@ -1,11 +1,10 @@
-import { oswald } from "@/styles/fonts";
 type ShowAccountProps = {
   user: User;
 };
 
 function ShowAccount({ user }: ShowAccountProps) {
   return (
-    <div className={`${oswald.className} my-8 text-xl`}>
+    <div className="my-8 font-oswald text-xl">
       <div>Full Name : {user?.name || ""}</div>
       <div>Email : {user?.email || ""} </div>
       <div>Phone Number : {user?.phoneNumber || ""} </div>
